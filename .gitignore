@@ -1,0 +1,7 @@
+*.aux
+*.bbl
+*.blg
+*.log
+*Notes.bib
+*.out
+*.pdf
