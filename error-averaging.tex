@@ -1,0 +1,863 @@
+%% ****** Start of file apstemplate.tex ****** %
+%% 
+%%
+%%   This file is part of the APS files in the REVTeX 4 distribution.
+%%   Version 4.1r of REVTeX, August 2010
+%%
+%%
+%%   Copyright (c) 2001, 2009, 2010 The American Physical Society.
+%%
+%%   See the REVTeX 4 README file for restrictions and more information.
+%%
+%
+% This is a template for producing manuscripts for use with REVTEX 4.0
+% Copy this file to another name and then work on that file.
+% That way, you always have this original template file to use.
+%
+% Group addresses by affiliation; use superscriptaddress for long
+% author lists, or if there are many overlapping affiliations.
+% For Phys. Rev. appearance, change preprint to twocolumn.
+% Choose pra, prb, prc, prd, pre, prl, prstab, prstper, or rmp for journal
+%  Add 'draft' option to mark overfull boxes with black boxes
+%  Add 'showpacs' option to make PACS codes appear
+%  Add 'showkeys' option to make keywords appear
+\documentclass[aps,pra,twocolumn,superscriptaddress,numerical]{revtex4-1}
+%\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-1}
+%\documentclass[aps,prl,reprint,groupedaddress]{revtex4-1}
+
+% You should use BibTeX and apsrev.bst for references
+% Choosing a journal automatically selects the correct APS
+% BibTeX style file (bst file), so only uncomment the line
+% below if necessary.
+%\bibliographystyle{apsrev4-1}
+
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\setcounter{secnumdepth}{3}
+\usepackage{amssymb}
+\usepackage{hyperref}% add hypertext capabilities
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+\newtheorem{thm}{Theorem}
+
+\graphicspath {{Figures/}}% specifying where to look for all figures
+
+\begin{document}
+
+% Use the \preprint command to place your local institutional report
+% number in the upper righthand corner of the title page in preprint mode.
+% Multiple \preprint commands are allowed.
+% Use the 'preprintnumbers' class option to override journal defaults
+% to display numbers if necessary
+%\preprint{}
+
+%Title of paper
+\title{Error Correction Through Error Averaging}
+
+% repeat the \author .. \affiliation  etc. as needed
+% \email, \thanks, \homepage, \altaffiliation all apply to the current
+% author. Explanatory text should go in the []'s, actual e-mail
+% address or url should go in the {}'s for \email and \homepage.
+% Please use the appropriate macro foreach each type of information
+
+% \affiliation command applies to all authors since the last
+% \affiliation command. The \affiliation command should follow the
+% other information
+% \affiliation can be followed by \email, \homepage, \thanks as well.
+\author{Ryan J. Marshman}
+%\email[]{Your e-mail address}
+%\homepage[]{Your web page}
+%\thanks{}
+%\altaffiliation{}
+\email{ryan.marshman@uqconnect.edu.au}
+\affiliation{Centre for Quantum Computation and Communication Technology (CQC2T), The University of Queensland, Australia.}
+
+\author{Austin Lund}
+\affiliation{Centre for Quantum Computation and Communication Technology (CQC2T), The University of Queensland, Australia.}
+
+\author{Peter Rohde}
+\affiliation{Centre for Quantum Computing \& Intelligent Systems (QCIS), University of Technology Sydney, Australia.}
+
+\author{Timothy Raph}
+\affiliation{Centre for Quantum Computation and Communication Technology (CQC2T), The University of Queensland, Australia.}
+
+%Collaboration name if desired (requires use of superscriptaddress
+%option in \documentclass). \noaffiliation is required (may also be
+%used with the \author command).
+%\collaboration can be followed by \email, \homepage, \thanks as well.
+%\collaboration{}
+%\noaffiliation
+
+\date{\today}
+
+\begin{abstract}
+	Given the current drive to witness the supremacy of quantum computing it is imperative to design implementable error correction protocols. In this paper we propose and investigate error averaging, a novel method of error detection and reduction. Error averaging can be applied to any quantum computing architectures which satisfies two requirements, both of which are satisfied automatically by Linear Optical Quantum Computing (LOQC). Error averaging improves on existing methods of error detection and correction by not relying on ancillary photons or complicated control and correction circuits \cite{Perfect}. Error averaging will be introduced first in a general context followed by a series of proof of principle examples. Two methods of error averaging are then compared to determine the most effective manner of implementation and probe the related error thresholds. It is hoped that by employing existing methods of protecting against losses that this system could be used as a method of error correction in its own right.
+\end{abstract}
+
+% insert suggested PACS numbers in braces on next line
+\pacs{}
+% insert suggested keywords - APS authors don't need to do this
+%\keywords{}
+
+%\maketitle must follow title, authors, abstract, \pacs, and \keywords
+\maketitle
+
+% body of paper here - Use proper section commands
+% References should be done using the \cite, \ref, and \label commands
+\section{Introduction \label{intro}}
+	Quantum technology and in particular Quantum computing is a very promising area of research with the potential to lead to some of the most significant technological advances in recent times. There are, however, still many hurdles before universal quantum computing is achieved. The focus of this paper will be on the hurdle of error correction. The Error Averaging protocol requires the input qubits to be placed in a spatial superposition and restricts the effect that any applied unitary has on the vacuum. Both of these requirements are satified by LOQC and as such this will form the basis for most of this paper. In particular Jacques Carolan and colleagues \cite{ULO} used linear optics to demonstrate a device capable of realising all possible linear optical computational protocols although was limited by the size of the circuit. Given the success of this device it was chosen to form the test bench for Error Averaging.
+			
+	Error Averaging in its current state forms a rudimentary form of error correction which currently acts to distil errors form the system in such a way that they can be post selected away. Figure \ref{fig:output_probabilities} shows how error averaging by itself lowers the probability of success, but increases the probability of obtaining the correct result after post selection. The size of the error in the system have been shown to scale as $\frac{1}{N}$ where $N$ represents the amount of correction or equivalently the amount of redundancy in the system.
+	
+	\begin{figure}
+		\begin{centering}
+			\includegraphics[width=\columnwidth]{prob_distributions.png}
+			\par\end{centering}
+		
+		\caption[Comparison of output probability distributions with and without error averaging. ]{Comparison of output probability distributions with and without error 	averaging. This also demonstrates the effect post selection has on the output distribution. The blue bars represent the probability of observing the photon in the correct output mode, grey corresponds to observing the photon in the incorrect output mode and black corresponds to observing the photon in any of the error detection modes. The probabilities are based on a single photon in a Mach-Zehnder interferometer with an individual phase shifters variance $v=0.5\ \textrm{rad}^{2}$. This high variance is chosen  \label{fig:output_probabilities}}
+	\end{figure}
+
+	The next section details the effect of Error Averaging on an arbitrary unitary. This is done to both explain Error Averaging as well as highlight the necessity of the two requirements on its implementation. Section \ref{implementation} includes numerous proof of principle examples which serve to highlight the effects of Error Averaging on the probability of success. LOQC will serve as the architecture for all these examples. The feasibility of Error Averaging will be considered including a detailed discussion of some of the underlying assumptions made in the examples below can be found in section \ref{Feasibility section} followed by any concluding remarks.
+	
+\section{General Results \label{gen case}}
+	First let us consider a very general system. This will serve as a basis to explore the properties and effect of error averaging. Theorem \ref{Theorem1} describes the effective transformation of the entire system when Error Averaging is employed. Theorem \ref{Theorem2} describes how the error variances scales with the amount of redundancy applied. 
+
+	\begin{thm} \label{Theorem1}
+		Given some target transformation $\left|\Psi\right\rangle=\hat{U}\left|\psi\right\rangle$ to be implemented by some other transformation $\hat{U}_{error}$ where $\hat{U}_{error}$ is in some sense close to $\hat{U}$, $N$ levels of redundancy can be employed to give an effective transformation $\hat{U}_{effective}$ given by
+		\begin{equation}
+		\hat{U}_{effective}=\frac{1}{N}\sum_{i=1}^{N}\hat{U}_{i} \label{eq:genTransform}
+		\end{equation}
+		
+		This, when combined with post selection forms the Error Averaging error reduction scheme.
+		
+	\end{thm}
+	
+	\begin{proof}
+		
+		Define the total state space as a direct sum of $N$ copies of the original transformation's state space $\{\left|\phi\right\rangle\}$. The input state $\left|\psi\right\rangle$ is then
+		
+		\begin{equation}
+			\left|\psi\right\rangle\rightarrow\left|\psi\right\rangle_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\right)\equiv\left|\psi\right\rangle_{in}
+		\end{equation}
+		
+		that is, the total input state $\left|\psi\right\rangle_{in}$ corresponds to the original input state $\left|\psi\right\rangle$ in the first subspace and the vacuum state in all others.
+		
+		Define the $N$ copies of the transformation as
+		
+		\begin{equation}
+			\hat{U}_{i}=\left(\hat{U}_{error}\right)_{i}\oplus\left(\bigoplus_{i=2}^{N}\mathbb{I}_{j}\right)
+		\end{equation}
+		
+		with the constraints that
+		
+		\begin{eqnarray}
+			\hat{U}_{i}\bigoplus_{j=1}^{N}\left|\psi\right\rangle_{j} &=& \left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{i}\oplus\left(\bigoplus_{j\ne i}\left|\psi\right\rangle_{j}\right)\\
+			\hat{U}_{i}\left|0\right\rangle_{i}&=&\left|0\right\rangle_{i}
+		\end{eqnarray}
+		
+		Define $\hat{U}_{tot}=\bigotimes_{i=1}^{N}\hat{U}_{i} $
+		
+		Define the splitting operator, $\hat{S}$ as an operator which mixes the subspaces such that
+		
+		\begin{eqnarray}
+			\hat{S}\left|0\right\rangle_{i} &=& \left|0\right\rangle \\
+			\hat{S}\left|\phi\right\rangle_{1} &=& \frac{1}{\sqrt{N}}\sum_{i=1}^{N}\left(-1\right)^{f\left(i\right)}\left|\phi\right\rangle_{i}\oplus\left(\bigoplus_{j\ne i}\left|0\right\rangle_{j}\right) 
+		\end{eqnarray}
+		
+		where $f\left(i\right)\in\{0,1\}$.
+		
+		Define the recombining operator, $\hat{R}$ as a similar subspace mixing operator which acts as
+		
+		\begin{eqnarray}
+			\hat{R}\left|0\right\rangle_{i} &=& \left|0\right\rangle \\
+			\hat{R}\left|\phi\right\rangle_{i} &=& \frac{1}{\sqrt{N}}\sum_{j=1}^{N} g\left(i,j\right)\left|\phi\right\rangle_{j}\oplus\left(\bigoplus_{k\ne j}\left|0\right\rangle_{k}\right) 
+		\end{eqnarray}
+		
+		where $g\left(i,j\right)\in\{-1,0,1\}$ and $g\left(i,1\right)=\left(-1\right)^{f\left(i\right)}$.
+		
+		Define the post selection operator, $\hat{P}$ to be employed at the end of the error averaging procedure such that is post selects on all but the first subspace being in the vacuum state, that is
+		
+		\begin{equation}
+			\hat{P}=\mathbb{I}_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\left\langle 0\right|_{i}\right)
+		\end{equation}
+		
+		With this error averaging can be defined as $\hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\phi\right\rangle_{in}$. Its action on the input state will therefore be
+		
+		\begin{eqnarray}
+			& & \hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\psi\right\rangle_{in} \\
+			&=& \frac{\hat{P}\hat{R}\hat{U}_{tot}}{\sqrt{N}}\sum_{i=1}^{N}(-1)^{f\left(i\right)}\left|\psi\right\rangle_{i}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
+			&=& \frac{\hat{P}\hat{R}}{\sqrt{N}}\sum_{i=1}^{N}(-1)^{f\left(i\right)}\hat{U}_{i}\left|\psi\right\rangle_{i}\oplus\left(\bigoplus_{j\ne i}^{N}\left|0\right\rangle_{j}\right) \\
+			&=& \frac{\hat{P}}{N}\sum_{k=1}^{N}\sum_{i=1}^{N}g\left(i,k\right)(-1)^{f\left(i\right)}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{k}\oplus\left(\bigoplus_{j\ne k}^{N}\left|0\right\rangle_{j}\right) \\
+			&=& \frac{1}{N}\sum_{i=1}^{N}g\left(i,1\right)(-1)^{f\left(i\right)}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
+			&=& \frac{1}{N}\sum_{i=1}^{N}\left((-1)^{f\left(i\right)}\right)^{2}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) 
+		\end{eqnarray}
+		
+		Thus
+		
+		\begin{eqnarray}
+			& & \hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\psi\right\rangle_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\right) \\
+			&=& \frac{1}{N}\sum_{i=1}^{N}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) 
+		\end{eqnarray}
+		
+		Now setting $\hat{U}_{effective}=\hat{P}\hat{R}\hat{U}_{tot}\hat{S}$ and simplifying,  the final result is achieved
+		
+		\begin{eqnarray}
+			\hat{U}_{effective} \left|\psi\right\rangle_{1} &=& \frac{1}{N}\left(\sum_{i=1}^{N}\hat{U}_{i}\right)\left|\psi\right\rangle_{1}
+		\end{eqnarray}		
+	\end{proof}
+	
+	Figure \ref{fig:gen system} demonstrates an example circuit capable of implementing the Error Averaging technique using linear optics. This also demonstrates that the encoding used to implement error averaging can be made to be naturally self correcting. With the inner layers being error averaged by the outer layers.
+	
+	\begin{figure}
+		\includegraphics[width=\columnwidth]{unitaries.PNG}
+		\caption{\label{fig:gen system}Diagram showing the innermost components marked with $\hat{U}_i$ being error averaged eight times using fourteen beam splitters. Note that for clarity, all error detection modes are terminated at their final beam splitter interaction. See figure \ref{fig:MZ_setup} for an example explicitly including the error detection modes. The inner fixed beam splitters can be considered error averaged four times by taking the component of the system in the red box as a smaller system which is error averaged. Similarly the system in blue box which is effectively being averaged twice.}
+	\end{figure}
+
+	Importantly, provided the errors are unbiased they to should be averaged to zero, particularly in the limit of large $N$ as shown in Theorem \ref{Theorem2}. This averaging filters the error into the post selection modes and post selection provides the actual error reduction mechanism. It is also of note that the effective transformation is not in general unitary. Due to the post selection step, any output state is not necessarily normalised. This reduction in the norm of the state corresponds to the probability of success of Error Averaging.
+		
+	As an aside, Equation \ref{eq:genTransform} can become the appropriate transformation for duality quantum computing by allowing the $u_{i}$ to be arbitrary \cite{dualityQC}.
+	
+	\begin{thm} \label{Theorem2}
+		Error averaging applied to $N$ unitaries with small, random unitary errors each with fixed, finite variance $\nu$ results in an effective unitary with variance $\frac{\nu}{N}$.
+	\end{thm}
+
+	\begin{proof}
+		By Theorem \ref{Theorem1} error averaging applies an effective unitary of $\hat{U}_{effective}=\frac{1}{N}\sum_{j=1}^{N}\hat{U}_{j}$. Given $\hat{U}_{j}$ differ from the ideal $\hat{U}=e^{i\sum_{j=1}^{n^2-1}\alpha_{j}\hat{\sigma}_{j}}$  by small,  random errors, $\hat{U}_{j}$ can be written
+		\begin{equation}
+			\hat{U}_{j}=e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}}
+		\end{equation}
+	
+		where $\sigma_{k}$ are a complete set of $n^2-1$ generators of $\mathfrak{su}(n)$ and $\delta_{k}^{j}$ are the Gaussian random variables with variance $\nu$ which dictate the size and direction of errors in $\hat{U}_{j}$. Thus
+	
+		\begin{widetext}
+			\begin{eqnarray}
+				\hat{U}_{effective} &=& \frac{1}{N}\sum_{j=1}^{N}e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
+				&=& \frac{1}{N}\sum_{j=1}^{N}\left(1+i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right) +O\left(\left(i\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right)^{2}\right) \\
+				&=& \frac{1}{N}\left(N+i\sum_{k=1}^{n^2-1}\left(N\alpha_{k}\hat{\sigma}_{k}+\sum_{j=1}^{N}\delta_{k}^{j}\hat{\sigma}_{k}\right)\right)+O\left(\left(i\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right)^{2}\right) \\
+				&=& e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
+				&=& e^{i\sum_{k=1}^{n^2-1}\alpha_{k}\hat{\sigma}_{k}} e^{i\sum_{k=1}^{n^2-1}\left(\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
+				&=& \hat{U}e^{i\sum_{k=1}^{n^2-1}\left(\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}}
+			\end{eqnarray}
+		\end{widetext}
+	
+		Which by the central limit theorem tends towards a transformation $\hat{U}$ with Gaussian random errors which have mean $0$ and variance $\frac{\nu}{N}$. In general an actual system does not necessarily result in the variance of each generator being equal. However this would not change the key result here, that the variance scales as $\frac{1}{N}$.
+	\end{proof}
+
+	The rest of this paper will discuss how the probability of success scales with the amount of redundancy, $N$, by considering various example systems. This will also lead to a conclusions about three proposed methods of implementing Error Averaging.
+		
+\section{Implementation \label{implementation}}
+		
+	Now that the basic idea is understood it is necessary to consider how error averaging can actually be implemented. The first of the two key requirements is that the fundamental particle used as the computational qubit can be placed in a spacial superposition. The second requirement is that any employed unitary $\hat{U}$  does not act on the vacuum, that is $\hat{U}\left|0\right>=\left|0\right>$. Although these seem restrictive, LOQC automatically satisfies both of these requirements. A spacial superposition can be created easily using beam splitters and any linear optical unitary cannot, by definition, effect the vacuum.
+	
+	Within the LOQC architecture, the following discussion will be agnostic about the specific encoding method by working in the Fock basis. In this way both single and dual rail encoding can be corrected and as such will generally not be considered in all further discussions.
+	
+	The following sections will discuss a series of example systems implementing error averaging with a focus on phase errors for simplicity. First note that two of the controllable and fundamental components in LOQC are phase shifters and beam splitters. A paper by Jacques Carolan et. al. \cite{ULO} demonstrated how this can be reduced to controllable phase shifters and fixed beam splitters. The basic idea is to replace each beam splitter with a Mach Zehnder (MZ) interferometer consisting of a controllable phase shifter in one arm and two fixed $50:50$ beam splitters. Although this idea is not particularly new they showed that such a system is able to implement many quantum logic gates and linear optical protocols with a high fidelity.  In this way we also only need to consider phase errors to correct a general linear optical quantum computing system.
+	
+	It is this system which inspired the basic form of our error averaging example systems. Unless otherwise specified the $50:50$ beam splitters are assumed to be perfect and the phase shifters are taken to be the source of all errors. The applied phase shift was taken to be of the form $e^{i(\theta+\delta)}$ where, for the identity, $\theta=0$ and $\delta$ is the random error variable, chosen from some fixed distribution. This distribution is taken to be Gaussian with mean $0$ and variance $v$. We will initially consider a single beam splitter for a one and two photon inputs with $N$ internal phase shifters where $N=2^{n},n\in\mathbb{N}$. As the entire system is implementing a beam splitter it has two desired input and output modes. However as $N$ increases so too does the actual number of input and output modes. All of these extra input modes are effectively ignored by being set to the vacuum state $\left|0\right\rangle $. The extra output ports all have photo-detectors which will be post selected on being zero.
+		
+	
+	\subsection{1 photon N arbitrary \label{1 photon N arbitrary}}
+	
+		Consider the single photon input state $\left|\phi\right\rangle = \hat{a}^{\dagger}\left|0\right\rangle $ into a single MZ beam splitter with $N$ levels of redundancy attempting to apply some rotation angle $\theta$. This system is shown in Figure \ref{fig:MZ_setup} for the $N=2$ case. The resulting output state is
+		
+		\begin{widetext}
+			\begin{equation}
+				\left|\psi\right\rangle =\left(\left(\frac{e^{i\theta}}{2}\left\{ 	\frac{1}{N}\sum_{j=1}^{N}e^{i\delta_{j}}\right\} +\frac{1}{2}\right)\hat{a}^{\dagger}+\left(\frac{e^{i\theta}}{2}\left\{ \frac{1}{N}\sum_{j=1}^{N}e^{i\delta_{j}}\right\} -\frac{1}{2}\right)\hat{b}^{\dagger}\right)\left|0\right\rangle .\label{eq:1ParbN}
+			\end{equation}
+		\end{widetext}
+	
+		where $\theta_{i}=\theta+\delta_{j}$.
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{2N1P.png}
+			\caption{\label{fig:MZ_setup}Diagram of interferometer with $N=2$ that is, two phase shifter. Note that the $a$ and $b$ output modes and $c$ error detection mode are marked along with the input state used for all single photon calculations. The phase shifters are marked with $\theta_{i}$ and are the source of the error in the applied phase shift.}
+		\end{figure}
+		
+		This output is effectively truncated so as to ignore all output modes which are post selected to be in the vacuum state. This gives the probability of observing the photon in the $\hat{a}$ and $\hat{b}$ modes without post selection as
+		
+		\begin{eqnarray}
+			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle & = & \cos^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\cos^{2}(\theta/2)}{2}
+		\end{eqnarray}
+		
+		
+		and
+		
+		\begin{eqnarray}
+			\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & = & \sin^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\sin^{2}(\theta/2)}{2}.
+		\end{eqnarray}
+		
+		The probability of success in this case it is given by
+		
+		\begin{eqnarray}
+			P(\textrm{success}) & = & \left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle +\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle \\
+			& = & 1+\frac{v}{2N}-\frac{v}{2} \label{eq:1pNarbitrary successs}
+		\end{eqnarray}
+		
+		To further illustrate the effect of error averaging when combined with post selection, consider the case when $\theta=0$, the probability of observing the correct result without post selection is
+		
+		\begin{equation}
+			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle = 1 - \frac{(2N-1)v}{4N}. \label{eq:1pNoPost}
+		\end{equation}
+	
+		However after post selection this becomes
+		
+		\begin{equation}
+			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle = 1 - \frac{v}{4N}. \label{eq:1pWithPost}
+		\end{equation}
+		
+		Figure \ref{fig:post vs no post} shows how these two results scale with $N$. In particular, it can be seen that with post selection $\left\langle \hat{a}^{\dagger}\hat{a}\right\rangle$ can be made arbitrarily close to unity by increasing $N$. Also it is seen that while the probability of success decreases for increasing $N$ when between $1$ to $16$, above $N=16$ the penalty asymptotes to some fixed value. This implies that as $N$ increases the total amount of error generated in the system increases, however it does so non-linearly such that their is some maximum amount of error which can be introduced this way. Meanwhile the process of averaging and interfering the state ensures that this error tends to be found in the error ports resulting in the state in the output modes approaching perfection.
+		
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{1photonpostvsnopost.png}
+			\caption{\label{fig:post vs no post} Photon number expectation value at the $a$	output port as shown in Figure \ref{fig:MZ_setup}. Note that this is equivalent to the probability of the photon coming out in the correct mode with and without post selection. Here $v=0.1\ \textrm{rad}^{2}$, the orange values correspond to with post selection and blue corresponds to without post selection.}
+		\end{figure}
+	\subsection{2 photons N arbitrary \label{2 photons N arbitrary}}
+	
+		Given the highly quantum nature of two photon inference it is also considered. For two photons we have a slightly more complicated but similar general form for the output state as shown in Eq.\ref{eq:2pNarbitrary S}, again only considering the $a$ and $b$ output modes, but not considering the re-normalisation which occurs with post selection.
+		
+		\begin{widetext}
+			\begin{eqnarray}
+				\left|\psi\right\rangle & = & \frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \hat{a}^{\dagger}\hat{b}^{\dagger}\left|0\right\rangle \nonumber \\
+			 	& & +\frac{\sqrt{2}}{4}\left\{ \frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)-1\right\} \left(\left|2,0\right\rangle +\left|0,2\right\rangle \right)\label{eq:2pNarbitrary S}
+			\end{eqnarray}
+		\end{widetext}
+		
+		Here the system is attempting to implement the identity on the input state $a^{\dagger}b^{\dagger}\left|0\right\rangle =\left|1,1\right\rangle $. This state was chosen as opposed to $\left|2,0\right\rangle $ as this would not necessarily show any new behaviour, just a scaling of the single photon results. A perfect output is equivalent to having
+		
+		\begin{eqnarray}
+			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & = & 1
+		\end{eqnarray}
+		
+		
+		where, again, $\left|\psi\right\rangle _{out}$ does include and re-normalisation due to post selection. What would will actually be achieved is
+		
+		\begin{eqnarray}
+			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & = & \left\langle \left|\frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \right|^{2}\right\rangle \nonumber \\
+			& = & \left\langle \frac{1}{4}\left(1+\frac{2}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}\cos\left(\delta_{j}+\delta_{k}\right)\right)\right)\right\rangle \nonumber \\
+			&  & +\frac{1}{4}\Biggl\langle\frac{1}{N^{4}}\left(\sum_{j}^{N}e^{-2i\delta_{j}}+\sum_{j=1}^{N}\sum_{k\ne j}^{N}e^{-i(\delta_{j}+\delta_{k})}\right)\nonumber \\
+			&  & \times\left(\sum_{l}^{N}e^{2i\delta_{l}}+\sum_{l=1}^{N}\sum_{m\ne l}^{N}e^{i(\delta_{l}+\delta_{m})}\right)\Biggr\rangle\nonumber \\
+			& \approx & 1-v\label{eq:exp. value aabb}
+		\end{eqnarray}
+		
+		
+		where, a second order Taylor approximation was used along with the moments of Gaussian random variables. After post selection this is improved to become what we refer to as the probability of observing a coincidence measurement, $P(\textrm{coincidence})$, which is, to a first order approximation
+		
+		\begin{widetext}
+			\begin{eqnarray}
+				P(\textrm{coincidence}) & = & \frac{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle }{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle +{}\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}^{\dagger}\hat{a}\hat{a}\left|\psi\right\rangle +{}\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}^{\dagger}\hat{b}\hat{b}\left|\psi\right\rangle }\nonumber \\
+				& \approx & 1-\frac{v}{2N}\label{eq:2pNarb PS}
+			\end{eqnarray}
+		\end{widetext}
+		
+		where the binomial approximation was also used.
+		
+		Finally the probability of success, when defined as the probability of not needing to post selected a single instance is
+		
+		
+		\begin{eqnarray}
+			P(\textrm{success}) & \approx & 1-v+\frac{v}{2N}.\label{eq:2pNarb Success}
+		\end{eqnarray}
+	
+		So in both these instances we see the probability of success scaling as $\frac{1}{N}$.
+		
+	\section{Comparison between averaging at end and averaging each step\label{averaging at end vs step}}
+	
+		With the basic procedure of error averaging in mind, it can be seen	that there arises two different methods of implementation, which will be referred to as averaging at the end and averaging each step. Figure \ref{fig:Different methods of implementation} shows how these two methods differ from one another and from a uncorrected	system. It is seen that by averaging each component individually, significantly more resources are required, however we will show this leads to more stable results. In the small system and low error limit these two methods also appear to be directly equivalent. However there can be a significant differences in the effectiveness of these two implementations as discussed in section \ref{Phase applying systems}.
+	
+		\begin{figure}
+			\includegraphics[width=\columnwidth]{three_phase_applying_systems.PNG}
+			
+			\caption{Three methods of applying three phase shifters, each marked with a
+				in series. a) three phase shifter system with no error average, b)
+				shows the three phase shifter system when averaging across the system
+				and c) shows the three phase shifter set-up when averaging across
+				each phase shifter individually. It can be clearly seen that averaging
+				across the system will in general require far fewer encoding resources.
+				\label{fig:Different methods of implementation}}
+			
+			
+		\end{figure}
+		
+		\subsection{Phase applying systems\label{Phase applying systems}}
+		In the previous sections error averaging has been explored by considering the average photon number. It is also necessary to consider the result in a `shot by shot' case. To this end the output of a simple phase applying system is also considered. This will also serve to highlight the differences between the two methods of implementation.
+		
+		The quantum Zeno effect can be summarised by the saying \textit{a watched pot never boils} or, more scientifically, by repeatedly and regularly measuring a system, it will by necessity remain in an eigenstate of the measurement operator, even if that is not a stationary state of the system \cite{expZeno}. In this section error averaging after each applied phase shift is compared to averaging across the entire system. To explore this consider a single channel containing $m$ phasers. This was chosen to better characterise error averaging when applied to a series of error sources as any differences between the two methods of error correction will be more likely to be seen in larger systems. These systems were also used to determine if a quantum Zeno effect also known as the Turing paradox would be observed.
+		
+		Figure \ref{fig:Different methods of implementation} shows the set-up for the phase applying systems.
+		
+		Following a very similar approach to the earlier sections the applied phase shifters were placed in one arm of a MZ interferometer and photon number expectation values will be calculated. For simplicity the applied phase shift was chosen to be zero with a Gaussian random noise of variance $v$. This was chosen such that the errors here match what was modelled in sections \ref{1 photon N arbitrary} and \ref{2 photons N arbitrary}. The probability of success is now defined as the photon number expectation value evaluated at the end of the phase applying systems while the strength of the error was initially defined as the photon number expectation value of the MZ interferometer system for the expected output had no error occurred. All approximate results are based of fourth order Taylor approximations with comparisons drawn to the second order approximations as used above.
+		
+		
+		\subsubsection{No Averaging\label{No Averaging}}
+		
+		Starting with the baseline comparison case, seen in Figure \ref{fig:Different methods of implementation}a, where no error averaging is used, the output state for a single photon going through just the phase applying system will simply be
+		
+		\begin{equation}
+		\left|\psi\right\rangle =\left(\prod_{k=1}^{M}e^{i\delta_{k}}\right)\left|1\right\rangle \label{eq:noAvPhaseState}
+		\end{equation}
+		
+		
+		The probability of success is then defined as
+		
+		\begin{eqnarray}
+		P\left(success\right) & = & \left\langle \psi|\psi\right\rangle \nonumber \\
+		& = & \left\langle 1\right|\left(\prod_{l=1}^{M}e^{-i\delta_{l}}\right)\left(\prod_{k=1}^{M}e^{i\delta_{k}}\right)\left|1\right\rangle \nonumber \\
+		& = & 1\label{eq:noAveProbSuccess}
+		\end{eqnarray}
+		
+		
+		which is unsurprising given there is no way, ignoring losses, for the photon to leave this particular system.
+		
+		To determine a measure of the error the phase applying system was then inserted into a M.Z. interferometer giving a total output state $\left|\Psi\right\rangle $. The error is then determined by considering the photon expectation value in the correct output mode with post selection. As however the probability of success is unity no post selection will occur. So the output state is
+		
+		\begin{equation}
+		\left|\Psi\right\rangle 	=\frac{1}{2}\left(\prod_{k=1}^{M}e^{i\delta_{k}}+1\right)\hat{a}^{\dagger}\left|0\right\rangle +\left(\prod_{k=1}^{M}e^{i\delta_{k}}-1\right)\hat{b}^{\dagger}\left|0\right\rangle \label{eq:noAveIntState}
+		\end{equation}
+		
+		
+		Now our error when no averaging is applied, $E_{noAv}$, will be
+		
+		\begin{eqnarray}
+		E_{noAve} & = & \left\langle \Psi\right|\hat{n}_{a}\left|\Psi\right\rangle \nonumber \\
+		& = & \frac{1}{2}\left\langle 1+\cos\left(\alpha\right)\right\rangle \nonumber \\
+		& \approx & 1-\frac{Mv}{4}+\frac{M^{2}v}{16}\label{eq:ErrorNoAv1}
+		\end{eqnarray}
+		
+		
+		\begin{eqnarray}
+		E_{noAve} & = & \left\langle \Psi\right|\hat{n}_{a}\left|\Psi\right\rangle \nonumber \\
+		& \approx & 1-\frac{Mv}{4}+\frac{M^{2}v}{16}\label{eq:ErrorNoAv}
+		\end{eqnarray}
+		
+		Where Gaussian statistics have been used to calculate the higher order moments.
+		
+		
+		\subsubsection{Averaging Across the Entire Phase System\label{Averaging Across the Entire Phase System}}
+		
+		We now consider averaging across the whole system, as shown in Figure  \ref{fig:Different methods of implementation}b. Preceding as before, the state for a single photon after passing through the phase applying system which is being averaged across will simply be
+		
+		\begin{equation}
+		\left|\psi\right\rangle =\frac{1}{N}\sum_{j=1}^{N}\left(\prod_{k=1}^{M}e^{i\delta_{j,k}}\right)\left|1\right\rangle \label{eq:AvEndPhaseState}
+		\end{equation}
+		
+		
+		The probability of success is then
+		
+		\begin{eqnarray}
+		P\left(success\right) & = & \left\langle \psi|\psi\right\rangle \nonumber \\
+		& \approx & \left[1-\left(1-\frac{1}{N}\right)\left(Mv-\frac{1}{2}M^{2}v^{2}\right)\right]\label{eq:AveEndProbSuccess}
+		\end{eqnarray}
+		
+		
+		This result is similar to the what was found in previous sections, see Eq.\ref{eq:1pNarbitrary successs} and Eq.\ref{eq:2pNarb Success}, with the probability of success asymptotically approaching some fixed value for large $N$.
+		
+		To determine the size of the error, the phase applying system was again inserted into the phase arm of a M.Z. interferometer giving a total output state $\left|\Psi\right\rangle $. The error is then given by the photon expectation value in the correct output mode with post selection. The output state is
+		
+		\begin{eqnarray}
+		\left|\Psi\right\rangle & = &\frac{1}{2}\left(\frac{1}{N}\sum_{j=1}^{N}\left(\prod_{k=1}^{M}e^{i\delta_{j,k}}\right)+1\right)\hat{a}^{\dagger}\left|0\right\rangle \\ & & +\left(\frac{1}{N}\sum_{j=1}^{N}\left(\prod_{k=1}^{M}e^{i\delta_{j,k}}\right)-1\right)\hat{b}^{\dagger}\left|0\right\rangle \label{eq:AveEndIntState}
+		\end{eqnarray}
+		
+		
+		So first the photon number expectation value for the correct output for this system will be
+		
+		\begin{widetext}
+			\begin{eqnarray}
+			\left\langle \Psi\right|\hat{n}_{a}\left|\Psi\right\rangle  
+			& \approx & 1-\frac{1}{4}\left(Mv-\frac{M^{2}v^{2}}{4}+\left(1-\frac{1}{N}\right)\left(Mv-\frac{1}{2}M^{2}v^{2}\right)\right)
+			\end{eqnarray}
+		\end{widetext}	
+		
+		Similarly for the incorrect output port, the photon number expectation value will be
+		
+		\begin{equation}
+		\left\langle \Psi\right|\hat{n}_{b}\left|\Psi\right\rangle = \frac{1}{4}\left\langle 1+\left\langle \psi|\psi\right\rangle -\frac{2}{N}\sum_{j=1}^{N}\cos\left(\alpha_{j}\right)\right\rangle 
+		\end{equation}
+		
+		
+		So the error, $E_{aveEnd}$, will be
+		
+		\begin{widetext}
+			\begin{equation}
+			E_{aveEnd}  \approx  \left[1-\frac{1}{4}\left(Mv-\frac{M^{2}v^{2}}{4}+\left(1-\frac{1}{N}\right)\left(Mv-\frac{1}{2}M^{2}v^{2}\right)\right)\right]\nonumber\times\left[1-\left(1-\frac{1}{N}\right)\left(\frac{Mv}{2}-\frac{1}{4}M^{2}v^{2}\right)\right]^{-1}\label{eq:ErrorAvEnd}
+			\end{equation}
+		\end{widetext}
+		
+		
+		\subsubsection{Averaging Across Each Phase Shifter Individually\label{Averaging Across Each Phase Shifter Individually}}
+		
+		If each phase shifter is averaged individually, as seen in Figure \ref{fig:Different methods of implementation}c, then the state for a single photon after passing through the phase applying system will be
+		
+		\begin{equation}
+		\left|\psi\right\rangle =\frac{1}{N}\prod_{k=1}^{M}\left(\sum_{j=1}^{N}e^{i\delta_{j,k}}\right)\left|1\right\rangle \label{eq:AveStepPhaseState}
+		\end{equation}
+		
+		
+		Reproducing the above calculations with this state yields a probability of success of
+		
+		\begin{equation}
+		P\left(Success\right)\approx\left(1-\left(v-\frac{v^{2}}{2}\right)\left(1-\frac{1}{N}\right)\right)^{M}\label{eq:AvStepProbSuccess}
+		\end{equation}
+		
+		
+		and an error of
+		
+		\begin{widetext}
+			\begin{equation}
+			E_{aveStep} \approx  \left[\frac{3}{4}-\frac{Mv}{4}+\frac{M^{2}v^{2}}{16}+\frac{1}{4}\left(1-\left(v-\frac{v^{2}}{2}\right)\left(1-\frac{1}{N}\right)\right)^{M}\right]\nonumber\times\left[\frac{1}{2}+\frac{1}{2}\left(1-\left(v-\frac{v^{2}}{2}\right)\left(1-\frac{1}{N}\right)\right)^{M}\right]^{-1}\label{eq:ErrorAvStep}
+			\end{equation}
+		\end{widetext}	
+		
+		Importantly, for both this case as well as when averaging each step, if only the first order approximation is used and $M=1$ then the error matches the error found in section \ref{1 photon N arbitrary}. This is simply highlighting that error averaging scales in a very predictable manner.
+		
+		
+		\subsubsection{Summary of Errors and Probabilities\label{Summary of Errors and Probabilities}}
+		
+		Figure \ref{fig:Error-as-measured all} shows how the error, as measured by looking at expected photon number values in the output port of a Mach-Zehnder interferometer, varies as the number of phase components increases as well as how the error changes with increasing error averaging, $N$. The behaviour as $N$ increases is as expected with the error close to disappearing for low $M$, that is, a small number of phase shifters in series, and $N=16$. Interestingly a difference between the two error averaging methods can be seen from the $M\approx6$ point onwards. This could either be suggesting an issue with the quality of the second order approximations, as seen in Figure \ref{fig:Probability-of-success all}	or that there is some more fundamental point at which it there is a clear benefit to averaging each component individually as opposed to averaging across the entire system. The next consideration was how the probability of success changes with $M$.
+		
+		\begin{figure}
+			\begin{centering}
+				\includegraphics[width=\columnwidth]{Error_all.png}
+				\par\end{centering}
+			
+			\caption[Error as measured by the Mach Zehnder interferometer set up as a function of the number of phase components. ]{Probability of obtaining the correct result as measured by the Mach Zehnder interferometer set up as a function of the number of phase components $M$. Here a probability of $1$ corresponds to no error and the smaller the probability the larger the error. The blue line	represents no error averaging applied, the orange line is the error	when averaging across the entire system and the green line is the error when each component is averaged across. All three graphs were created with the variance of the error in a single phase shifter being $0.005\ \textrm{rad}^{2}$ and for a) $N=2$, in b) $N=4$ and in c) $N=16$. \label{fig:Error-as-measured all}}
+		\end{figure}
+		
+		
+		Figure \ref{fig:Probability-of-success all} shows how the probability of success changes as the number of phase shifters in a series increases when averaging across the entire system as well as when averaging across each component individually. The effect of varying the amount of averaging is also shown. A first and second order analytical solutions	is  shown as well as a statistical model of the probability of success where the phase value of each phase shifter was sampled from a Gaussian random distribution. The probability of success was then calculated based on these random samples. The top four graphs were plotted for an unrealistically low value of the variance on the individual beam splitters. This was done so that the behaviour of when the first and second order approximations fail to match the actual simulated result can be more clearly seen. 
+		
+		It is seen that as the total number of components increases the probability of success decreases. However it does so at a decreasing rate which is important for scaling to large systems. The two methods of error averaging also show very similar behaviour in their overall trends although the variation between the statistical simulation and the analytical solutions is significantly greater when averaging across the entire system than when averaging each component individually. This is suggestive of something along the lines of the Zeno effect, whereby continuously correcting produces less variation than doing the same amount of correction at the end. First and second order solutions in the averaging over the entire system case fail very early when compared with those for averaging every step. Interestingly it appears that the first order analytical approximation is suitable when averaging each component individually. This can most clearly be seen in Figure \ref{fig:Probability-of-success all} (e) where the first order approximation fails almost instantly and the second order approximation soon after while in (f) both first and second order approximations both follow the statistical model closely. It is again observed that as $N$ increases, the probability of success goes down. What is also shown however is that so too does the variation in the statistical simulation suggesting greater amount of averaging reduces the variability in all aspects of the applied phase.
+		
+		\begin{center}
+			\begin{figure}
+				\begin{centering}
+					\includegraphics[width=\columnwidth]{Psuccess_all.png}
+					\par\end{centering}
+				
+				\caption[Comparison between the probability of success when averaging across the system and each component separately.]{Probability of success as a function of the number of phase components $M$ for averaging across the system (left) and averaging across each component (right). Blue line is the statistical model, orange is the first order approximation and green is the second order approximation of the analytical value. a) and b) individual phase shifter variance is $0.005\ \textrm{rad}^{2}$ with $N=4$, c) and d) individual phase shifter variance is $0.005\ \textrm{rad}^{2}$ with $N=16$ and e) and f) individual phase shifter variance is $0.1\ \textrm{rad}^{2}$ with $N=16$. \label{fig:Probability-of-success all}}
+			\end{figure}
+			
+			\par\end{center}
+		
+		To gain a better insight into how the error behaves and what the difference between the two averaging methods actually is, the actual phase being applied with each system was modelled, as discussed in the following subsection.
+		
+		
+		\subsubsection{Statistical Modelling of the Applied Phase\label{Statistical Modelling of the Applied Phase}}
+		
+		To better understand the behaviour of the three phase applying systems, the total applied phase was modelled using Mathematica with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This was repeated $5000$ times and the results are shown in Figure \ref{fig:Total-applied-phase1} and Figure \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. In particular the range of applied phases is noticeably smaller when each phase shifter is corrected individually, a clear indication that averaging each step is more effective. By comparing Figure \ref{fig:Total-applied-phase1} with Figure \ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure \ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case.
+		
+		\begin{figure}
+			\begin{centering}
+				\includegraphics[width=\columnwidth]{totPhase1.png}
+				\par\end{centering}
+			
+			\caption[Statistical simulation of total applied phase for no correction, correcting across the system and correcting each element individually for a larger system. ]{Top: Total applied phase over $5000$ runs for no averaging (Blue), averaging across the entire system (Orange) and averaging each phase shifter individually (Green). Bottom: Histogram of the total applied phases. Each individual phase shifter has a variance of $0.1\ \textrm{rad}^{2}$ and each system has $15$ phase shifters in series. The two error averaged circuits are each averaged $4$ times. \label{fig:Total-applied-phase1}}
+		\end{figure}
+		
+		
+		\begin{figure}
+			\begin{centering}
+				\includegraphics[width=\columnwidth]{totPhase2.png}
+				\par\end{centering}
+			
+			\caption[Statistical simulation of total applied phase for no correction, correcting across the system and correcting each element individually for a smaller system. ]{Top: Total applied phase over $5000$ runs for no averaging (Blue), averaging across the entire system (Orange) and averaging each phase shifter individually (Green). Bottom: Histogram of the total applied phase. Each individual phase shifter has a variance of $0.3\ \textrm{rad}^{2}$ and each system has $8$ phase shifters in series. The two error averaged circuits are each averaged $4$ times. \label{fig:Total-applied-phase2}}
+		\end{figure}
+		
+		
+		To further investigate this behaviour the variance of the applied phase was calculated based on the statistical simulation of the total applied phase. This was then plotted as a function of $M$, the number of phase shifters in a series as shown in Figure \ref{fig:Variance-in-phase all}. Given the individual applied phase are Gaussian random variables they are expected to simply add, such that the variance without any error averaging is expected to simply be
+		
+		\begin{equation}
+		\textrm{Total Variance}=vM\label{eq:Tot Var no correction}
+		\end{equation}
+		
+		
+		where $M$ is the number of phase shifters and $v$ is the variance in the individual phase shifter. The total variance when error averaging can similarly be expected to simply be
+		
+		\begin{equation}
+		\textrm{Total Variance}=\frac{vM}{N}\label{eq:Tot Var w/ correction}
+		\end{equation}
+		
+		
+		where $N$ is the number of times the system is averaged, again $N=1$ implies no averaging. This is expected as previously the effect of error averaging was to reduce the error by a factor of $\frac{1}{N}$ and so a similar behaviour in the variance is likely. As the phase is an angle this behaviour cannot hold for sufficiently large $vM$. A completely random phase $\theta$ is still limited by the possibly range of values, in our case chosen to be $-\pi<\theta\le\pi$. If the value of $\theta$ is indeed completely random then one will expect a uniform probability distribution of $P\left(\theta\right)=\frac{1}{2\pi}$. 
+		
+		This then implies the maximum variance will be given by
+		
+		\begin{eqnarray}
+		\textrm{Maximum variance} & = & \int_{-\pi}^{\pi}\theta^{2}P\left(\theta\right)\ d\theta\nonumber \\
+		& = & \frac{\pi^{2}}{3}\label{eq:Max Var}
+		\end{eqnarray}
+		
+		
+		\begin{figure}
+			\begin{centering}
+				\includegraphics[width=\columnwidth]{phase_all.png}
+				\par\end{centering}
+			
+			\caption[Variance of the total applied phase as a function of the number of components. ]{Variance in the total applied phase without error averaging (Blue), when averaging across the entire system (Green) and when averaging each component individually (Orange), all plotted as a function of the number of phase shifters in series $(M)$. The variance of a single phase shifter is $0.1\ \textrm{rad}^{2}$ and the two error averaged systems averaged 4 times. The predicted, linear variance without any averaging (lighter blue) and with averaging (lighter orange) is also shown. These ignore the fact that the variance is actually the angular variance and so has some maximum allowable value given by Eq. \ref{eq:Max Var}, which is also shown in black. \label{fig:Variance-in-phase all}}
+			
+			
+		\end{figure}
+		
+		
+		Figure \ref{fig:Variance-in-phase all} shows that the two methods 	of error correction do indeed initially have the same effect. However the averaging across the system method falls out of this linear regime from approximately $M=6$ after which it follows the general form of applying no correction. Averaging each step however does not appear to fall out of the linear regime. The down turn at higher total output variance can be attributed to the variance approaching the maximum possible variance and so any behaviour in this region can be considered insignificant as the output results generated from a system in this regime is likely to be quite random. To determine if and when the averaging each step method of error correction fails this process was repeated, now as a function of the variance in a single beam splitter. The total variance was determined from $50000$ data points for each value of $v$. Figure \ref{fig:Variance(veriance)} demonstrated that again the two error correction methods initially are equivalent. Once more averaging across the system falls out of the linear regime and now we can clearly see so too does the averaging each step.
+		
+		This is highly suggestive of the existence of some threshold for the amount of error in a system before error averaging fails to be beneficial. A single phase shifter with variance $v_{1}$ is effectively equivalent to $m$ phase shifters with individual variance $v_{2}=\frac{v_{1}}{m}$ if the entire system is being averaged across. This allows the phase error threshold to be estimated at about $0.5\ \textrm{rad}^{2}$when averaging across each element and $\frac{0.5}{m}\textrm{rad}^{2}$ when averaging across a system of $m$ phase shifters. If each individual beam splitter has a variance of $0.1\ \textrm{rad}^{2}$, averaging across the system would be expected to be in the linear regime when $M\le5$ which is precisely what is seen in Figure \ref{fig:Variance-in-phase all}. These two thresholds obviously do not apply to a general error however it is hoped that with further study might reveal the values for such a threshold.
+		
+		\begin{figure}
+			\begin{centering}
+				\includegraphics[width=\columnwidth]{variance(variance).png}
+				\par\end{centering}
+			
+			\caption[Variance of the total applied phase as a function of the number of	individual component variance. ]{Variance in the total applied phase without error averaging (Blue), when averaging across the entire system (Green) and when averaging each component individually (Orange), all plotted as a function of the variance in each individual phase shifter. Each system applied $4$ phase shifters in series, that is $M=4$, and the two error averaged systems averaged $4$ times, that is $N=4$. The predicted variance without any averaging (lighter blue) and with averaging (lighter orange) is also shown along with the maximum allowable variance. \label{fig:Variance(veriance)}}
+			
+			
+		\end{figure}
+		
+		
+		It can now be concluded that some hybrid method of error averaging would be most suitable in general. The entire system would need to be broken into $x$ smaller systems, which are independently averaged across. The specific value of $x$ would be such that the number of components in the system, $m$, is maximised while the total error within each subsystem is kept below the threshold.
+		
+		\subsection{Four Mode Implementation Comparison \label{Four Mode Impementation Comparison}}
+		
+		To gain a better understanding of how useful this method of error averaging actually is, a series of more complicated systems were then considered. In particular, we decided to explore a four mode system. Rather than just averaging each individual beam splitter, we sought to determine if it is possible to average across an entire systems. If this new method has a similar error profile as the original set-up it would be far more useful. This is because it would require far fewer perfect beam splitters for it to be implemented.
+		
+		The set up consisted of a four mode system with four beam splitters, each implemented as above, that is each being its own MZ interferometer as shown in Figure \ref{fig:4 mode basis diagram}. Three different input states were chosen: a single photon input in the top mode and the vacuum state at all other modes$\left(\left|1,0,0,0\right\rangle \right)$, two photons, both in the top mode $\left(\left|2,0,0,0\right\rangle \right)$ and two photons spread across the top two modes $\left(\left|1,1,0,0\right\rangle \right)$. For simplicity the system was chosen to implement the identity and error reduction was then applied using both implementations. That is, by averaging each beam splitter as done in section \ref{1 photon N arbitrary} and by concatenating the entire system in an interferometer as shown in Figure \ref{fig: averaging 4 mode diagram}. All results were found using \textit{Mathemtatica} to sample from the appropriate transformation matrix representing the system and then compute the photon number expectation values and probabilities for $N=1, 2 \textrm{ and } 4$.
+		
+		\begin{figure}[h]
+			\begin{centering}
+				\includegraphics[width=\columnwidth]{4_mode_N=2.jpg}
+				\par\end{centering}
+			
+			\caption{Diagram of the four mode linear optical network which forms the basis of the four mode set-ups. \label{fig:4 mode basis diagram}}
+		\end{figure}
+		
+		
+		\begin{figure}[h]
+			\begin{centering}
+				\includegraphics[width=\columnwidth]{4_mode_average_across.jpg}
+				\par\end{centering}
+			
+			\caption{Diagram of the four mode linear optical network averaged across the system once. A two mode system averaged in this fashion could be considered as an Error Averaged dual rail single qubit unitary transformation. \label{fig: averaging 4 mode diagram}}
+		\end{figure}
+		
+		
+		After determining the output probability distribution with and without post selection it was found that the two correction methods produced equivalent results. The $1/N$ scaling in error after post selection, as seen above, was also observed, suggesting this pattern holds for an arbitrary number of modes and arbitrary system. The following section is based on the results of these simulations.
+		
+	\subsubsection{Generalising Example Results}
+		
+		Starting with no error reduction, and given the correct output state $\left|\psi\right\rangle $ the following sequence can be defined. First defining the probability of obtaining the correct result as when $N=1$:
+			
+		\begin{equation}
+			P_{1}(correct)=1-\frac{a_{1}}{b_{1}}v
+		\end{equation}
+			
+		The probability of an incorrect state is therefore trivially:
+			
+		\begin{equation}
+			P_{1}(wrong)=\frac{a_{1}}{b_{1}}v
+		\end{equation}
+			
+		At this stage there are no error ports and so $P_{i}(wrong)+P_{i}(correct)$	represents the probability of success as previously defined. Note that the subscript indexes the corresponding size of the system. Explicitly $i+1$ corresponds to a system with twice as much averaging as $i$.
+			
+		So averaging once changes these values to:
+			
+		\begin{eqnarray}
+			P_{2}(correct) & = & 1-\frac{2a_{1}+1}{2b_{1}}v\nonumber \\
+			& \equiv & 1-\frac{a_{2}}{b_{2}}v
+		\end{eqnarray}
+		
+		\begin{eqnarray}
+			P_{2}(wrong) & = & \frac{a_{1}}{2b_{1}}v\nonumber \\
+			& \equiv & \frac{a_{2}}{b_{2}}v
+		\end{eqnarray}
+			
+		And so on, so in general:
+			
+		\begin{eqnarray}
+			P_{n}(correct) & = & 1-\frac{2a_{n-1}+1}{2b_{n-1}}v\nonumber \\
+			& = & 1-\frac{\left(2^{n-1}a_{1}+\left(2^{n-1}-1\right)\right)}{2^{n-1}b_{1}}v\\
+			P_{n}(wrong) & = & \frac{a_{n-1}}{2b_{n-1}}v\nonumber \\
+			& = & \frac{a_{1}}{2^{n-1}b_{1}}v
+		\end{eqnarray}
+			
+		The probability of getting the correct state with post selection will then be
+			
+		\begin{eqnarray}
+			&  & P_{n}\left(correct\left|\textrm{post selection}\right.\right)\nonumber \\
+			& = & \left(1-\frac{a_{1}}{2^{n-1}b_{1}}v\right)\xrightarrow[n\rightarrow\infty]{}1\label{eq:PcorrectGeneral}
+		\end{eqnarray}
+				
+		The probability of success was found to be
+			
+		\begin{equation}
+			P_{n}\left(success\right) =  1-\frac{\left(2^{n-1}-1\right)\left(a_{1}+1\right)}{2^{n-1}b_{1}}v\nonumber \\
+		\end{equation}
+			
+		Hence we get a general bound on the probability of success as
+			
+		\begin{equation}
+			\lim_{n\rightarrow\infty}P_{n}\left(success\right)=1-\left(\frac{a_{1}+1}{b_{1}}\right)v\label{eq:PsuccessGeneral}
+		\end{equation}	
+			
+		This shows that these correction methods appear to have a very simple effect and may be equivalent. The asymptotic limit in the probability	of success shown in Eq.\ref{eq:PsuccessGeneral} is particularly promising as it again demonstrates that there is some fixed price for correcting arbitrarily well as shown by Eq.\ref{eq:PcorrectGeneral}. This general $\frac{1}{N}$ scaling matches the result shown in Eq.\ref{eq:1pWithPost} with $N=2^{n-1}$ and Eq.\ref{eq:2pNarb PS}.
+			
+		This result hints at the self correcting nature of Error Averaging. By considering the inner corrected system with error laden beam splitters as the initial step in the sequence then each further step will be averaging across both the fixed beam splitters and the original error laden system. This could allow some of the beam splitters to be corrected  making the base assumptions on the quality of the fixed beam splitters less restrictive. This is highlighted in Figure \ref{fig:gen system} where, depending on which components are considered to be the system, it is averaged either $8$, $4$ or $2$ times. 
+		
+
+\section{Feasibility of error averaging\label{Feasibility section}}
+
+	\subsection{A Short Note on Boson Sampling\label{Boson Sampling}}
+
+		Having achieved some semi-general results in terms of what benefit can be obtained from error averaging, the next question which arises is; when is it usefull? To this end, the behaviour for a Boson Sampling system will be discussed. It is known that as a Boson Sampling system scales, the error terms for each beam splitter combine such that they grow exponentially \cite{Boson} and as such it provides a good basis system in need of correcting. What is more, Boson Sampling requires the sort of simple linear optical components previously discussed for its implementation and has been shown to demonstrate the benefit of quantum computers over their classical counterparts \cite{Boson}. And so error averaging could provide a useful tool in the quest for the experimental observation of quantum supremacy. To explore this, a general $m$ mode system is considered. It would be constructed such that each input mode is connected to each output mode and every path will have the same number of beam splitters and phase shifters. The first requirement was for the system to be considered in some sense general. Note that this system while being general in that every mode will be mixed with every other mode, the system is insufficient to implement an arbitrary unitary transformation of the input. The second requirement, that each path has the same number of beam splitters and phase shifters to ensure the system's error profile is completely symmetric.  
+				
+		To create such a system it was decided to require $m$ to be even and arrange the beam splitters in columns with $b=\frac{m}{2}$ beam splitters in each column. They are arranged such that, starting with the top most mode, the first column mixes nearest neighbour modes, the second column mixes the next nearest neighbour modes and each subsequent column mixes the next closest mode which it is yet to be mixed with. This then means that the system is made up of $c$ columns where $c=\left\lceil \log_{2}(m)\right\rceil $. 
+		
+		This system as it currently stands is not suitable for implementing an arbitrary unitary transformation. This is known because for a system to be suitable to simulate $\mathfrak{U\mathrm{(m)}}$, it must have on the order of $O\left(m^{2}\right)$ beam splitters and phase shifters \cite{reck}. This goes back to the number of generators of the $\mathfrak{U\mathrm{(m)}}$ group. This system however only has
+		
+		\begin{equation}
+		b\times c=\frac{m}{2}\log_{2}(m)
+		\end{equation}
+		
+		
+		beam splitters and so, if each beam splitter has a single phase shifter than the number of controllable components will be $m\log_{2}(m)$ rather than the necessary $O\left(m^{2}\right)$. Using such a system we can either average across the system or average each component individually to protect against errors. This then suggests error averaging, in its current state, is particularly useful for any system in which the result cannot simply be checked to verify the results. The question still remains of how best to implement error averaging. In particular, does the method of averaging across the system indeed always have the same effect as averaging each step? If this is the case it is clearly the more efficient method of implementing error averaging due to the drastic reduction in encoding resources necessary.
+		
+	\subsection{Feasibility\label{Feasibility subsection}}	
+		To determine the feasibility and usefulness of error averaging it is necessary to determine both what problems will benefit from error averaging as well as under what circumstances the assumptions which have been made are valid. Namely the assumption that perfect, fixed $50:50$ beam splitters can be used to build the averaging circuit. The following discussion ignores the probability of success of error averaging, which will lead to an exponential overhead in the number of times the device must be run before obtaining a successful outcome. To address this error averaging will require a loss recovery code \cite{OQC} however this is outside the scope the current paper. At this point it is worth noting that in the paper  \textit{Universal Linear Optics} a single, controllable, beam splitter was implemented using the same Mach-Zehnder interferometer set-up discussed previously with fidelity $\mathcal{F}=0.992\pm0.008$ \cite{ULO}. Where fidelity is defined as 
+		
+		\begin{equation}
+			\mathcal{F}=\sum_{i}\sqrt{p_{i}^{exp}\times p_{i}^{th}}
+		\end{equation}
+		
+		
+		This is useful to consider as it suggests that currently we can have quite high quality, low error components. One necessary and perhaps sufficient condition for this assumption to be valid is for the number of error causing components in the system to be far greater than the number of perfect components required. This would imply that even if the fixed beam splitters are no better than the variable ones being implemented, error averaging will still dramatically reduce the total error in the system. 
+		
+		It is known \cite{reck} that a system requires $O\left(m^{2}\right)$ controllable components to be sufficient to implement $\mathfrak{U}\left(m\right)$. If such a system is corrected using error averaging and the minimum number of correction components then the method of correcting across the entire system would be used. To average a single mode $N$ times, $2\left(N-1\right)$ perfect beam splitters are required. So the precise resource cost will be dependent on the circuits specific set-up. Following on from the previously described set up, we know we can mix $m$ modes in a unique way such that every path has the same number of beam splitters and phase shifters with a circuit depth of $\log_{2}\left(m\right)$. Aaronson and Arkhipov, inspired by a boson sampling type system with $n$ photons in the top $n$ modes, have shown \cite{Boson} that for this system to be adequate to implement an arbitrary unitary operation it must be chained together $n$ times. Each block will have $m$ modes, a depth of $\log_{2}\left(m\right)$ and therefore $\frac{m}{2}\log_{2}\left(m\right)$ beam splitters.	This then means that our system will have $\frac{mn}{2}\log_{2}\left(m\right)$ error laden components and require a minimum of $2\left(N-1\right)m$ correction components to allow for averaging $N$ times across the entire system. Given that averaging across the entire system falls out of the linear regime very quickly as the depth increases it would likely	be insufficient to correct our system. If however each component has error averaging applied to it individually then there would need to be at most $mn\log_{2}\left(m\right)\left(N-1\right)$ perfect $50:50$ beam splitters, more than the original size of the circuit. Note this can result in correcting components which cannot possibly be involved	in the result. For example if only the top one or two modes have photon inputs then only $2\left(m-1\right)\left(N-1\right)+m\left(n-1\right)\log_{2}\left(m\right)\left(N-1\right)$	correction components are necessary. The upper bound on the number of correction components, $mn\log_{2}\left(m\right)\left(N-1\right)$, is more general, and so will be used for the remainder of this discussion. This suggests something part way between these two cases is necessary. If a system was split	up into $x$ sections, each of which is averaged $N$ times, than $2xm\left(N-1\right)$ correction components are necessary. This then gives the very loose inequality of 
+		
+		\begin{eqnarray}
+			2xm\left(N-1\right) & \ll & \frac{mn}{2}\log_{2}\left(m\right)\nonumber \\
+			4x\left(N-1\right) & \ll & n\log_{2}\left(m\right)\label{eq:veryLooseInequality}
+		\end{eqnarray}
+		
+		
+		for the assumption that an averaging circuit can be made using relatively perfect beam splitters to be valid. The requirement of error averaging to be in the linear regime will also impose the condition that $x\rightarrow n\log_{2}\left(m\right)$ as the error in each component gets bigger. There is the possibility that this is not quite so bad however as most of the perfect beam splitters are actually error averaged themselves as shown in Figure \ref{fig:gen system}. This could allow greater freedom in what is meant by a perfect beam splitter. However even if only	the outermost beam splitters are to be considered, and all inner beam splitters are said to be corrected themselves, there will still require between $2m$ and $mn\log_{2}\left(m\right)$ perfect fixed beam splitters.
+		
+		Another important issue is to decide how any times the system needs	to be averaged, that is, how $N$ needs to grow with $m$ and $n$. It has been shown that for the total systems error to be vanishingly small the error in each individual element in a linear optical system	needs to be on the order of $\frac{1}{n}$ where $n$ is the number of photons \cite{arkhipov2014}. It has also been shown that it is	necessary for the error to scale as $\frac{1}{n\log_{2}\left(m\right)}$	\cite{Boson} in the case of a boson sampling style system with $1$ photon in the first $n$ modes of an $m$ mode system. Combining these	two results gives a necessary scaling of $\frac{1}{n^{2}\log_{2}\left(m\right)}$. All of our results so far suggest the error scales as $\frac{1}{N}$. By using this scaling we can estimate that $N\sim n^{2}\log_{2}\left(m\right)$ for the total error in the output to be preserved. Combining this with Eq. \ref{eq:veryLooseInequality} then gives 
+		
+		\begin{equation}
+			4x\left(n^{2}\log_{2}\left(m\right)-1\right)\ll n\log_{2}\left(m\right)\label{eq:LooseInequality}
+		\end{equation}
+		
+		
+		which is clearly not satisfied. This suggests the best hope for the key assumption to be satisfied is if the inner perfect beam splitters are considered to be corrected. As this gives
+			
+		\begin{eqnarray}
+			2xm & \ll & \frac{mn}{2}\log_{2}\left(m\right)\nonumber \\
+			\implies4x & \ll & n\log_{2}\left(m\right)\label{eq:aBetterInequality}
+		\end{eqnarray}
+		
+		
+		there is the possibility that this can be satisfied. Even if this is reduced to $4x\approx n\log_{2}\left(m\right)$ there will still be some total reduction in error as the fixed beam splitters are likely to have less total error. It is possible to generalise this result by allowing photons to be inserted into any of the input modes. This	will require our system with a depth of $\log_{2}\left(m\right)$ to be chained $m$  times. This can be understood by considering the that an arbitrary unitary transformation requires that a photon from any of the  input modes must be able to interact with all other photons. Given we are using beam splitters as our basic components this limits every interaction to two photon interferences. Each block of depth  will allow any photon to interact with any one other photon and so for a photon to potentially interact with all other photons, we will require $n$ of these blocks. We also need to consider the scaling to allow at least one photon in all $m$ modes giving a scaling of $\frac{1}{mn\log_{2}\left(m\right)}$ to achieve a negligible amount of total error and giving a final rough bound of
+			
+		\begin{eqnarray}
+			4x & \ll & m\log_{2}\left(m\right)\label{eq:aDifferentInequality}
+		\end{eqnarray}
+		
+		
+		where now $x\rightarrow m\log_{2}\left(m\right)$ as the error in each component gets bigger.
+		
+		This is, in its current state a unsolved problem. It is hoped that this can be extended to a fault tolerant regime and thresholds can be found so that stronger conclusions on the applicability of error averaging can be made.
+
+\section{Conclusion\label{Conclusion}}
+	This has shown two methods of error averaging that, when combined with post selection, forms a rudimentary error correction protocol. In particular error averaging appears to filter the error free states from the error states which can then be post selected away. The errors have been shown to scale as $\frac{1}{N}$ where $N$ represents the amount of correction or equivalently the number of copies of the system. This has been seen by analytically determining the photon number expectation values in numerous two mode systems for both one and two photon inputs, by simulating the output expectation values in four mode systems for both one and two photon inputs and by simulating the variance in the output of a series of beam splitters. From this it can be concluded that this error correcting behaviour can be observed for phase applying systems and Mach-Zehnder interferometer beam splitters. This is also generalised to a four mode system for both single and two photon inputs. Significantly, it also generalises to an arbitrary unitary transformation so can correct any linear optical system although more work is needed to fully characterise this behaviour.
+	
+	Two similar methods of error averaging have been presented which appear to have similar effects under certain conditions. In particular averaging across the entire system has the same behaviour as averaging each step provided the error within the system is small enough. It has been shown that some hybrid scheme is desirable where the entire $m$ mode system is decomposed into $x$ sub-systems which are then averaged across independently. Work has begun to identify the thresholds necessary for error averaging to remain in the linear regime which allows an appropriate value for $x$ to be determined. This has also been related back to one of the main underlying assumptions to gain a loose bound on the amount of correction that can be applied and the number of sub-systems, $x$, necessary for error averaging to be effectively implemented. This then leads to the conclusion that error averaging could be very useful given it is an easily implementable method of error correction for small scale system likely to be realised in the laboratory in the near future.
+	
+	Despite the success of the project so far there are still numerous unsolved problems still to be considered. The first is to fully characterise the effect of averaging an arbitrary unitary transformation. Further work is also necessary to fully understand the effects of the underlying assumptions, namely the quality of the components used, detector inefficiencies and dark counts as well as photon loss throughout the system. This is necessary before any conclusions can be made about the fault tolerance of error averaging. Another potential direction for further research is to determine if traditional methods for protecting against loss \cite{LossCorrectionTim,LossCorrection}  could be employed such that post selection is unnecessary and error averaging can be considered a true error correction technique. Finally given the simplicity of the code and the existence of small scale linear optical devices it would be interesting to implement error averaging in the laboratory to better understand its performance under realistic conditions. 
+	
+% Create the reference section using BibTeX:
+\bibliography{references}
+
+\end{document}
+%
+% If in two-column mode, this environment will change to single-column
+% format so that long equations can be displayed. Use
+% sparingly.
+%\begin{widetext}
+% put long equation here
+%\end{widetext}
+
+% figures should be put into the text as floats.
+% Use the graphics or graphicx packages (distributed with LaTeX2e)
+% and the \includegraphics macro defined in those packages.
+% See the LaTeX Graphics Companion by Michel Goosens, Sebastian Rahtz,
+% and Frank Mittelbach for instance.
+%
+% Here is an example of the general form of a figure:
+% Fill in the caption in the braces of the \caption{} command. Put the label
+% that you will use with \ref{} command in the braces of the \label{} command.
+% Use the figure* environment if the figure should span across the
+% entire page. There is no need to do explicit centering.
+
+% \begin{figure}
+% \includegraphics{}%
+% \caption{\label{}}
+% \end{figure}
+
+% Surround figure environment with turnpage environment for landscape
+% figure
+% \begin{turnpage}
+% \begin{figure}
+% \includegraphics{}%
+% \caption{\label{}}
+% \end{figure}
+% \end{turnpage}
+
+% tables should appear as floats within the text
+%
+% Here is an example of the general form of a table:
+% Fill in the caption in the braces of the \caption{} command. Put the label
+% that you will use with \ref{} command in the braces of the \label{} command.
+% Insert the column specifiers (l, r, c, d, etc.) in the empty braces of the
+% \begin{tabular}{} command.
+% The ruledtabular enviroment adds doubled rules to table and sets a
+% reasonable default table settings.
+% Use the table* environment to get a full-width table in two-column
+% Add \usepackage{longtable} and the longtable (or longtable*}
+% environment for nicely formatted long tables. Or use the the [H]
+% placement option to break a long table (with less control than 
+% in longtable).
+% \begin{table}%[H] add [H] placement to break table across pages
+% \caption{\label{}}
+% \begin{ruledtabular}
+% \begin{tabular}{}
+% Lines of table here ending with \\
+% \end{tabular}
+% \end{ruledtabular}
+% \end{table}
+
+% Surround table environment with turnpage environment for landscape
+% table
+% \begin{turnpage}
+% \begin{table}
+% \caption{\label{}}
+% \begin{ruledtabular}
+% \begin{tabular}{}
+% \end{tabular}
+% \end{ruledtabular}
+% \end{table}
+% \end{turnpage}
+
+% Specify following sections are appendices. Use \appendix* if there
+% only one appendix.
+%\appendix
+%\section{}
+
+% If you have acknowledgments, this puts in the proper section head.
+%\begin{acknowledgments}
+% put your acknowledgments here.
+%\end{acknowledgments}
+% ****** End of file apstemplate.tex ******
+
