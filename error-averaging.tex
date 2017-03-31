@@ -43,7 +43,7 @@
 \usepackage{hyperref}% add hypertext capabilities
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
 %\linenumbers\relax % Commence numbering lines
-
+\usepackage{braket}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}
@@ -130,118 +130,68 @@ Error Averaging in its current state forms a rudimentary form of error correctio
 
 In the next section details and results of most general set-up will be discussed. This is done to both explain Error Averaging as well as highlight the necessity of the two requirements on its implementation. Section \ref{implementation} includes numerous proof of principle examples which serve to highlight the effects of Error Averaging. LOQC will serve as the architecture for all these examples. The feasibility of Error Averaging will be considered including a detailed discussion of some of the underlying assumptions made in the examples below can be found in section \ref{Feasibility section} followed by any concluding remarks.
 
+% NOTATION SUGGESTION: Use \hat{} for Fock space operators and no hat for normal matricies.
 \section{General Unitary\label{gen case}}
-First let us consider a general linear transformation described by a unitary network matrix $\hat{U}$. Theorem~\ref{Theorem 1} given access to $N$ linear networks which are randomly distributed but close to $\hat{U}$ that the standard estimator for the mean values of these unitaries approaches $\hat{U}$ in the same sense as the central limit theorem.
+First let us consider a general linear transformation described by a unitary network matrix $U$. Theorem~\ref{Theorem 1} states that given access to $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ which are randomly distributed such that for all $i \in {1,\ldots,N}$, $\langle U_i \rangle = U$ and $Var(U_i) = \sigma_i^2 < \infty$  the mean values of these unitaries approaches $\hat{U}$ in the same sense as the central limit theorem.
 
 \begin{theorem}
 \label{Theorem 1}
-Given some target transformation $\left|\Psi\right\rangle=\hat{U}\left|\psi\right\rangle$ to be implemented by some other transformation $\hat{U}_{error}$ where $\hat{U}_{error}$ is in some sense close to $\hat{U}$, $N$ levels of redundancy can be employed to give an effective transformation $\hat{U}_{effective}$ given by
+Given some target linear network $U$ and $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ which are randomly distributed such that for all $i \in {1,\ldots,N}$, $\langle U_i \rangle = U$ and bounded variances of all the matrix elements, then the random variable 
 \begin{equation}
-	\hat{U}_{effective}=\frac{1}{N}\sum_{i=1}^{N}\hat{U}_{i}
+	\label{sum_unitary}
+	U_{N}=\frac{1}{N}\sum_{i=1}^{N}U_{i}
 \end{equation}
+is a matrix with mean value $U$ which is potentially non-unitary but with bounded variance.
 \end{theorem}
 
 \begin{proof}\label{Proof 1}
-Define the total state space as a direct sum of $N$ copies of the original transformation's state space $\{\left|\phi\right\rangle\}$. The input state $\left|\psi\right\rangle$ is then
+Our aim in the proof is to use the central limit theorem.  Consider matrix element $r,s$ of $U_N$.  This is a random variable
 \begin{equation}
-	\left|\psi\right\rangle\rightarrow\left|\psi\right\rangle_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\right)\equiv\left|\psi\right\rangle_{in}
+	\left(U_N\right)_{rs} = \frac{1}{N} \sum_{i=1}^N \left(U_i\right)_{rs}.
 \end{equation}
-that is, the total input state $\left|\psi\right\rangle_{in}$ corresponds to the original input state $\left|\psi\right\rangle$ in the first subspace and the vacuum state in all others.
-
-Define the $N$ copies of the transformation as
-\begin{equation}
-	\hat{U}_{i}=\left(\hat{U}_{error}\right)_{i}\oplus\left(\bigoplus_{i=2}^{N}\mathbb{I}_{j}\right)
-\end{equation}
-with the constraints that
-\begin{eqnarray}
-	\hat{U}_{i}\bigoplus_{j=1}^{N}\left|\psi\right\rangle_{j} &=& \left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{i}\oplus\left(\bigoplus_{j\ne i}\left|\psi\right\rangle_{j}\right)\\
-	\hat{U}_{i}\left|0\right\rangle_{i}&=&\left|0\right\rangle_{i}
-\end{eqnarray}
-
-Define $\hat{U}_{tot}=\bigotimes_{i=1}^{N}\hat{U}_{i} $
-
-Define the splitting operator, $\hat{S}$ as an operator which mixes the subspaces such that
-\begin{eqnarray}
-	\hat{S}\left|0\right\rangle_{i} &=& \left|0\right\rangle \\
-	\hat{S}\left|\phi\right\rangle_{1} &=& \frac{1}{\sqrt{N}}\sum_{i=1}^{N}\left(-1\right)^{f\left(i\right)}\left|\phi\right\rangle_{i}\oplus\left(\bigoplus_{j\ne i}\left|0\right\rangle_{j}\right) 
-\end{eqnarray}
-where $f\left(i\right)\in\{0,1\}$.
-
-Define the recombining operator, $\hat{R}$ as a similar subspace mixing operator which acts as
-\begin{eqnarray}
-	\hat{R}\left|0\right\rangle_{i} &=& \left|0\right\rangle \\
-	\hat{R}\left|\phi\right\rangle_{i} &=& \frac{1}{\sqrt{N}}\sum_{j=1}^{N} g\left(i,j\right)\left|\phi\right\rangle_{j}\oplus\left(\bigoplus_{k\ne j}\left|0\right\rangle_{k}\right) 
-	\end{eqnarray}
-where $g\left(i,j\right)\in\{-1,0,1\}$ and $g\left(i,1\right)=\left(-1\right)^{f\left(i\right)}$.
-
-Define the post selection operator, $\hat{P}$ to be employed at the end of the error averaging procedure such that is post selects on all but the first subspace being in the vacuum state, that is
-\begin{equation}
-	\hat{P}=\mathbb{I}_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\left\langle 0\right|_{i}\right)
-\end{equation}
-
-With this error averaging can be defined as $\hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\phi\right\rangle_{in}$. Its action on the input state will therefore be
-\begin{eqnarray}
-	& & \hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\psi\right\rangle_{in}\\
-	&=& \frac{\hat{P}\hat{R}\hat{U}_{tot}}{\sqrt{N}}\sum_{i=1}^{N}(-1)^{f\left(i\right)}\left|\psi\right\rangle_{i}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
-	&=& \frac{\hat{P}\hat{R}}{\sqrt{N}}\sum_{i=1}^{N}(-1)^{f\left(i\right)}\hat{U}_{i}\left|\psi\right\rangle_{i}\oplus\left(\bigoplus_{j\ne i}^{N}\left|0\right\rangle_{j}\right) \\
-	&=& \frac{\hat{P}}{N}\sum_{k=1}^{N}\sum_{i=1}^{N}g\left(i,k\right)(-1)^{f\left(i\right)}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{k}\oplus\left(\bigoplus_{j\ne k}^{N}\left|0\right\rangle_{j}\right) \\
-	&=& \frac{1}{N}\sum_{i=1}^{N}g\left(i,1\right)(-1)^{f\left(i\right)}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
-	&=& \frac{1}{N}\sum_{i=1}^{N}\left((-1)^{f\left(i\right)}\right)^{2}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) 
-	\end{eqnarray}
-
-Thus
-\begin{eqnarray}
-	& & \hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\psi\right\rangle_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\right)\\
-	&=& \frac{1}{N}\sum_{i=1}^{N}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
-	\hat{U}_{effective} \left|\psi\right\rangle_{1} &=& \frac{1}{N}\left(\sum_{i=1}^{N}\hat{U}_{i}\right)\left|\psi\right\rangle_{1}
-\end{eqnarray}
-
-Where $\hat{U}_{effective}=\hat{P}\hat{R}\hat{U}_{tot}\hat{S}$.
+As the variation of the random variable $\left(U_i\right)_{rs}$ is bounded, we can use the central limit theorem to conclude that the matrix element $\left(U_N\right)_{rs}$ is a random variable with mean value $U_{rs}$.
 \end{proof}
+(Another note: do we need to state bounded variation if $U_i$ are all unitary? If they are random unitaries, then surely the matrix elements must have bounded variation.  It's the condition of the mean that makes things work, i.e. this is NOT Haar random.)
 
-\begin{theorem} \label{Theorem 2}
-Error averaging applied to $N$ unitaries with small, random unitary errors each with fixed, finite variance $\nu$ results in an effective unitary with variance $\frac{\nu}{N}$.
-\end{theorem}
+(The elements are correlated!!  This mustn't muck things up.  Do we even care about this correlation here?)
 
-\begin{proof} \label{Proof 2}
-By Theorem \ref{Theorem 1} error averaging applies an effective unitary of $\hat{U}_{effective}=\frac{1}{N}\sum_{j=1}^{N}\hat{U}_{j}$. Given $\hat{U}_{j}$ differ from the ideal $\hat{U}=e^{i\sum_{j=1}^{n^2-1}\alpha_{j}\hat{\sigma}_{j}}$  by small,  random errors, $\hat{U}_{j}$ can be written
+To implement the averaging of the random unitary network matrices we utilise a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an input-output relationship between mode annihilation operators of the form
 \begin{equation}
-	\hat{U}_{j}=e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}}
+	a_{j,r} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} \omega^{rk} a_{j,k}	
 \end{equation}
-where $\sigma_{k}$ are a complete set of $n^2-1$ generators of $\mathfrak{su}(n)$ and $\delta_{k}^{j}$ are the Gaussian random variables with variance $\nu$ which dictate the size and direction of errors in $\hat{U}_{j}$. Thus
+where $\omega = e^{-i2\pi /N}$ and zero-indexing of the modes has been used to simplify this expression.  The first subscript for the annihilation operator denotes the input mode and the second describes the level of redundancy of which we have $N$.
 
-\begin{widetext}
-\begin{eqnarray}
-	\hat{U}_{effective} &=& \frac{1}{N}\sum_{j=1}^{N}e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
-	&=& \frac{1}{N}\sum_{j=1}^{N}\left(1+i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right) +O\left(\left(i\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right)^{2}\right) \\
-	&=& \frac{1}{N}\left(N+i\sum_{k=1}^{n^2-1}\left(N\alpha_{k}\hat{\sigma}_{k}+\sum_{j=1}^{N}\delta_{k}^{j}\hat{\sigma}_{k}\right)\right)+O\left(\left(i\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right)^{2}\right) \\
-	&=& e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
-	&=& e^{i\sum_{k=1}^{n^2-1}\alpha_{k}\hat{\sigma}_{k}} e^{i\sum_{k=1}^{n^2-1}\left(\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
-	&=& \hat{U}e^{i\sum_{k=1}^{n^2-1}\left(\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}}
-\end{eqnarray}
-\end{widetext}
-
-Which by the central limit theorem tends towards a transformation $\hat{U}$ with Gaussian random errors which have mean $0$ and variance $\frac{\nu}{N}$. In general an actual system, particularly the error balanced systems considered in this paper, does not necessarily result in the variance of each generator being equal. However this would not change the key result here, that the variance scales as $\frac{1}{N}$
-\end{proof}
-
-\subsection{A General System \label{gen system}} 
-Consider an $n$ mode system implementing some unitary transformation $\hat{U}$ on an input state $\left|\phi\right>$ such that
-
+We then act the $N$ noisy versions of the target unitary $U$ on the redundantly encoded systems.  This can be described by the transformation
 \begin{equation}
-	\left|\psi'\right> = \hat{U} \left|\phi\right>
+	a_{j,r} \rightarrow \sum_{l=0}^{m-1} (U_r)_{lj} a_{l,r}.
 \end{equation}
-where $\left|\psi'\right>$ differs from the ideal output of $\left|\psi\right>$ due to errors in $\hat{U}$. While this unitary is not completely general as Error Averaging requires that $\hat{U}\left|0\right>=\left|0\right>$. This form the first of the two requirements on the computational architecture.
 
-To implement error averaging on this system $N$ copies of $\hat{U}$ are made, denoted here as $\hat{U}_1, \hat{U}_2, ..., \hat{U}_N$. The input state is then placed in an even superposition of $N$ spacial modes, each of which implement one of the copies of $\hat{U}$. This forms the second formal requirement on the implementation, specifically the input particles must be able to be placed in a spacial superposition. These spacial modes are then recombined by applying the splitting mechanism used to encode the superposition in reverse. Errors can then be filtered out by post selecting on all extra modes left over from the splitting process being in the vacuum state. Figure \ref{fig:gen system} shows how this can be implemented using linear optics. Figure \ref{fig:MZ_setup} highlights the location of the error detection modes and photo-detectors.
+on this system $N$ copies of $U$ are made, denoted here as $U_1, U_2, \ldots, U_N$. 
 
-Figure \ref{fig:gen system} also demonstrates that the encoding used to implement error averaging is naturally self correcting until the outermost layer, with the inner layers being error averaged by the outer layers.
+After this the DFT matrix is applied again.  This results in the overall transformation
+\begin{equation}
+	a_{j,r} \rightarrow \frac{1}{N} 
+	\sum_{l=0}^{m-1} \sum_{k,k^\prime=0}^{N-1}
+	(U_{k^\prime})_{lj} \omega^{(r+k)k^\prime} a_{l,k}.
+\end{equation}
+To obtain the transformation of the form Eq.~(\ref{sum_unitary}), we consider the case where all redundant modes are initialised in the vacuum state and post-select on the cases where no photons are present in the output of the redundant modes.  This means that we only need consider the parts of this transformation expression where the second subscript of the annihilation operator is zero.  In this case we have
+\begin{equation}
+	\label{sum_transformation}
+	a_{j,0} \rightarrow \sum_{l=0}^{m-1} \sum_{k^\prime=0}^{N-1}
+	(U_{k^\prime})_{lj} a_{l,0} = \sum_{l=0}^{m-1} (U_N)_{lj} a_{l,0}
+\end{equation}
+where $U_N$ is the matrix defined in Eq.~(\ref{sum_unitary}).
 
+Implementing the DFT directly may be incontinent depending on the nature of the system used.  The transformation of Eq.~(\ref{sum_transformation}) can also be achieved using an array of beam-splitters as shown in Fig.~\ref{fig:gen system}. 
+%Figure \ref{fig:MZ_setup} highlights the location of the error detection modes and photo-detectors.
+Figure \ref{fig:gen system} also demonstrates that when using the beam-splitter array it is possible to identify a concatenating pattern.  As shown by the bounding rectangles, the outer and inner layers share the same basic structure. 
+%
 \begin{figure}
 	\includegraphics[width=\columnwidth]{unitaries.PNG}
 	\caption{\label{fig:gen system}Diagram showing the innermost components marked with $\hat{U}_i$ being error averaged eight times using fourteen beam splitters. Note that for clarity the error detection modes are not included. See figure \ref{fig:MZ_setup} for an example explicitly including the error detection modes. The inner fixed beam splitters can be considered error averaged four times by taking the component of the system in the red box as a smaller system which is error averaged. Similarly the system in blue box which is effectively being averaged twice.}
 \end{figure}
 
-Considering a system with $N=2$, that is, an averaged system with only two copies of the intended transformation. This system's transformation can be defined by taking $u_{i}$ as the $n\times n$ matrix representation of $\hat{U}_{i}$ and setting 
+As a specific example, considering the case of $N=2$ and a single photon input. This system's transformation can be defined by taking $u_{i}$ as the $n\times n$ matrix representation of $\hat{U}_{i}$ and setting 
 \begin{equation}
 	U_{1} = \begin{bmatrix} 
 		u_{1} & 0         \\
@@ -329,6 +279,100 @@ One final useful quantity to determine is the probability of success. We can def
 	P\left(success\right)=\frac{1}{N^{2}}\left|\left(\sum_{i=1}^{N}u_{i}\right)\vec{\phi}\right|^{2}.
 \end{equation}
 It can also be noted that Equation \ref{eq:genTransform} can become the appropriate transformation for duality quantum computing by allowing the $u_{i}$ to be arbitrary \cite{dualityQC}.
+
+
+
+%Define the total state space as a direct sum of $N$ copies of the original transformation's state space $\{\left|\phi\right\rangle\}$. The input state $\left|\psi\right\rangle$ is then
+%\begin{equation}
+%	\left|\psi\right\rangle\rightarrow\left|\psi\right\rangle_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\right)\equiv\left|\psi\right\rangle_{in}
+%\end{equation}
+%that is, the total input state $\left|\psi\right\rangle_{in}$ corresponds to the original input state $\left|\psi\right\rangle$ in the first subspace and the vacuum state in all others.
+%
+%Define the $N$ copies of the transformation as
+%\begin{equation}
+%	\hat{U}_{i}=\left(\hat{U}_{error}\right)_{i}\oplus\left(\bigoplus_{i=2}^{N}\mathbb{I}_{j}\right)
+%\end{equation}
+%with the constraints that
+%\begin{eqnarray}
+%	\hat{U}_{i}\bigoplus_{j=1}^{N}\left|\psi\right\rangle_{j} &=& \left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{i}\oplus\left(\bigoplus_{j\ne i}\left|\psi\right\rangle_{j}\right)\\
+%	\hat{U}_{i}\left|0\right\rangle_{i}&=&\left|0\right\rangle_{i}
+%\end{eqnarray}
+%
+%Define $\hat{U}_{tot}=\bigotimes_{i=1}^{N}\hat{U}_{i} $
+%
+%Define the splitting operator, $\hat{S}$ as an operator which mixes the subspaces such that
+%\begin{eqnarray}
+%	\hat{S}\left|0\right\rangle_{i} &=& \left|0\right\rangle \\
+%	\hat{S}\left|\phi\right\rangle_{1} &=& \frac{1}{\sqrt{N}}\sum_{i=1}^{N}\left(-1\right)^{f\left(i\right)}\left|\phi\right\rangle_{i}\oplus\left(\bigoplus_{j\ne i}\left|0\right\rangle_{j}\right) 
+%\end{eqnarray}
+%where $f\left(i\right)\in\{0,1\}$.
+%
+%Define the recombining operator, $\hat{R}$ as a similar subspace mixing operator which acts as
+%\begin{eqnarray}
+%	\hat{R}\left|0\right\rangle_{i} &=& \left|0\right\rangle \\
+%	\hat{R}\left|\phi\right\rangle_{i} &=& \frac{1}{\sqrt{N}}\sum_{j=1}^{N} g\left(i,j\right)\left|\phi\right\rangle_{j}\oplus\left(\bigoplus_{k\ne j}\left|0\right\rangle_{k}\right) 
+%	\end{eqnarray}
+%where $g\left(i,j\right)\in\{-1,0,1\}$ and $g\left(i,1\right)=\left(-1\right)^{f\left(i\right)}$.
+%
+%Define the post selection operator, $\hat{P}$ to be employed at the end of the error averaging procedure such that is post selects on all but the first subspace being in the vacuum state, that is
+%\begin{equation}
+%	\hat{P}=\mathbb{I}_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\left\langle 0\right|_{i}\right)
+%\end{equation}
+%
+%With this error averaging can be defined as $\hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\phi\right\rangle_{in}$. Its action on the input state will therefore be
+%\begin{eqnarray}
+%	& & \hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\psi\right\rangle_{in}\\
+%	&=& \frac{\hat{P}\hat{R}\hat{U}_{tot}}{\sqrt{N}}\sum_{i=1}^{N}(-1)^{f\left(i\right)}\left|\psi\right\rangle_{i}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
+%	&=& \frac{\hat{P}\hat{R}}{\sqrt{N}}\sum_{i=1}^{N}(-1)^{f\left(i\right)}\hat{U}_{i}\left|\psi\right\rangle_{i}\oplus\left(\bigoplus_{j\ne i}^{N}\left|0\right\rangle_{j}\right) \\
+%	&=& \frac{\hat{P}}{N}\sum_{k=1}^{N}\sum_{i=1}^{N}g\left(i,k\right)(-1)^{f\left(i\right)}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{k}\oplus\left(\bigoplus_{j\ne k}^{N}\left|0\right\rangle_{j}\right) \\
+%	&=& \frac{1}{N}\sum_{i=1}^{N}g\left(i,1\right)(-1)^{f\left(i\right)}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
+%	&=& \frac{1}{N}\sum_{i=1}^{N}\left((-1)^{f\left(i\right)}\right)^{2}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) 
+%	\end{eqnarray}
+%
+%Thus
+%\begin{eqnarray}
+%	& & \hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\psi\right\rangle_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\right)\\
+%	&=& \frac{1}{N}\sum_{i=1}^{N}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
+%	\hat{U}_{effective} \left|\psi\right\rangle_{1} &=& \frac{1}{N}\left(\sum_{i=1}^{N}\hat{U}_{i}\right)\left|\psi\right\rangle_{1}
+%\end{eqnarray}
+%
+%Where $\hat{U}_{effective}=\hat{P}\hat{R}\hat{U}_{tot}\hat{S}$.
+%\end{proof}
+
+\begin{theorem} \label{Theorem 2}
+Error averaging applied to $N$ unitaries with small, random unitary errors each with fixed, finite variance $\nu$ results in an effective unitary with variance $\frac{\nu}{N}$.
+\end{theorem}
+
+\begin{proof} \label{Proof 2}
+By Theorem \ref{Theorem 1} error averaging applies an effective unitary of $\hat{U}_{effective}=\frac{1}{N}\sum_{j=1}^{N}\hat{U}_{j}$. Given $\hat{U}_{j}$ differ from the ideal $\hat{U}=e^{i\sum_{j=1}^{n^2-1}\alpha_{j}\hat{\sigma}_{j}}$  by small,  random errors, $\hat{U}_{j}$ can be written
+\begin{equation}
+	\hat{U}_{j}=e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}}
+\end{equation}
+where $\sigma_{k}$ are a complete set of $n^2-1$ generators of $\mathfrak{su}(n)$ and $\delta_{k}^{j}$ are the Gaussian random variables with variance $\nu$ which dictate the size and direction of errors in $\hat{U}_{j}$. Thus
+
+\begin{widetext}
+\begin{eqnarray}
+	\hat{U}_{effective} &=& \frac{1}{N}\sum_{j=1}^{N}e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
+	&=& \frac{1}{N}\sum_{j=1}^{N}\left(1+i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right) +O\left(\left(i\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right)^{2}\right) \\
+	&=& \frac{1}{N}\left(N+i\sum_{k=1}^{n^2-1}\left(N\alpha_{k}\hat{\sigma}_{k}+\sum_{j=1}^{N}\delta_{k}^{j}\hat{\sigma}_{k}\right)\right)+O\left(\left(i\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right)^{2}\right) \\
+	&=& e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
+	&=& e^{i\sum_{k=1}^{n^2-1}\alpha_{k}\hat{\sigma}_{k}} e^{i\sum_{k=1}^{n^2-1}\left(\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
+	&=& \hat{U}e^{i\sum_{k=1}^{n^2-1}\left(\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}}
+\end{eqnarray}
+\end{widetext}
+
+Which by the central limit theorem tends towards a transformation $\hat{U}$ with Gaussian random errors which have mean $0$ and variance $\frac{\nu}{N}$. In general an actual system, particularly the error balanced systems considered in this paper, does not necessarily result in the variance of each generator being equal. However this would not change the key result here, that the variance scales as $\frac{1}{N}$
+\end{proof}
+
+\subsection{A General System \label{gen system}} 
+Consider an $n$ mode system implementing some unitary transformation $\hat{U}$ on an input state $\left|\phi\right>$ such that
+
+(MOVED TO EARLIER)
+
+\begin{equation}
+	\left|\psi'\right> = \hat{U} \left|\phi\right>
+\end{equation}
+where $\left|\psi'\right>$ differs from the ideal output of $\left|\psi\right>$ due to errors in $\hat{U}$. While this unitary is not completely general as Error Averaging requires that $\hat{U}\left|0\right>=\left|0\right>$. This form the first of the two requirements on the computational architecture.
 
 \section{Implementation \label{implementation}}
 		
