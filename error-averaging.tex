@@ -47,7 +47,7 @@
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}
-
+\newtheorem{corollary}{Corollary}
 
 \newtheorem{thm}{Theorem}
 
@@ -137,28 +137,70 @@ First let us consider a general linear transformation described by a unitary net
 
 \begin{theorem}
 \label{Theorem 1}
-Given some target linear network $U$ and $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ which are randomly distributed such that for all $i \in {1,\ldots,N}$, $\langle U_i \rangle = U$ and bounded variances of all the matrix elements, then the random variable 
+Given $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ that are random with independent and identically distributed statistics such that for all $i~\in~{1,\ldots,N}$, $\langle U_i \rangle = M$ then the random variable 
 \begin{equation}
 	\label{sum_unitary}
-	U_{N}=\frac{1}{N}\sum_{i=1}^{N}U_{i}
+	M_{N}=\frac{1}{N}\sum_{i=1}^{N}U_{i}
 \end{equation}
-is a matrix with mean value $U$ which is potentially non-unitary but with bounded variance.
+is a matrix with mean value $M$ and whose matrix elements have bounded variance.
 \end{theorem}
 
 \begin{proof}\label{Proof 1}
-Our aim in the proof is to use the central limit theorem.  Consider matrix element $r,s$ of $U_N$.  This is a random variable
+Our aim in the proof is to use the central limit theorem.  Consider matrix element $r,s$ of $M_N$.  This is a random variable
 \begin{equation}
-	\left(U_N\right)_{rs} = \frac{1}{N} \sum_{i=1}^N \left(U_i\right)_{rs}.
+	\left(M_N\right)_{rs} = \frac{1}{N} \sum_{i=1}^N \left(U_i\right)_{rs}.
 \end{equation}
-As the variation of the random variable $\left(U_i\right)_{rs}$ is bounded, we can use the central limit theorem to conclude that the matrix element $\left(U_N\right)_{rs}$ is a random variable with mean value $c\times U_{rs}$.
+As the matrix elements $(U_i)_{rs}$ are constructed from unitary matrices, their magnitude is bounded by $1$.  Given this finite domain, the real and imaginary parts have maximum variance and covariance of $1$ (though these extremal values are not simultaneously achievable).  Given this bounded variance, we can use the central limit theorem to conclude that the matrix element $\left(M_N\right)_{rs}$ is a random variable with mean value $M_{rs}$.
+The variance of the real or imaginary part of $(M_N)_{rs}$ is then upper bounded by $1/N$ as per the central limit theorem.
 \end{proof}
 
-The coefficient $c$ can be understood by considering that, for each $U_{i}$ to be unitary each matrix element must be bounded, any magnitude variation on a maximal matrix element must therefore lead to a decreased average magnitude. We will show below that this coefficient $c$ is the probability of success and as such, through post selection, the matrix $c\times U_{N}$  can be renormalised to a unitary matrix $U_{N}$ with $\lim_{N\rightarrow\infty}U_{N}=U$.
-(Another note: do we need to state bounded variation if $U_i$ are all unitary? If they are random unitaries, then surely the matrix elements must have bounded variation.  It's the condition of the mean that makes things work, i.e. this is NOT Haar random.)
 
-(The elements are correlated!!  This mustn't muck things up.  Do we even care about this correlation here?)
+The question now is what forms can the matrix $M$ take.  We have two cases where there is a definite answer which are outlined in the following two corollories.
 
-To implement the averaging of the random unitary network matrices we utilise a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an input-output relationship between mode annihilation operators of the form
+\begin{corollary}
+\label{Corollary 1}
+	If $\{U_1,\ldots,U_N\}$ are $1$-dimensional, then $M$ is a complex number with magnitude $|M| \leq 1$.
+\end{corollary}
+\begin{proof}
+	Write $U_k = e^{i \theta_k}$ where $p(\theta)$ is the probability density function for each of the angles $\theta_k$. From Theorem~\ref{Theorem 1} we need to compute the mean value 
+	\begin{equation}
+		M = \int^\pi_{-\pi} e^{i\theta} p(\theta) \mathrm{d}\theta.
+	\end{equation}
+This is exactly the characteristic function of $p(\theta)$ evaluated at $1$.  The characteristic function has bounded magnitude of $1$, which is the desired result.
+\end{proof}
+
+Corollary~\ref{Corollary 1} means that for the 1-dimensional case we can write $M=cU$ where $c \leq 1$ and $U$ has magnitude 1.  We will show below that the coefficient $c$ is the probability of success and as such, through post selection, the matrix $c\times U_{N}$  can be renormalised to a unitary matrix $U_{N}$ with $\lim_{N\rightarrow\infty}U_{N}=U$.
+
+\begin{corollary}
+	If $\{U_1,\ldots,U_N\}$ are $n$-dimensional but with a narrow distribution, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
+\end{corollary}
+\begin{proof}
+	We will extend the proof of Corollary~\cite{Corollary 1} to the $n$-dimensional case.  Write $U_k = U exp\{i t \sum_l \alpha_{kl} T_l\}$ where $T_l$ are the $n^2-1$ generators of the $u(n)$ Lie-algebra and $U$ is chosen so that the distribution is defined by probability density function $p(\alpha_1,\ldots,\alpha_l)$ is peaked around the origin. $T_l$ are chosen so that and $-\pi < \alpha_l < \pi$.
+\begin{widetext}
+	\begin{equation}
+		M = U
+		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
+		exp\{i t\sum_l \alpha_{l} T_l\} p(\alpha_1,\ldots,\alpha_l)
+		\mathrm{d}\alpha_1
+		\mathrm{d}\alpha_2
+		\ldots
+		\mathrm{d}\alpha_l
+	\end{equation}
+	\begin{equation}
+		M = U
+		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
+		(1 + i t\sum_l \alpha_{l} T_l + O(t^2)) p(\alpha_1,\ldots,\alpha_l)
+		\mathrm{d}\alpha_1
+		\mathrm{d}\alpha_2
+		\ldots
+		\mathrm{d}\alpha_l
+	\end{equation}
+\end{widetext}
+\end{proof}
+
+
+
+To implement the averaging of the random unitary network matrices from Theorem~\cite{Theorem 1} we utilise a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an input-output relationship between mode annihilation operators of the form
 \begin{equation}
 	a_{j,r} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} \omega^{rk} a_{j,k}	
 \end{equation}
