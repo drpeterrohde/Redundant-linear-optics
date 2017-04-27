@@ -133,7 +133,7 @@ In the next section details and results of most general set-up will be discussed
 
 % NOTATION SUGGESTION: Use \hat{} for Fock space operators and no hat for normal matricies.
 \section{General Unitary\label{gen case}}
-First let us consider a general linear transformation described by a unitary network matrix $U$. Theorem~\ref{Theorem 1} states that given access to $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ which are randomly distributed such that for all $i \in {1,\ldots,N}$, and given $U_{r,s}=\alpha_{r,s}e^{i\theta_{r,s}}$, $\langle \left(\theta_{i}\right)_{r,s} \rangle = \theta_{r,s}$, $\left|\left(\alpha_{i}\right)_{r,s}-\alpha_{r,s}\right|\ll1$ and $Var(U_i) = \sigma_i^2 < \infty$  the mean values of these unitaries approaches $c\times\hat{U}$, where $0\le c\le1$, in the same sense as the central limit theorem.
+First let us consider a general linear transformation described by a unitary network matrix $U$. Theorem~\ref{Theorem 1} states that given access to $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ which are randomly distributed such that for all $i \in {1,\ldots,N}$, and given $U_{r,s}=\alpha_{r,s}e^{i\theta_{r,s}}$, $\langle \left(\theta_{i}\right)_{r,s} \rangle = \theta_{r,s}$, $\left|\left(\alpha_{i}\right)_{r,s}-\alpha_{r,s}\right|\ll1$ and $Var(U_i) = \sigma_i^2 < \infty$  the mean values of these unitaries approaches $c\times\hat{U}$, where $0\le c\le1$, in the same sense as the central limit theorem. By the central limit theorem we also see that the variance, $\sigma_{i}^{2}$, scales as $\frac{1}{N}$.
 
 \begin{theorem}
 \label{Theorem 1}
@@ -172,35 +172,59 @@ This is exactly the characteristic function of $p(\theta)$ evaluated at $1$.  Th
 Corollary~\ref{Corollary 1} means that for the 1-dimensional case we can write $M=cU$ where $c \leq 1$ and $U$ has magnitude 1.  We will show below that the coefficient $c$ is the probability of success and as such, through post selection, the matrix $c\times U_{N}$  can be renormalised to a unitary matrix $U_{N}$ with $\lim_{N\rightarrow\infty}U_{N}=U$.
 
 \begin{corollary}
+\label{Corollary 2}
 	If $\{U_1,\ldots,U_N\}$ are $n$-dimensional but with a narrow distribution, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
 \end{corollary}
 \begin{proof}
-	We will extend the proof of Corollary~\cite{Corollary 1} to the $n$-dimensional case.  Write $U_k = U exp\{i t \sum_l \alpha_{kl} T_l\}$ where $T_l$ are the $n^2-1$ generators of the $u(n)$ Lie-algebra and $U$ is chosen so that the distribution is defined by probability density function $p(\alpha_1,\ldots,\alpha_l)$ is peaked around the origin. $T_l$ are chosen so that and $-\pi < \alpha_l < \pi$.
+	We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  Write $U_k = U exp\{i t \sum_l \alpha_{kl} T_l\}$ where $T_l$ are the $n^2-1$ generators of the $u(n)$ Lie-algebra and $U$ is chosen so that the distribution is defined by probability density function $p(\alpha_1,\ldots,\alpha_{n^{2}-1})$ is peaked around the origin. $T_l$ are chosen so that and $-\pi < \alpha_l < \pi$.
 \begin{widetext}
 	\begin{equation}
 		M = U
 		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
-		exp\{i t\sum_l \alpha_{l} T_l\} p(\alpha_1,\ldots,\alpha_l)
+		exp\{i t\sum_l \alpha_{l} T_l\} p(\alpha_1,\ldots,\alpha_{n^{2}-1})
 		\mathrm{d}\alpha_1
 		\mathrm{d}\alpha_2
 		\ldots
-		\mathrm{d}\alpha_l
+		\mathrm{d}\alpha_{n^{2}-1} \label{eq:general integral form}
 	\end{equation}
 	\begin{equation}
 		M = U
 		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
-		(1 + i t\sum_l \alpha_{l} T_l + O(t^2)) p(\alpha_1,\ldots,\alpha_l)
+		(1 + i t\sum_l \alpha_{l} T_l + O(t^2)) p(\alpha_1,\ldots,\alpha_{n^{2}-1})
 		\mathrm{d}\alpha_1
 		\mathrm{d}\alpha_2
 		\ldots
-		\mathrm{d}\alpha_l
+		\mathrm{d}\alpha_{n^{2}-1}
 	\end{equation}
 \end{widetext}
+
+	Consider the case where $p(\alpha_1,\ldots,\alpha_{n^{2}-1}) = p(\alpha_1)\times\ldots\times p(\alpha_{n^{2}-1})$ is a sufficiently narrow distribution around $\alpha_{l}=0$ such that $[a_{kl}T_{l},a_{km}T_{m}]\approx0 \forall l,m$. Equation \ref{eq:general integral form} simplifies by the Baker-Campbell-Hausdorff formula to
+
+\begin{widetext}
+	\begin{equation}
+		M = U
+		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
+		\prod_{l}exp\{i t\alpha_{l} T_l\}p(\alpha_1)
+		\mathrm{d}\alpha_1
+		\mathrm{d}\alpha_2
+		\ldots
+		\mathrm{d}\alpha_{n^{2}-1}
+	\end{equation}
+	\begin{equation}
+		M = U
+		\int^\pi_{-\pi} exp\{i t\alpha_{1} T_1\}p(\alpha_1) \mathrm{d}\alpha_1 	\int^\pi_{-\pi} exp\{i t\alpha_{2} T_2\}p(\alpha_2) \mathrm{d}\alpha_2 \ldots \int^\pi_{-\pi}
+		exp\{i t\alpha_{n^{2}-1} T_n^{2}-1\}p(\alpha_n^{2}-1)
+	\end{equation}
+\end{widetext}
+	Now given the narrow probability distributions are peaked on zero we can conclude that
+
+	\begin{equation}
+		M \approx U\times c\mathbb{I}=cU
+	\end{equation}
+	
 \end{proof}
 
-
-
-To implement the averaging of the random unitary network matrices from Theorem~\cite{Theorem 1} we utilise a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an input-output relationship between mode annihilation operators of the form
+To implement the averaging of the random unitary network matrices from Theorem~\ref{Theorem 1} we utilise a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an input-output relationship between mode annihilation operators of the form
 \begin{equation}
 	a_{j,r} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} \omega^{rk} a_{j,k}	
 \end{equation}
@@ -295,31 +319,6 @@ Section \ref{implementation} demonstrates how this can be implemented for variou
 %
 %Where $\hat{U}_{effective}=\hat{P}\hat{R}\hat{U}_{tot}\hat{S}$.
 %\end{proof}
-
-\begin{theorem} \label{Theorem 2}
-Error averaging applied to $N$ unitaries with small, random unitary errors each with fixed, finite variance $\nu$ results in an effective unitary with variance $\frac{\nu}{N}$.
-\end{theorem}
-
-\begin{proof} \label{Proof 2}
-By Theorem \ref{Theorem 1} error averaging applies an effective unitary of $\hat{U}_{effective}=\frac{1}{N}\sum_{j=1}^{N}\hat{U}_{j}$. Given $\hat{U}_{j}$ differ from the ideal $\hat{U}=e^{i\sum_{j=1}^{n^2-1}\alpha_{j}\hat{\sigma}_{j}}$  by small,  random errors, $\hat{U}_{j}$ can be written
-\begin{equation}
-	\hat{U}_{j}=e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}}
-\end{equation}
-where $\sigma_{k}$ are a complete set of $n^2-1$ generators of $\mathfrak{su}(n)$ and $\delta_{k}^{j}$ are the Gaussian random variables with variance $\nu$ which dictate the size and direction of errors in $\hat{U}_{j}$. Thus
-
-\begin{widetext}
-\begin{eqnarray}
-	\hat{U}_{effective} &=& \frac{1}{N}\sum_{j=1}^{N}e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
-	&=& \frac{1}{N}\sum_{j=1}^{N}\left(1+i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right) +O\left(\left(i\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right)^{2}\right) \\
-	&=& \frac{1}{N}\left(N+i\sum_{k=1}^{n^2-1}\left(N\alpha_{k}\hat{\sigma}_{k}+\sum_{j=1}^{N}\delta_{k}^{j}\hat{\sigma}_{k}\right)\right)+O\left(\left(i\left(\alpha_{k}+\delta_{k}^{j}\right)\hat{\sigma}_{k}\right)^{2}\right) \\
-	&=& e^{i\sum_{k=1}^{n^2-1}\left(\alpha_{k}+\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
-	&=& e^{i\sum_{k=1}^{n^2-1}\alpha_{k}\hat{\sigma}_{k}} e^{i\sum_{k=1}^{n^2-1}\left(\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}} \\
-	&=& \hat{U}e^{i\sum_{k=1}^{n^2-1}\left(\frac{1}{N}\sum_{j=1}^{N}\delta_{k}^{j}\right)\hat{\sigma}_{k}}
-\end{eqnarray}
-\end{widetext}
-
-Which by the central limit theorem tends towards a transformation $\hat{U}$ with Gaussian random errors which have mean $0$ and variance $\frac{\nu}{N}$. In general an actual system, particularly the error balanced systems considered in this paper, does not necessarily result in the variance of each generator being equal. However this would not change the key result here, that the variance scales as $\frac{1}{N}$
-\end{proof}
 
 \section{Implementation \label{implementation}}
 		
