@@ -44,6 +44,7 @@
 %\usepackage[mathlines]{lineno}% Enable numbering of text and display math
 %\linenumbers\relax % Commence numbering lines
 \usepackage{braket}
+\usepackage{placeins}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Theorem}
@@ -164,41 +165,56 @@ The question now is what forms can the matrix $M$ take.  We have two cases where
 \begin{proof}
 	Write $U_k = e^{i \theta_k}$ where $p(\theta)$ is the probability density function for each of the angles $\theta_k$. From Theorem~\ref{Theorem 1} we need to compute the mean value 
 	\begin{equation}
-		M = \int^\pi_{-\pi} e^{i\theta} p(\theta) \mathrm{d}\theta.
+		M = \int^\pi_{-\pi} e^{i\theta} p(\theta) \mathrm{d}\theta. \label{eq:single parameter, single mode}
 	\end{equation}
 This is exactly the characteristic function of $p(\theta)$ evaluated at $1$.  The characteristic function has bounded magnitude of $1$, which is the desired result.
 \end{proof}
 
-Corollary~\ref{Corollary 1} means that for the 1-dimensional case we can write $M=cU$ where $c \leq 1$ and $U$ has magnitude 1.  We will show below that the coefficient $c$ is the probability of success and as such, through post selection, the matrix $c\times U_{N}$  can be renormalised to a unitary matrix $U_{N}$ with $\lim_{N\rightarrow\infty}U_{N}=U$.
+Corollary~\ref{Corollary 1} means that for the 1-dimensional case we can write $M=cU$ where $c \leq 1$ and $U$ has magnitude 1.  We will show below that the coefficient $c$ is the probability of success and as such, through post selection, the matrix $c\times U_{N}$  can be renormalised to a unitary matrix $U_{N}$ with $\lim_{N\rightarrow\infty}U_{N}=U$. We can also consider the higher dimensional, single parameter situation which forms the bases system for most of the simulations. In this case, for some $su(n)$ generator $T$ we have
+
+\begin{equation}
+	M=\int p(\theta)e^{i\theta T}d\theta \label{eq:single parameter, multi-mode}
+\end{equation}
+\begin{equation}
+	M=\mathbb{I} \int p(\theta) \cos(\theta)d\theta
+		+ i T \int p(\theta) \sin(\theta)d\theta \label{eq:single parameter, multi-mode expanded}
+\end{equation}
+Consider a target matrix $U$ which commutes with the single error such that $M=Ue^{i\theta T}$, and assume a Gaussian error distribution with variance $\sigma^2$. Then provided $T$ is such that $\theta=0$ %I dont think this is necessary, i suspect the commuting error requirement forces this.% 
+the probability of success is approximately 
+\begin{equation}
+	c = e^{-\frac{\sigma^2}{2}}. \label{eq:Gaussian Psuccess}
+\end{equation}
+
+In the full parameter case, provided the target unitary $U$ again commutes with all errors a similar result can be found as discussed in \ref{Corollary 2}.
 
 \begin{corollary}
 \label{Corollary 2}
 	If $\{U_1,\ldots,U_N\}$ are $n$-dimensional but with a narrow distribution, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
 \end{corollary}
 \begin{proof}
-	We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  Write $U_k = U exp\{i t \sum_l \alpha_{kl} T_l\}$ where $T_l$ are the $n^2-1$ generators of the $u(n)$ Lie-algebra and $U$ is chosen so that the distribution is defined by probability density function $p(\alpha_1,\ldots,\alpha_{n^{2}-1})$ is peaked around the origin. $T_l$ are chosen so that and $-\pi < \alpha_l < \pi$.
+	We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  Write $U_k = U exp\{i t \sum_l \alpha_{kl} T_l\}$ where $T_l$ are the $n^2$ generators of the $u(n)$ Lie-algebra and $U$ is chosen so that the distribution is defined by probability density function $p(\alpha_1,\ldots,\alpha_{n^{2}-1})$ is peaked around the origin. $T_l$ are chosen so that and $-\pi < \alpha_l < \pi$.
 \begin{widetext}
 	\begin{equation}
 		M = U
 		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
-		exp\{i t\sum_l \alpha_{l} T_l\} p(\alpha_1,\ldots,\alpha_{n^{2}-1})
+		exp\{i t\sum_l \alpha_{l} T_l\} p(\alpha_1,\ldots,\alpha_{n^{2}})
 		\mathrm{d}\alpha_1
 		\mathrm{d}\alpha_2
 		\ldots
-		\mathrm{d}\alpha_{n^{2}-1} \label{eq:general integral form}
+		\mathrm{d}\alpha_{n^{2}} \label{eq:general integral form}
 	\end{equation}
 	\begin{equation}
 		M = U
 		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
-		(1 + i t\sum_l \alpha_{l} T_l + O(t^2)) p(\alpha_1,\ldots,\alpha_{n^{2}-1})
+		(1 + i t\sum_l \alpha_{l} T_l + O(t^2)) p(\alpha_1,\ldots,\alpha_{n^{2}})
 		\mathrm{d}\alpha_1
 		\mathrm{d}\alpha_2
 		\ldots
-		\mathrm{d}\alpha_{n^{2}-1}
+		\mathrm{d}\alpha_{n^{2}}
 	\end{equation}
 \end{widetext}
 
-	Consider the case where $p(\alpha_1,\ldots,\alpha_{n^{2}-1}) = p(\alpha_1)\times\ldots\times p(\alpha_{n^{2}-1})$ is a sufficiently narrow distribution around $\alpha_{l}=0$ such that $[a_{kl}T_{l},a_{km}T_{m}]\approx0 \forall l,m$. Equation \ref{eq:general integral form} simplifies by the Baker-Campbell-Hausdorff formula to
+	Consider the case where $p(\alpha_1,\ldots,\alpha_{n^{2}}) = p(\alpha_1)\times\ldots\times p(\alpha_{n^{2}})$ is a sufficiently narrow distribution around $\alpha_{l}=0$ such that $[a_{kl}T_{l},a_{km}T_{m}]\approx0 \forall l,m$. Equation \ref{eq:general integral form} simplifies by the Baker-Campbell-Hausdorff formula to
 
 \begin{widetext}
 	\begin{equation}
@@ -208,12 +224,12 @@ Corollary~\ref{Corollary 1} means that for the 1-dimensional case we can write $
 		\mathrm{d}\alpha_1
 		\mathrm{d}\alpha_2
 		\ldots
-		\mathrm{d}\alpha_{n^{2}-1}
+		\mathrm{d}\alpha_{n^{2}}
 	\end{equation}
 	\begin{equation}
 		M = U
 		\int^\pi_{-\pi} exp\{i t\alpha_{1} T_1\}p(\alpha_1) \mathrm{d}\alpha_1 	\int^\pi_{-\pi} exp\{i t\alpha_{2} T_2\}p(\alpha_2) \mathrm{d}\alpha_2 \ldots \int^\pi_{-\pi}
-		exp\{i t\alpha_{n^{2}-1} T_n^{2}-1\}p(\alpha_n^{2}-1)
+		exp\{i t\alpha_{n^{2}-1} T_n^{2}-1\}p(\alpha_n^{2})
 	\end{equation}
 \end{widetext}
 	Now given the narrow probability distributions are peaked on zero we can conclude that
@@ -223,6 +239,7 @@ Corollary~\ref{Corollary 1} means that for the 1-dimensional case we can write $
 	\end{equation}
 	
 \end{proof}
+From \ref{Corollary 2} and given our previous result for a Gaussian error distribution we can conclude that the probability of success will be given approximately by the product of $n^2$ exponentials.
 
 To implement the averaging of the random unitary network matrices from Theorem~\ref{Theorem 1} we utilise a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an input-output relationship between mode annihilation operators of the form
 \begin{equation}
@@ -261,74 +278,15 @@ Figure \ref{fig:gen system} also demonstrates that when using the beam-splitter 
 \end{figure}
 Section \ref{implementation} demonstrates how this can be implemented for various example systems. It can also be noted that Equation \ref{sum_unitary} can become the appropriate transformation for duality quantum computing by allowing the $u_{i}$ to be arbitrary \cite{dualityQC}.
 
-
-
-%Define the total state space as a direct sum of $N$ copies of the original transformation's state space $\{\left|\phi\right\rangle\}$. The input state $\left|\psi\right\rangle$ is then
-%\begin{equation}
-%	\left|\psi\right\rangle\rightarrow\left|\psi\right\rangle_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\right)\equiv\left|\psi\right\rangle_{in}
-%\end{equation}
-%that is, the total input state $\left|\psi\right\rangle_{in}$ corresponds to the original input state $\left|\psi\right\rangle$ in the first subspace and the vacuum state in all others.
-%
-%Define the $N$ copies of the transformation as
-%\begin{equation}
-%	\hat{U}_{i}=\left(\hat{U}_{error}\right)_{i}\oplus\left(\bigoplus_{i=2}^{N}\mathbb{I}_{j}\right)
-%\end{equation}
-%with the constraints that
-%\begin{eqnarray}
-%	\hat{U}_{i}\bigoplus_{j=1}^{N}\left|\psi\right\rangle_{j} &=& \left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{i}\oplus\left(\bigoplus_{j\ne i}\left|\psi\right\rangle_{j}\right)\\
-%	\hat{U}_{i}\left|0\right\rangle_{i}&=&\left|0\right\rangle_{i}
-%\end{eqnarray}
-%
-%Define $\hat{U}_{tot}=\bigotimes_{i=1}^{N}\hat{U}_{i} $
-%
-%Define the splitting operator, $\hat{S}$ as an operator which mixes the subspaces such that
-%\begin{eqnarray}
-%	\hat{S}\left|0\right\rangle_{i} &=& \left|0\right\rangle \\
-%	\hat{S}\left|\phi\right\rangle_{1} &=& \frac{1}{\sqrt{N}}\sum_{i=1}^{N}\left(-1\right)^{f\left(i\right)}\left|\phi\right\rangle_{i}\oplus\left(\bigoplus_{j\ne i}\left|0\right\rangle_{j}\right) 
-%\end{eqnarray}
-%where $f\left(i\right)\in\{0,1\}$.
-%
-%Define the recombining operator, $\hat{R}$ as a similar subspace mixing operator which acts as
-%\begin{eqnarray}
-%	\hat{R}\left|0\right\rangle_{i} &=& \left|0\right\rangle \\
-%	\hat{R}\left|\phi\right\rangle_{i} &=& \frac{1}{\sqrt{N}}\sum_{j=1}^{N} g\left(i,j\right)\left|\phi\right\rangle_{j}\oplus\left(\bigoplus_{k\ne j}\left|0\right\rangle_{k}\right) 
-%	\end{eqnarray}
-%where $g\left(i,j\right)\in\{-1,0,1\}$ and $g\left(i,1\right)=\left(-1\right)^{f\left(i\right)}$.
-%
-%Define the post selection operator, $\hat{P}$ to be employed at the end of the error averaging procedure such that is post selects on all but the first subspace being in the vacuum state, that is
-%\begin{equation}
-%	\hat{P}=\mathbb{I}_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\left\langle 0\right|_{i}\right)
-%\end{equation}
-%
-%With this error averaging can be defined as $\hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\phi\right\rangle_{in}$. Its action on the input state will therefore be
-%\begin{eqnarray}
-%	& & \hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\psi\right\rangle_{in}\\
-%	&=& \frac{\hat{P}\hat{R}\hat{U}_{tot}}{\sqrt{N}}\sum_{i=1}^{N}(-1)^{f\left(i\right)}\left|\psi\right\rangle_{i}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
-%	&=& \frac{\hat{P}\hat{R}}{\sqrt{N}}\sum_{i=1}^{N}(-1)^{f\left(i\right)}\hat{U}_{i}\left|\psi\right\rangle_{i}\oplus\left(\bigoplus_{j\ne i}^{N}\left|0\right\rangle_{j}\right) \\
-%	&=& \frac{\hat{P}}{N}\sum_{k=1}^{N}\sum_{i=1}^{N}g\left(i,k\right)(-1)^{f\left(i\right)}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{k}\oplus\left(\bigoplus_{j\ne k}^{N}\left|0\right\rangle_{j}\right) \\
-%	&=& \frac{1}{N}\sum_{i=1}^{N}g\left(i,1\right)(-1)^{f\left(i\right)}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
-%	&=& \frac{1}{N}\sum_{i=1}^{N}\left((-1)^{f\left(i\right)}\right)^{2}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) 
-%	\end{eqnarray}
-%
-%Thus
-%\begin{eqnarray}
-%	& & \hat{P}\hat{R}\hat{U}_{tot}\hat{S}\left|\psi\right\rangle_{1}\oplus\left(\bigoplus_{i=2}^{N}\left|0\right\rangle_{i}\right)\\
-%	&=& \frac{1}{N}\sum_{i=1}^{N}\left(\hat{U}_{i}\left|\psi\right\rangle_{i}\right)_{1}\oplus\left(\bigoplus_{j=2}^{N}\left|0\right\rangle_{j}\right) \\
-%	\hat{U}_{effective} \left|\psi\right\rangle_{1} &=& \frac{1}{N}\left(\sum_{i=1}^{N}\hat{U}_{i}\right)\left|\psi\right\rangle_{1}
-%\end{eqnarray}
-%
-%Where $\hat{U}_{effective}=\hat{P}\hat{R}\hat{U}_{tot}\hat{S}$.
-%\end{proof}
-
 \section{Implementation \label{implementation}}
 		
-	Now that the basic idea is understood it is necessary to consider how error averaging can actually be implemented. The first of the two key requirements is that the fundamental particle used as the computational qubit can be placed in a spacial superposition. The second requirement is that any employed unitary $\hat{U}$  does not act on the vacuum, that is $\hat{U}\left|0\right>=\left|0\right>$. Although these seem restrictive, LOQC automatically satisfies both of these requirements. A spacial superposition can be created easily using beam splitters and any linear optical unitary cannot, by definition, effect the vacuum.
+	The following section discusses the results of numerical simulations for various systems implementing error averaging. To understand why linear optics was the chosen implementation consider the two key requirements of implementation. The first requirement is that the fundamental particle used as the computational qubit can be placed in a spacial superposition. The second requirement is that any employed unitary $\hat{U}$  does not act on the vacuum, that is $\hat{U}\left|0\right>=\left|0\right>$. Although these seem restrictive, LOQC automatically satisfies both of these requirements. A spacial superposition can be created easily using beam splitters and any linear optical unitary cannot, by definition, effect the vacuum.
 	
 	Within the LOQC architecture, the following discussion will be agnostic about the specific encoding method by working in the Fock basis. In this way both single and dual rail encoding can be corrected and as such will generally not be considered in all further discussions.
 	
 	The following sections will discuss a series of example systems implementing error averaging with a focus on phase errors for simplicity. First note that two of the controllable and fundamental components in LOQC are phase shifters and beam splitters. A paper by Jacques Carolan et. al. \cite{ULO} demonstrated how this can be reduced to controllable phase shifters and fixed beam splitters. The basic idea is to replace each beam splitter with a Mach Zehnder (MZ) interferometer consisting of a controllable phase shifter in one arm and two fixed $50:50$ beam splitters. Although this idea is not particularly new they showed that such a system is able to implement many quantum logic gates and linear optical protocols with a high fidelity.  In this way we also only need to consider phase errors to correct a general linear optical quantum computing system.
 	
-	It is this system which inspired the basic form of our error averaging example systems. Unless otherwise specified the $50:50$ beam splitters are assumed to be perfect and the phase shifters are taken to be the source of all errors. The applied phase shift was taken to be of the form $e^{i(\theta+\delta)}$ where, for the identity, $\theta=0$ and $\delta$ is the random error variable, chosen from some fixed distribution. This distribution is taken to be Gaussian with mean $0$ and variance $v$. We will initially consider a single beam splitter for a one and two photon inputs with $N$ internal phase shifters where $N=2^{n},n\in\mathbb{N}$. As the entire system is implementing a beam splitter it has two desired input and output modes. However as $N$ increases so too does the actual number of input and output modes. All of these extra input modes are effectively ignored by being set to the vacuum state $\left|0\right\rangle $. The extra output ports all have photo-detectors which will be post selected on being zero.
+	It is this system which inspired the basic form of our error averaging example systems. Unless otherwise specified the $50:50$ beam splitters are assumed to be perfect and the phase shifters are taken to be the source of all errors. The applied phase shift was taken to be of the form $e^{i(\theta+\delta)}$ where, for the identity, $\theta=0$ and $\delta$ is the random error variable, chosen from some fixed distribution. This corresponds directly to Equation \ref{eq:single parameter, multi-mode}. This distribution is taken to be Gaussian with mean $0$ and variance $v$. We will initially consider a single beam splitter for a one and two photon inputs with $N$ internal phase shifters where $N=2^{n},n\in\mathbb{N}$. As the entire system is implementing a beam splitter it has two desired input and output modes. However as $N$ increases so too does the actual number of input and output modes. All of these extra input modes are effectively ignored by being set to the vacuum state $\left|0\right\rangle $. The extra output ports all have photo-detectors which will be post selected on being zero.
 		
 	
 	\subsection{1 photon N arbitrary \label{1 photon N arbitrary}}
@@ -347,36 +305,36 @@ Section \ref{implementation} demonstrates how this can be implemented for variou
 			\caption{\label{fig:MZ_setup}Diagram of interferometer with $N=2$ that is, two phase shifter. Note that the $a$ and $b$ output modes and $c$ error detection mode are marked along with the input state used for all single photon calculations. The phase shifters are marked with $\theta_{i}$ and are the source of the error in the applied phase shift.}
 		\end{figure}
 		
-		This output is effectively truncated so as to ignore all output modes which are post selected to be in the vacuum state. This gives the probability of observing the photon in the $\hat{a}$ and $\hat{b}$ modes without post selection as
+		This output is effectively truncated so as to ignore all output modes which are post selected to be in the vacuum state. Furthermore  in the following two sections second order Taylor approximations we used to simplify the result. This gives the probability of observing the photon in the $\hat{a}$ and $\hat{b}$ modes without post selection as
 		
 		\begin{eqnarray}
-			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle & = & \cos^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\cos^{2}(\theta/2)}{2}
+			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle & \approx & \cos^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\cos^{2}(\theta/2)}{2}
 		\end{eqnarray}
 		
 		
 		and
 		
 		\begin{eqnarray}
-			\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & = & \sin^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\sin^{2}(\theta/2)}{2}.
+			\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & \approx & \sin^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\sin^{2}(\theta/2)}{2}.
 		\end{eqnarray}
 		
 		The probability of success in this case it is given by
 		
 		\begin{eqnarray}
 			P(\textrm{success}) & = & \left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle +\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle \\
-			& = & 1+\frac{v}{2N}-\frac{v}{2} \label{eq:1pNarbitrary successs}
+			& \approx & 1+\frac{v}{2N}-\frac{v}{2} \label{eq:1pNarbitrary successs}
 		\end{eqnarray}
 		
-		To further illustrate the effect of error averaging when combined with post selection, consider the case when $\theta=0$, the probability of observing the correct result without post selection is
+		It is worth noting that in the large $N$ limit, this corresponds to the linear approximation of Equation \ref{eq:Gaussian Psuccess}. To further illustrate the effect of error averaging when combined with post selection, consider the case when $\theta=0$, the probability of observing the correct result without post selection is
 		
 		\begin{equation}
-			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle = 1 - \frac{(2N-1)v}{4N}. \label{eq:1pNoPost}
+			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle \approx 1 - \frac{(2N-1)v}{4N}. \label{eq:1pNoPost}
 		\end{equation}
 	
 		However after post selection this becomes
 		
 		\begin{equation}
-			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle = 1 - \frac{v}{4N}. \label{eq:1pWithPost}
+			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle \approx 1 - \frac{v}{4N}. \label{eq:1pWithPost}
 		\end{equation}
 		
 		Figure \ref{fig:post vs no post} shows how these two results scale with $N$. In particular, it can be seen that with post selection $\left\langle \hat{a}^{\dagger}\hat{a}\right\rangle$ can be made arbitrarily close to unity by increasing $N$. Also it is seen that while the probability of success decreases for increasing $N$ when between $1$ to $16$, above $N=16$ the penalty asymptotes to some fixed value. This implies that as $N$ increases the total amount of error generated in the system increases, however it does so non-linearly such that their is some maximum amount of error which can be introduced this way. Meanwhile the process of averaging and interfering the state ensures that this error tends to be found in the error ports resulting in the state in the output modes approaching perfection.
@@ -432,7 +390,7 @@ Section \ref{implementation} demonstrates how this can be implemented for variou
 			P(\textrm{success}) & \approx & 1-v+\frac{v}{2N}.\label{eq:2pNarb Success}
 		\end{eqnarray}
 	
-		So in both these instances we see the probability of success scaling as $\frac{1}{N}$.
+		Here, again in the large $N$ limit the result matches Equation \ref{eq:Gaussian Psuccess} provided it is squared before taking the linear approximation. Also both these instances we see the probability of success scaling with $\frac{1}{N}$.
 		
 	\section{Comparison between averaging at end and averaging each step\label{averaging at end vs step}}
 	
@@ -455,12 +413,18 @@ Section \ref{implementation} demonstrates how this can be implemented for variou
 		\subsection{Phase applying systems\label{Phase applying systems}}
 		In the previous sections error averaging has been explored by considering the average photon number. It is also necessary to consider the result in a `shot by shot' case. To this end the output of a simple phase applying system is also considered. This will also serve to highlight the differences between the two methods of implementation.
 		
-		The quantum Zeno effect can be summarised by the saying \textit{a watched pot never boils} or, more scientifically, by repeatedly and regularly measuring a system, it will by necessity remain in an eigenstate of the measurement operator, even if that is not a stationary state of the system \cite{expZeno}. In this section error averaging after each applied phase shift is compared to averaging across the entire system. To explore this consider a single channel containing $m$ phasers. This was chosen to better characterise error averaging when applied to a series of error sources as any differences between the two methods of error correction will be more likely to be seen in larger systems. These systems were also used to determine if a quantum Zeno effect also known as the Turing paradox would be observed.
+		In this section error averaging after each applied phase shift is compared to averaging across the entire system. To explore this consider a single channel containing $m$ phasers. This was chosen to better characterise error averaging when applied to a series of error sources as any differences between the two methods of error correction will be more likely to be seen in larger systems. These systems were also used to determine if a quantum Zeno effect  \cite{expZeno} also known as the Turing paradox would be observed.
 		
 		Figure \ref{fig:Different methods of implementation} shows the set-up for the phase applying systems.
 		
-		Following a very similar approach to the earlier sections the applied phase shifters were placed in one arm of a MZ interferometer and photon number expectation values will be calculated. For simplicity the applied phase shift was chosen to be zero with a Gaussian random noise of variance $v$. This was chosen such that the errors here match what was modelled in sections \ref{1 photon N arbitrary} and \ref{2 photons N arbitrary}. The probability of success is now defined as the photon number expectation value evaluated at the end of the phase applying systems while the strength of the error was initially defined as the photon number expectation value of the MZ interferometer system for the expected output had no error occurred. All approximate results are based of fourth order Taylor approximations with comparisons drawn to the second order approximations as used above.
-		
+		Following a very similar approach to the earlier sections the applied phase shifters were placed in one arm of a MZ interferometer and photon number expectation values will be calculated. For simplicity the applied phase shift was chosen to be zero with a Gaussian random noise of variance $v$. This was chosen such that the errors here match what was modelled in sections \ref{1 photon N arbitrary} and \ref{2 photons N arbitrary}. The probability of success is now defined as the photon number expectation value evaluated at the end of the phase applying systems while the strength of the error was initially defined as the photon number expectation value of the MZ interferometer system for the expected output had no error occurred. All approximate results are based of fourth order Taylor approximations with comparisons drawn to the second order approximations as used above. This system corresponds to the chaining together of Equation \ref{eq:single parameter, multi-mode} with 
+		\begin{equation}
+		T=\begin{bmatrix}
+			0 & 1 \\
+			1 & 0 \\
+			\end{bmatrix}
+		\end{equation}
+			
 		
 		\subsubsection{No Averaging\label{No Averaging}}
 		
@@ -617,7 +581,7 @@ Section \ref{implementation} demonstrates how this can be implemented for variou
 		
 		\subsubsection{Statistical Modelling of the Applied Phase\label{Statistical Modelling of the Applied Phase}}
 		
-		To better understand the behaviour of the three phase applying systems, the total applied phase was modelled using Mathematica with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This was repeated $5000$ times and the results are shown in Figure \ref{fig:Total-applied-phase1} and Figure \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. In particular the range of applied phases is noticeably smaller when each phase shifter is corrected individually, a clear indication that averaging each step is more effective. By comparing Figure \ref{fig:Total-applied-phase1} with Figure \ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure \ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case.
+		To better understand the behaviour of the three phase applying systems, the total applied phase was modelled using Mathematica with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This now corresponds to Equation \ref{eq:single parameter, single mode} with $\theta=\prod_{i}\theta_{i}$. This was repeated $5000$ times and the results are shown in Figure \ref{fig:Total-applied-phase1} and Figure \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. In particular the range of applied phases is noticeably smaller when each phase shifter is corrected individually, a clear indication that averaging each step is more effective. By comparing Figure \ref{fig:Total-applied-phase1} with Figure \ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure \ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case. In particular we can infer that the region in which the two methods give the same results corresponds to the region in which the $u(n)$ errors approximately commute with one another and are therefore separable.
 		
 		\begin{figure}
 			\begin{centering}
@@ -691,9 +655,7 @@ Section \ref{implementation} demonstrates how this can be implemented for variou
 		
 		\subsection{Four Mode Implementation Comparison \label{Four Mode Impementation Comparison}}
 		
-		To gain a better understanding of how useful this method of error averaging actually is, a series of more complicated systems were then considered. In particular, we decided to explore a four mode system. Rather than just averaging each individual beam splitter, we sought to determine if it is possible to average across an entire systems. If this new method has a similar error profile as the original set-up it would be far more useful. This is because it would require far fewer perfect beam splitters for it to be implemented.
-		
-		The set up consisted of a four mode system with four beam splitters, each implemented as above, that is each being its own MZ interferometer as shown in Figure \ref{fig:4 mode basis diagram}. Three different input states were chosen: a single photon input in the top mode and the vacuum state at all other modes$\left(\left|1,0,0,0\right\rangle \right)$, two photons, both in the top mode $\left(\left|2,0,0,0\right\rangle \right)$ and two photons spread across the top two modes $\left(\left|1,1,0,0\right\rangle \right)$. For simplicity the system was chosen to implement the identity and error reduction was then applied using both implementations. That is, by averaging each beam splitter as done in section \ref{1 photon N arbitrary} and by concatenating the entire system in an interferometer as shown in Figure \ref{fig: averaging 4 mode diagram}. All results were found using \textit{Mathemtatica} to sample from the appropriate transformation matrix representing the system and then compute the photon number expectation values and probabilities for $N=1, 2 \textrm{ and } 4$.
+		To gain a better understanding of how useful this method of error averaging actually is, a series of more complicated systems were then considered. In particular, we decided to explore a four mode system with both methods of error error averaging. The set up consisted of a four mode system with four beam splitters, each implemented as above, that is each being its own MZ interferometer as shown in Figure \ref{fig:4 mode basis diagram}. Three different input states were chosen: a single photon input in the top mode and the vacuum state at all other modes$\left(\left|1,0,0,0\right\rangle \right)$, two photons, both in the top mode $\left(\left|2,0,0,0\right\rangle \right)$ and two photons spread across the top two modes $\left(\left|1,1,0,0\right\rangle \right)$. For simplicity the system was chosen to implement the identity and error reduction was then applied using both implementations. That is, by averaging each beam splitter as done in section \ref{1 photon N arbitrary} and by concatenating the entire system in an interferometer as shown in Figure \ref{fig: averaging 4 mode diagram}. All results were found using \textit{Mathemtatica} to sample from the appropriate transformation matrix representing the system and then compute the photon number expectation values and probabilities for $N=1, 2 \textrm{ and } 4$. All results can be found in Appendix \ref{Appendix full of results}
 		
 		\begin{figure}[h]
 			\begin{centering}
@@ -848,6 +810,268 @@ Section \ref{implementation} demonstrates how this can be implemented for variou
 % Create the reference section using BibTeX:
 \bibliography{references}
 
+\appendix
+\begin{widetext}
+\section{Four Mode Numerical Results \label{Appendix full of results}}
+\FloatBarrier
+This appendix contains all simulation results for the four mode system discussed in Section \ref{Four Mode Impementation Comparison}. All results are based on a second order Taylor expansion with $\nu\ll1$.
+
+Tables \ref{tab:1 photon output prob bs} and \ref{tab:1 photon output prob as}
+show the output probabilities and correct result probability with
+post selection for the single photon input state $\left|1,0,0,0\right\rangle $.
+These show that, at least for a single photon the two correction methods
+are equivalent. We also see the halving of errors as seen in sections
+3.2 and 3.4 suggesting this pattern may hold for a single photon with
+an arbitrary number of modes.
+
+\begin{table}
+	\resizebox{\textwidth}{!}{
+		
+		\begin{centering}
+			\begin{tabular}{|c|c|>{\centering}p{4cm}|>{\centering}p{4cm}|}
+				\hline 
+				Output State & No Error Reduction & Averaging Beam splitters Once $\left(N=2\right)$ & Averaging Beam splitters Twice $\left(N=4\right)$\tabularnewline
+				\hline 
+				\hline 
+				$\left|1,0,0,0\right\rangle $ & $1-\frac{v}{2}$ & $1-\frac{3v}{4}$ & $1-\frac{7v}{8}$\tabularnewline
+				\hline 
+				$\left|0,1,0,0\right\rangle $ & $\frac{v}{4}$ & $\frac{v}{8}$ & $\frac{v}{16}$\tabularnewline
+				\hline 
+				$\left|0,0,1,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,0,1\right\rangle $ & $\frac{v}{4}$ & $\frac{v}{8}$ & $\frac{v}{16}$\tabularnewline
+				\hline 
+				$\left|1,0,0,0\right\rangle $ with post selection & $1-\frac{v}{2}$ & $1-\frac{v}{4}$ & $1-\frac{v}{8}$\tabularnewline
+				\hline 
+			\end{tabular}
+			\par\end{centering}
+		
+	}
+	
+	\caption[Output probabilities for various levels of correcting the individual
+	beam splitters in a 4 mode set-up given an input of the state $\left|1,0,0,0\right\rangle $
+	.]{Output probabilities for various levels of correcting the individual
+		beam splitters in a 4 mode set-up given an input of the state $\left|1,0,0,0\right\rangle $
+		where $v$ is the variance of the phase error . \label{tab:1 photon output prob bs}}
+\end{table}
+\begin{table}
+	\resizebox{\textwidth}{!}{
+		
+		\begin{centering}
+			\begin{tabular}{|c|c|>{\centering}p{4cm}|>{\centering}p{4cm}|}
+				\hline 
+				Output State & No Error Reduction & Averaging Across the System Once $\left(N=2\right)$ & Averaging Across the System Twice $\left(N=4\right)$\tabularnewline
+				\hline 
+				\hline 
+				$\left|1,0,0,0\right\rangle $ & $1-\frac{v}{2}$ & $1-\frac{3v}{4}$ & $1-\frac{7v}{8}$\tabularnewline
+				\hline 
+				$\left|0,1,0,0\right\rangle $ & $\frac{v}{4}$ & $\frac{v}{8}$ & $\frac{v}{16}$\tabularnewline
+				\hline 
+				$\left|0,0,1,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,0,1\right\rangle $ & $\frac{v}{4}$ & $\frac{v}{8}$ & $\frac{v}{16}$\tabularnewline
+				\hline 
+				$\left|1,0,0,0\right\rangle $ with post selection & $1-\frac{v}{2}$ & $1-\frac{v}{4}$ & $1-\frac{v}{8}$\tabularnewline
+				\hline 
+			\end{tabular}
+			\par\end{centering}
+		
+	}
+	
+	\caption[Output probabilities for various levels of correcting the across the
+	system in a 4 mode set-up given an input of the state $\left|1,0,0,0\right\rangle $.]{Output probabilities for various levels of correcting the across
+		the system in a 4 mode set-up given an input of the state $\left|1,0,0,0\right\rangle $
+		where $v$ is the variance of the phase error. \label{tab:1 photon output prob as}}
+\end{table}
+
+
+Tables \ref{tab:2 photon output prob bs} and \ref{tab:2 photon output prob as}
+show the output probabilities and correct result probability with
+post selection for the single photon input state $\left|2,0,0,0\right\rangle $.
+What we see is, unsurprisingly, much the same as in the single photon
+case with a heightened susceptibility to the error. This includes
+the halving pattern however this is expected as adding two photons
+in the same mode will not necessarily lead to new interference effects
+being observed.
+
+\begin{table}
+	\resizebox{\textwidth}{!}{
+		
+		\begin{centering}
+			\begin{tabular}{|c|>{\centering}p{4cm}|>{\centering}p{4cm}|}
+				\hline 
+				Output State & No Error Reduction & Averaging Beam splitters Once $\left(N=2\right)$\tabularnewline
+				\hline 
+				\hline 
+				$\left|2,0,0,0\right\rangle $ & $1-v$ & $1-\frac{3v}{2}$\tabularnewline
+				\hline 
+				$\left|0,2,0,0\right\rangle $ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,2,0\right\rangle $ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,0,2\right\rangle $ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|1,1,0,0\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{4}$\tabularnewline
+				\hline 
+				$\left|1,0,1,0\right\rangle $ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|1,0,0,1\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{4}$\tabularnewline
+				\hline 
+				$\left|0,1,1,0\right\rangle $ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,1,0,1\right\rangle $ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,1,1\right\rangle $ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|2,0,0,0\right\rangle $ with post selection & $1-v$ & $1-\frac{v}{2}$\tabularnewline
+				\hline 
+			\end{tabular}
+			\par\end{centering}
+		
+	}
+	
+	\caption[Output probabilities for various levels of correcting the individual
+	beam splitters in a 4 mode set-up given an input of the state $\left|2,0,0,0\right\rangle $.]{Output probabilities for various levels of correcting the individual
+		beam splitters in a 4 mode set-up given an input of the state $\left|2,0,0,0\right\rangle $
+		where $v$ is the variance of the phase error. \label{tab:2 photon output prob bs}}
+\end{table}
+\begin{table}
+	\resizebox{\textwidth}{!}{
+		
+		\begin{centering}
+			\begin{tabular}{|c|>{\centering}p{4cm}|>{\centering}p{4cm}|>{\centering}p{4cm}|}
+				\hline 
+				Output State & No Error Reduction & Averaging Beam splitters Once $\left(N=2\right)$ & Averaging Beam splitters Twice $\left(N=4\right)$\tabularnewline
+				\hline 
+				\hline 
+				$\left|2,0,0,0\right\rangle $ & $1-v$ & $1-\frac{3v}{2}$ & $1-\frac{7v}{4}$\tabularnewline
+				\hline 
+				$\left|0,2,0,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,2,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,0,2\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|1,1,0,0\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{4}$ & $\frac{v}{8}$\tabularnewline
+				\hline 
+				$\left|1,0,1,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|1,0,0,1\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{4}$ & $\frac{v}{8}$\tabularnewline
+				\hline 
+				$\left|0,1,1,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,1,0,1\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,1,1\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|2,0,0,0\right\rangle $ with post selection & $1-v$ & $1-\frac{v}{2}$ & $1-\frac{v}{4}$\tabularnewline
+				\hline 
+			\end{tabular}
+			\par\end{centering}
+		
+	}
+	
+	\caption[Output probabilities for various levels of correcting the across the
+	system in a 4 mode set-up given an input of the state $\left|2,0,0,0\right\rangle $.]{Output probabilities for various levels of correcting the across
+		the system in a 4 mode set-up given an input of the state $\left|2,0,0,0\right\rangle $
+		where $v$ is the variance of the phase error. \label{tab:2 photon output prob as}}
+\end{table}
+
+
+Tables \ref{tab:1,1 photon output prob as} and \ref{tab:1,1 photon output prob as}
+show the output probabilities and correct result probability with
+post selection for the single photon input state $\left|1,1,0,0\right\rangle $.
+It can once more be seen that the two methods of error correction
+appear to be equivalent. Now there is an underlying pattern clearly
+forming which appears to hold for arbitrary one and two photon inputs.
+This is important as it allows us to conclude about when it is most
+useful to use each type of correction. It also allowed a prediction
+of the error models for applications of error averaging, as discussed
+below.
+
+\begin{table}
+	\resizebox{\textwidth}{!}{
+		
+		\begin{centering}
+			\begin{tabular}{|c|>{\centering}p{4cm}|>{\centering}p{4cm}|>{\centering}p{4cm}|}
+				\hline 
+				Output State & No Error Reduction & Averaging Beam splitters Once $\left(N=2\right)$ & Averaging Beam splitters Twice $\left(N=4\right)$\tabularnewline
+				\hline 
+				\hline 
+				$\left|2,0,0,0\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{4}$ & $\frac{v}{8}$\tabularnewline
+				\hline 
+				$\left|0,2,0,0\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{4}$ & $\frac{v}{8}$\tabularnewline
+				\hline 
+				$\left|0,0,2,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,0,2\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|1,1,0,0\right\rangle $ & $1-\frac{3v}{2}$ & $1-\frac{7v}{4}$ & $1-\frac{15v}{8}$\tabularnewline
+				\hline 
+				$\left|1,0,1,0\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{8}$ & $\frac{v}{16}$\tabularnewline
+				\hline 
+				$\left|1,0,0,1\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,1,1,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,1,0,1\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{8}$ & $\frac{v}{16}$\tabularnewline
+				\hline 
+				$\left|0,0,1,1\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|1,1,0,0\right\rangle $ with post selection & $1-\frac{3v}{2}$ & $1-\frac{3v}{4}$ & $1-\frac{3v}{8}$\tabularnewline
+				\hline 
+			\end{tabular}
+			\par\end{centering}
+		
+	}
+	
+	\caption[Output probabilities for various levels of correcting the individual
+	beam splitters in a 4 mode set-up given an input of the state $\left|1,1,0,0\right\rangle $.]{Output probabilities for various levels of correcting the individual
+		beam splitters in a 4 mode set-up given an input of the state $\left|1,1,0,0\right\rangle $
+		where $v$ is the variance of the phase error. \label{tab:1,1 photon output prob bs}}
+\end{table}
+\begin{table}
+	\resizebox{\textwidth}{!}{
+		
+		\begin{centering}
+			\begin{tabular}{|c|>{\centering}p{4cm}|>{\centering}p{4cm}|>{\centering}p{4cm}|}
+				\hline 
+				Output State & No Error Reduction & Averaging Beam splitters Once $\left(N=2\right)$ & Averaging Beam splitters Twice $\left(N=4\right)$\tabularnewline
+				\hline 
+				\hline 
+				$\left|2,0,0,0\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{4}$ & $\frac{v}{8}$\tabularnewline
+				\hline 
+				$\left|0,2,0,0\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{4}$ & $\frac{v}{8}$\tabularnewline
+				\hline 
+				$\left|0,0,2,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,0,0,2\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|1,1,0,0\right\rangle $ & $1-\frac{3v}{2}$ & $1-\frac{7v}{4}$ & $1-\frac{15v}{8}$\tabularnewline
+				\hline 
+				$\left|1,0,1,0\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{8}$ & $\frac{v}{16}$\tabularnewline
+				\hline 
+				$\left|1,0,0,1\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,1,1,0\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|0,1,0,1\right\rangle $ & $\frac{v}{2}$ & $\frac{v}{8}$ & $\frac{v}{16}$\tabularnewline
+				\hline 
+				$\left|0,0,1,1\right\rangle $ & $0$ & $0$ & $0$\tabularnewline
+				\hline 
+				$\left|1,1,0,0\right\rangle $ with post selection & $1-\frac{3v}{2}$ & $1-\frac{3v}{4}$ & $1-\frac{3v}{8}$\tabularnewline
+				\hline 
+			\end{tabular}
+			\par\end{centering}
+		
+	}
+	
+	\caption[Output probabilities for various levels of correcting the across the
+	system in a 4 mode set-up given an input of the state $\left|1,1,0,0\right\rangle $.]{Output probabilities for various levels of correcting the across
+		the system in a 4 mode set-up given an input of the state $\left|1,1,0,0\right\rangle $
+		where $v$ is the variance of the phase error. \label{tab:1,1 photon output prob as}}
+\end{table}
+\end{widetext}
 \end{document}
 %
 % If in two-column mode, this environment will change to single-column
