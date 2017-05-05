@@ -184,7 +184,7 @@ If we choose $p(\theta)$ is a Gaussian distribution with mean $\mu$ and standard
 \begin{equation}
 M=\frac{e^{-\left(i\mu+\frac{\sigma^2}{2}\right)}}{2}\left(\mathbb{I}\left(e^{(2i\mu)}+1\right)+T\left(e^{(2i\mu)}-1\right)\right).
 \end{equation}
-
+%A note to Austin: This is the actual form, the more complex equation with the strange behaviour was due to my intergration bounds
 Consider a target matrix $U$ which commutes with the single error such that $M=Ue^{i\theta T}$. In this case $\mu=0$ and so
 \begin{equation}
 M=Ue^{-\frac{\sigma^2}{2}}  \label{eq:Gaussian Psuccess}
@@ -229,7 +229,7 @@ In the full parameter case, provided the target unitary $U$ again commutes with 
 	Now given the narrow probability distributions are peaked on zero we can conclude that
 
 	\begin{equation}
-		M \approx U\times c\mathbb{I}=cU
+		M = cU
 	\end{equation}
 \end{proof}
 
@@ -239,6 +239,8 @@ From Corollary \ref{Corollary 2} and given our previous result for a Gaussian er
 M = U\prod_{l}^{n^2}e^{-\frac{\sigma_{l}^{2}}{2}}
 \end{equation}
 
+To be clear this results requires that the errors are small such that they approximately commute with one another and with the target matrix $U$.
+ 
 To implement the averaging of the random unitary network matrices from Theorem~\ref{Theorem 1} we utilise a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an input-output relationship between mode annihilation operators of the form
 \begin{equation}
 	a_{j,r} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} \omega^{rk} a_{j,k}	
