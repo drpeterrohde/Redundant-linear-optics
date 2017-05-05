@@ -179,17 +179,22 @@ Corollary~\ref{Corollary 1} means that for the 1-dimensional case we can write $
 	M=\mathbb{I} \int p(\theta) \cos(\theta)d\theta
 		+ i T \int p(\theta) \sin(\theta)d\theta \label{eq:single parameter, multi-mode expanded}
 \end{equation}
-Consider a target matrix $U$ which commutes with the single error such that $M=Ue^{i\theta T}$, and assume a Gaussian error distribution with variance $\sigma^2$. Then provided $T$ is such that $\theta=0$ %I dont think this is necessary, i suspect the commuting error requirement forces this.% 
-the probability of success is approximately 
+If we choose $p(\theta)$ is a Gaussian distribution with mean $\mu$ and standard deviation $\sigma$ then
+
 \begin{equation}
-	c = e^{-\frac{\sigma^2}{2}}. \label{eq:Gaussian Psuccess}
+M=\frac{e^{-\left(i\mu+\frac{\sigma^2}{2}\right)}}{2}\left(\mathbb{I}\left(e^{(2i\mu)}+1\right)+T\left(e^{(2i\mu)}-1\right)\right).
+\end{equation}
+
+Consider a target matrix $U$ which commutes with the single error such that $M=Ue^{i\theta T}$. In this case $\mu=0$ and so
+\begin{equation}
+M=Ue^{-\frac{\sigma^2}{2}}  \label{eq:Gaussian Psuccess}
 \end{equation}
 
 In the full parameter case, provided the target unitary $U$ again commutes with all errors a similar result can be found as discussed in \ref{Corollary 2}.
 
 \begin{corollary}
 \label{Corollary 2}
-	If $\{U_1,\ldots,U_N\}$ are $n$-dimensional but with a narrow distribution, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
+	If $\{U_1,\ldots,U_N\}$ are $n$-dimensional but with a narrow distribution and all errors are small enough that they approximately commute, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
 \end{corollary}
 \begin{proof}
 	We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  Write $U_k = U exp\{i t \sum_l \alpha_{kl} T_l\}$ where $T_l$ are the $n^2$ generators of the $u(n)$ Lie-algebra and $U$ is chosen so that the distribution is defined by probability density function $p(\alpha_1,\ldots,\alpha_{n^{2}-1})$ is peaked around the origin. $T_l$ are chosen so that and $-\pi < \alpha_l < \pi$.
@@ -203,19 +208,8 @@ In the full parameter case, provided the target unitary $U$ again commutes with 
 		\ldots
 		\mathrm{d}\alpha_{n^{2}} \label{eq:general integral form}
 	\end{equation}
-	\begin{equation}
-		M = U
-		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
-		(1 + i t\sum_l \alpha_{l} T_l + O(t^2)) p(\alpha_1,\ldots,\alpha_{n^{2}})
-		\mathrm{d}\alpha_1
-		\mathrm{d}\alpha_2
-		\ldots
-		\mathrm{d}\alpha_{n^{2}}
-	\end{equation}
-\end{widetext}
-
+	\end{widetext}
 	Consider the case where $p(\alpha_1,\ldots,\alpha_{n^{2}}) = p(\alpha_1)\times\ldots\times p(\alpha_{n^{2}})$ is a sufficiently narrow distribution around $\alpha_{l}=0$ such that $[a_{kl}T_{l},a_{km}T_{m}]\approx0 \forall l,m$. Equation \ref{eq:general integral form} simplifies by the Baker-Campbell-Hausdorff formula to
-
 \begin{widetext}
 	\begin{equation}
 		M = U
@@ -227,19 +221,23 @@ In the full parameter case, provided the target unitary $U$ again commutes with 
 		\mathrm{d}\alpha_{n^{2}}
 	\end{equation}
 	\begin{equation}
-		M = U
-		\int^\pi_{-\pi} exp\{i t\alpha_{1} T_1\}p(\alpha_1) \mathrm{d}\alpha_1 	\int^\pi_{-\pi} exp\{i t\alpha_{2} T_2\}p(\alpha_2) \mathrm{d}\alpha_2 \ldots \int^\pi_{-\pi}
-		exp\{i t\alpha_{n^{2}-1} T_n^{2}-1\}p(\alpha_n^{2})
+		M \approx U\int^\pi_{-\pi} exp\{i t\alpha_{1} T_1\}p(\alpha_1) \mathrm{d}\alpha_1 	\int^\pi_{-\pi} exp\{i t\alpha_{2} T_2\}p(\alpha_2) \mathrm{d}\alpha_2 \ldots \int^\pi_{-\pi}
+		exp\{i t\alpha_{n^{2}-1} T_n^{2}-1\}p(\alpha_n^{2}).
 	\end{equation}
 \end{widetext}
+	
 	Now given the narrow probability distributions are peaked on zero we can conclude that
 
 	\begin{equation}
 		M \approx U\times c\mathbb{I}=cU
 	\end{equation}
-	
 \end{proof}
-From \ref{Corollary 2} and given our previous result for a Gaussian error distribution we can conclude that the probability of success will be given approximately by the product of $n^2$ exponentials.
+
+From Corollary \ref{Corollary 2} and given our previous result for a Gaussian error distribution we can conclude that
+
+\begin{equation}
+M = U\prod_{l}^{n^2}e^{-\frac{\sigma_{l}^{2}}{2}}
+\end{equation}
 
 To implement the averaging of the random unitary network matrices from Theorem~\ref{Theorem 1} we utilise a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an input-output relationship between mode annihilation operators of the form
 \begin{equation}
