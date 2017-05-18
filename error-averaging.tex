@@ -133,17 +133,56 @@ Error Averaging in its current state forms a rudimentary form of error correctio
 The next section introduces the details and results for a general set-up. This is done to both explain how Error Averaging is implemented and demonstrate its effect on an output state. Section \ref{implementation} includes numerous proof of principle examples which serve to highlight the effects of Error Averaging with a focus on the scaling for the probability of success. LOQC will serve as the architecture for all these examples. The feasibility of Error Averaging will be considered including a detailed discussion of some of the underlying assumptions made in the examples below can be found in section \ref{Feasibility section} followed by some concluding remarks.
 
 % NOTATION SUGGESTION: Use \hat{} for Fock space operators and no hat for normal matricies.
-\section{General Unitary\label{gen case}}
-First let us consider a general linear transformation described by a unitary network matrix $U$. Theorem~\ref{Theorem 1} states that given access to $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ which are randomly distributed such that for all $i \in {1,\ldots,N}$, and given $U_{r,s}=\alpha_{r,s}e^{i\theta_{r,s}}$, $\langle \left(\theta_{i}\right)_{r,s} \rangle = \theta_{r,s}$, $\left|\left(\alpha_{i}\right)_{r,s}-\alpha_{r,s}\right|\ll1$ and $Var(U_i) = \sigma_i^2 < \infty$  the mean values of these unitaries approaches $c\times\hat{U}$, where $0\le c\le1$, in the same sense as the central limit theorem. By the central limit theorem we also see that the variance, $\sigma_{i}^{2}$, scales as $\frac{1}{N}$.
+\section{General Unitary Averaging\label{gen case}}
+
+Here we are concerned with the case of bosonic linear scattering networks.  These are evolutions of a multi-mode bosonic field where the Heisenberg equations of motion for the anhillation operators of each mode can be written as a linear combination of all anhillation operators.  That is, if $\mathcal{U}_U$ is a unitary operation on a $m$ mode system, then
+\begin{equation}
+	\mathcal{U}_U a_i \mathcal{U}_U^\dagger = \sum_j U_{ij} a_j
+\end{equation}
+where, to preserve commutation relationships, $U$ must be a unitary matrix.  It is the network matrix $U$ that we will focus on.
+
+Consider a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an Hisenberg style evolution between mode annihilation operators of the form
+\begin{equation}
+	a_{j,r} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} \omega^{rk} a_{j,k}	
+\end{equation}
+where $\omega = e^{-i2\pi /N}$ and zero-indexing of the modes has been used to simplify this expression.  The first subscript for the annihilation operator denotes the input mode and the second describes a quantity of redundancy $N$ which we explain shortly. 
+
+We then act the $N$ copies of a target unitary $U$.  By this we mean that there is some variation between the copies but the intention was to implement the unitary $U$.  This can be described by the transformation
+\begin{equation}
+	a_{j,r} \rightarrow \sum_{l=0}^{m-1} (U_r)_{lj} a_{l,r}.
+\end{equation}
+where $N$ noisy copies of $U$ are made, denoted here as $U_1, U_2, \ldots, U_N$. 
+
+After this the DFT matrix is applied again.  This results in the overall transformation
+\begin{equation}
+	a_{j,r} \rightarrow \frac{1}{N} 
+	\sum_{l=0}^{m-1} \sum_{k,k^\prime=0}^{N-1}
+	(U_{k^\prime})_{lj} \omega^{(r+k)k^\prime} a_{l,k}.
+\end{equation}
+We consider the case where all redundant modes are initialised in the vacuum state and post-select on the cases where no photons are present in the output of the redundant modes.  This means that we only need consider the parts of this transformation expression where the second subscript of the annihilation operator is zero.  In this case we have
+\begin{equation}
+	\label{sum_transformation}
+	a_{j,0} \rightarrow \frac{1}{N}\sum_{l=0}^{m-1} \sum_{k^\prime=0}^{N-1}
+	(U_{k^\prime})_{lj} a_{l,0} = \sum_{l=0}^{m-1} (M_N)_{lj} a_{l,0}
+\end{equation}
+where $M_N$ is a matrix defined by
+\begin{equation}
+	M_N = \frac{1}{N} \sum_k U_k.
+\end{equation}
+This matrix is then the effective linear network matrix for the post-selected system.  It includes information about the probability of success and so in general it will be not unitary.  The remainder of this paper is directed towards analysing the scenaiors that arise from the multitude of choices for $U_k$ that form expression.
+
+For the main theorem of our work we consider a general linear network described by a unitary network matrix $U$ with any dimensionality. 
+
+%Theorem~\ref{Theorem 1} below states that given access to $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ which are randomly distributed such that for all $i \in {1,\ldots,N}$, and given $U_{r,s}=\alpha_{r,s}e^{i\theta_{r,s}}$, $\langle \left(\theta_{i}\right)_{r,s} \rangle = \theta_{r,s}$, $\left|\left(\alpha_{i}\right)_{r,s}-\alpha_{r,s}\right|\ll1$ and $Var(U_i) = \sigma_i^2 < \infty$  the mean values of these unitaries approaches $c\times\hat{U}$, where $0\le c\le1$, in the same sense as the central limit theorem. By the central limit theorem we also see that the variance, $\sigma_{i}^{2}$, scales as $\frac{1}{N}$.
 
 \begin{theorem}
 \label{Theorem 1}
-Given $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ that are random with independent and identically distributed statistics such that for all $i~\in~{1,\ldots,N}$, $\langle U_i \rangle = M$ then the random variable 
+Given $N$ linear networks described by unitary matricies $\{U_1,U_2,\ldots,U_N\}$ that are random with independent and identically distributed statistics such that for all $i~\in~{1,\ldots,N}$, $\langle U_i \rangle = M$.  Then the random variable 
 \begin{equation}
 	\label{sum_unitary}
 	M_{N}=\frac{1}{N}\sum_{i=1}^{N}U_{i}
 \end{equation}
-is a matrix with mean value $M$ and whose matrix elements have bounded variance.
+is a matrix with mean value $M$ and whose matrix elements have variance scaling as $O(1/N)$.
 \end{theorem}
 
 \begin{proof}\label{Proof 1}
@@ -155,32 +194,33 @@ As the matrix elements $(U_i)_{rs}$ are constructed from unitary matrices, their
 The variance of the real or imaginary part of $(M_N)_{rs}$ is then upper bounded by $1/N$ as per the central limit theorem.
 \end{proof}
 
-
-The question now is what forms can the matrix $M$ take.  We have two cases where there is a definite answer which are outlined in the following two corollories.
+The question now is what forms can the mean average matrix $M$ can take.   First we consider the trivial case where the unitary matrices are $1 \times 1$ dimensional.
 
 \begin{corollary}
 \label{Corollary 1}
-	If $\{U_1,\ldots,U_N\}$ are $1$-dimensional, then $M$ is a complex number with magnitude $|M| \leq 1$.
+	If each $\{U_1,\ldots,U_N\}$ are $1 \times 1$-dimensional, then $M$ is a complex number with magnitude $|M| \leq 1$.
 \end{corollary}
 \begin{proof}
 	Write $U_k = e^{i \theta_k}$ where $p(\theta)$ is the probability density function for each of the angles $\theta_k$. From Theorem~\ref{Theorem 1} we need to compute the mean value 
 	\begin{equation}
 		M = \int^\pi_{-\pi} e^{i\theta} p(\theta) \mathrm{d}\theta. \label{eq:single parameter, single mode}
 	\end{equation}
-This is exactly the characteristic function of $p(\theta)$ evaluated at $1$.  The characteristic function has bounded magnitude of $1$, which is the desired result.
+This is exactly the characteristic function of $p(\theta)$ evaluated at $1$.  The characteristic function is complex valued and has bounded magnitude of $1$, which is the desired result.
 \end{proof}
 
-By corollary~\ref{Corollary 1} it can be concluded that for the 1-dimensional case we can write $M=cU$ where $c \leq 1$ and $U$ has magnitude 1.  Here we can identify the coefficient $c$ as the probability of success and as such, through post selection, the matrix $c\times U_{N}$  can be renormalised to a unitary matrix $U_{N}$ with $\lim_{N\rightarrow\infty}U_{N}=U$. We can also consider the higher dimensional, single parameter situation which forms the bases system for most of the simulations. In this case, for some $su(n)$ generator $T$ we have
+By corollary~\ref{Corollary 1} it can be concluded that for the 1-dimensional case we can write $M=cU$ where $c \leq 1$ and $U$ has magnitude 1.  Here we can identify the coefficient $c$ as the probability of success and as such, after post selection, the matrix $c\times U_{N}$ can be renormalised to a unitary matrix $U_{N}$ with $\lim_{N\rightarrow\infty}U_{N}=U$. 
 
+We can also consider the higher dimensional, single parameter situation which forms the bases system for most of the simulations. In this case, for any choice of $u(n)$ generator $T$ we have
 \begin{equation}
-	M=\int p(\theta)e^{i\theta T}d\theta \label{eq:single parameter, multi-mode}
+	M=\int p(\theta)e^{i\theta T}d\theta 
+	\label{eq:single parameter, multi-mode}
 \end{equation}
 \begin{equation}
 	M=\mathbb{I} \int p(\theta) \cos(\theta)d\theta
-		+ i T \int p(\theta) \sin(\theta)d\theta \label{eq:single parameter, multi-mode expanded}
+		+ i T \int p(\theta) \sin(\theta)d\theta 
+	\label{eq:single parameter, multi-mode expanded}
 \end{equation}
 If we choose $p(\theta)$ is a Gaussian distribution with mean $\mu$ and standard deviation $\sigma$ then
-
 \begin{equation}
 M=\frac{e^{-\left(i\mu+\frac{\sigma^2}{2}\right)}}{2}\left(\mathbb{I}\left(e^{(2i\mu)}+1\right)+T\left(e^{(2i\mu)}-1\right)\right).
 \end{equation}
@@ -240,32 +280,11 @@ To be clear this results requires that the errors are small such that they appro
 
 The non-approximately commuting solution to Equation \ref{eq:general integral form} is left as an open problem. In such a situation, $M$ is not necessarily a normal matrix which makes any conclusions difficult to be drawn.
  
-To implement the averaging of the random unitary network matrices from Theorem~\ref{Theorem 1} we utilise a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an input-output relationship between mode annihilation operators of the form
-\begin{equation}
-	a_{j,r} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} \omega^{rk} a_{j,k}	
-\end{equation}
-where $\omega = e^{-i2\pi /N}$ and zero-indexing of the modes has been used to simplify this expression.  The first subscript for the annihilation operator denotes the input mode and the second describes the level of redundancy of which we have $N$.
 
-We then act the $N$ noisy versions of the target unitary $U$ on the redundantly encoded systems.  This can be described by the transformation
-\begin{equation}
-	a_{j,r} \rightarrow \sum_{l=0}^{m-1} (U_r)_{lj} a_{l,r}.
-\end{equation}
+\section{Implementation \label{implementation}}
 
-on this system $N$ copies of $U$ are made, denoted here as $U_1, U_2, \ldots, U_N$. 
+This section demonstrates how Error Averaging can be implemented for various example systems. These examples also serve as a verification that the assumption of approximately commuting errors is not entirely unreasonable. It can also be noted that Equation \ref{sum_unitary} can become the appropriate transformation for duality quantum computing by allowing the $u_{i}$ to be arbitrary \cite{dualityQC}.
 
-After this the DFT matrix is applied again.  This results in the overall transformation
-\begin{equation}
-	a_{j,r} \rightarrow \frac{1}{N} 
-	\sum_{l=0}^{m-1} \sum_{k,k^\prime=0}^{N-1}
-	(U_{k^\prime})_{lj} \omega^{(r+k)k^\prime} a_{l,k}.
-\end{equation}
-To obtain the transformation of the form Eq.~(\ref{sum_unitary}), we consider the case where all redundant modes are initialised in the vacuum state and post-select on the cases where no photons are present in the output of the redundant modes.  This means that we only need consider the parts of this transformation expression where the second subscript of the annihilation operator is zero.  In this case we have
-\begin{equation}
-	\label{sum_transformation}
-	a_{j,0} \rightarrow \sum_{l=0}^{m-1} \sum_{k^\prime=0}^{N-1}
-	(U_{k^\prime})_{lj} a_{l,0} = \sum_{l=0}^{m-1} (U_N)_{lj} a_{l,0}
-\end{equation}
-where $U_N$ is the matrix defined in Eq.~(\ref{sum_unitary}).
 
 Implementing the DFT directly may be incontinent depending on the nature of the system used.  The transformation of Eq.~(\ref{sum_transformation}) can also be achieved using an array of beam-splitters as shown in Fig.~\ref{fig:gen system}. 
 
@@ -275,10 +294,8 @@ Figure \ref{fig:gen system} also demonstrates that when using the beam-splitter 
 	\includegraphics[width=\columnwidth]{unitaries.PNG}
 	\caption{\label{fig:gen system}Diagram showing the innermost components marked with $\hat{U}_i$ being error averaged eight times using fourteen beam splitters. Note that for clarity the error detection modes are not included. See figure \ref{fig:MZ_setup} for an example explicitly including the error detection modes. The inner fixed beam splitters can be considered error averaged four times by taking the component of the system in the red box as a smaller system which is error averaged. Similarly the system in blue box which is effectively being averaged twice.}
 \end{figure}
-Section \ref{implementation} demonstrates how Error Averaging can be implemented for various example systems. These examples also serve as a verification that the assumption of approximately commuting errors is not entirely unreasonable. It can also be noted that Equation \ref{sum_unitary} can become the appropriate transformation for duality quantum computing by allowing the $u_{i}$ to be arbitrary \cite{dualityQC}.
 
-\section{Implementation \label{implementation}}
-		
+	
 	The following section discusses the results of numerical simulations for various systems implementing Error Averaging. To understand why linear optics was the chosen implementation consider the two key requirements of implementation. The first requirement is that the fundamental particle used as the computational qubit can be placed in a spacial superposition. The second requirement is that any employed unitary $\hat{U}$  does not act on the vacuum, that is $\hat{U}\left|0\right>=\left|0\right>$. Although these seem restrictive, LOQC automatically satisfies both of these requirements. A spacial superposition can be created easily using beam splitters and any linear optical unitary cannot, by definition, affect the vacuum.
 	
 	Within the LOQC architecture, the following discussion will be agnostic about the specific encoding method by working in the Fock basis. In this way both single and dual rail encoding can be corrected and as such will generally not be considered in all further discussions.
