@@ -223,11 +223,11 @@ We can make a change of variables in $\theta$ so that the distribution is change
 	M&=\int e^{i(\mu + \theta^\prime)T} p(\mu + \theta^\prime) d\theta^\prime\\
 	&= e^{i\mu T} \int e^{i\theta^\prime T} \bar{p}(\theta^\prime) d\theta^\prime
 \end{align}
-where $\bar{p}(\theta) = p(\mu + \theta)$ so that it has mean value zero.  We now only consider the case of distributions that have mean zero.  By expanding the matrix exponential this expression can be written as
+where $\bar{p}(\theta) = p(\mu + \theta)$ so that it has mean value zero.  By expanding the matrix exponential this expression can be written as
 \begin{equation}
 	M=\sum_n \frac{(iT)^n}{n!} \int \theta^n p(\theta) d\theta,
 \end{equation}
-which now relates to the moments of the underlying distribution in $\theta$.  If $p(\theta)$ were a Gaussian distribution with variance $\sigma^2$ then we can write
+which now relates to the moments of the underlying distribution in $\theta$. If $p(\theta)$ were a Gaussian distribution with mean zero and variance $\sigma^2$ then we can write
 \begin{equation}
 	M = \sum_{n \in even} \frac{(iT)^n}{n!} (n-1)!! \sigma^n
 \end{equation}
