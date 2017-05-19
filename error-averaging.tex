@@ -245,52 +245,46 @@ In the full parameter case, provided the target unitary $U$ again commutes with 
 
 \begin{corollary}
 \label{Corollary 2}
-	If $\{U_1,\ldots,U_N\}$ are $n$-dimensional but with a narrow distribution so that they all approximately commute with each other, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
+If $\{U_1,\ldots,U_N\}$ are random $n$-dimensional unitaries such that $U_k = U exp\{i \sum_l \alpha_{kl} T_l\}$ with $n^2$ generators $T_l$ all hermitian, the parameters $\alpha_{kl}$ distributed independently with PDF $p_{l}(\alpha_l)$ which are all Gaussian with mean zero and small (but possibly different) variances so that they all $U_k$ approximately commute with each other, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
 \end{corollary}
 \begin{proof}
-	We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  Write $U_k = U exp\{i t \sum_l \alpha_{kl} T_l\}$ where $T_l$ are the $n^2$ generators of the $u(n)$ Lie-algebra and $U$ is chosen so that the distribution is defined by probability density function $p(\alpha_1,\ldots,\alpha_{n^{2}-1})$ is peaked around the origin. $T_l$ are chosen so that and $-\pi < \alpha_l < \pi$. As all errors are taken to be independent we can also write $p(\alpha_1,\ldots,\alpha_{n^{2}}) = p(\alpha_1)\times\ldots\times p(\alpha_{n^{2}})$. Finally we are requiring $p\left(\alpha_{i}\right)$ to be a sufficiently narrow distribution around $\alpha_{l}=0$ such that $[a_{kl}T_{l},a_{km}T_{m}]\approx0 \forall l,m$. 
+We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  From the independance of the distributed parameters, we can write a PDF for all parameters as $p(\alpha_1,\ldots,\alpha_{n^{2}}) = p_1(\alpha_1)\times\ldots\times p_{n^2}(\alpha_{n^{2}})$.  
+%For any Write where $T_l$ are generators of the $u(n)$ Lie-algebra of which there are $n^2$ and $U$ is chosen so that the distribution is defined by probability density function $p(\alpha_1,\ldots,\alpha_{n^{2}})$ has mean zero. $T_l$ are chosen so that and $-\pi < \alpha_l < \pi$. 
+%As all errors are taken to be independent we can also write  
+The approximate mutual commutivity for this expansion means 
 \begin{widetext}
-	\begin{equation}
-		M = U
-		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
-		exp\{i t\sum_l \alpha_{l} T_l\} p(\alpha_1,\ldots,\alpha_{n^{2}})
-		\mathrm{d}\alpha_1
-		\mathrm{d}\alpha_2
-		\ldots
-		\mathrm{d}\alpha_{n^{2}} \label{eq:general integral form}
-	\end{equation}
-	\begin{equation}
-		M \approx U
-		\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}
-		\prod_{l}exp\{i t\alpha_{l} T_l\}p(\alpha_1)
-		\mathrm{d}\alpha_1
-		\mathrm{d}\alpha_2
-		\ldots
-		\mathrm{d}\alpha_{n^{2}}
-	\end{equation}
-	\begin{equation}
-		M = U\int^\pi_{-\pi} exp\{i t\alpha_{1} T_1\}p(\alpha_1) \mathrm{d}\alpha_1 	\int^\pi_{-\pi} exp\{i t\alpha_{2} T_2\}p(\alpha_2) \mathrm{d}\alpha_2 \ldots \int^\pi_{-\pi}
-		exp\{i t\alpha_{n^{2}-1} T_n^{2}-1\}p(\alpha_n^{2}).
-	\end{equation}
-\end{widetext}
-	
-	Now given the narrow probability distributions are peaked on zero we can conclude, as in Equation \ref{eq:Gaussian Psuccess}, that
-
-	\begin{equation}
-		M = cU
-	\end{equation}
-\end{proof}
-
-From Corollary \ref{Corollary 2} and given our previous result for a Gaussian error distribution we can conclude that
-
+\newcommand{\theint}{\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}}
+\newcommand{\theintd}{\mathrm{d}\alpha_1 \mathrm{d}\alpha_2 \ldots \mathrm{d}\alpha_{n^{2}}}
 \begin{equation}
-M = U\prod_{l}^{n^2}e^{-\frac{\sigma_{l}^{2}}{2}}\label{eq:approx commuting, general case}
+	\int^\pi_{-\pi} \int^\pi_{-\pi}
+	[\alpha_{kl}T_{l},\alpha_{km}T_{m}] p_l(\alpha_l)p_m(\alpha_m) \mathrm{d}\alpha_l \mathrm{d}\alpha_m \approx 0 \quad \forall l,m,
 \end{equation}
+or in other words, that the $\alpha_{kl}T_l$ are all small with high probability.  With this we can write $M$ as
+\begin{align}
+	M &= U \theint
+	exp\{i t\sum_l \alpha_{l} T_l\} p_1(\alpha_1)\ldots p_{n^2}(\alpha_{n^{2}})
+	\theintd
+	\label{eq:general integral form} \\
+	&\approx U \theint
+	\prod_{l}exp\{i t\alpha_{l} T_l\}p_1(\alpha_1)\ldots p_{n^2}(\alpha_{n^{2}})
+	\theintd  \\
+	&= U\int^\pi_{-\pi} exp\{i t\alpha_{1} T_1\}p_1(\alpha_1) \mathrm{d}\alpha_1 	\int^\pi_{-\pi} exp\{i t\alpha_{2} T_2\}p_2(\alpha_2) \mathrm{d}\alpha_2 \ldots \int^\pi_{-\pi}
+	exp\{i t\alpha_{n^2} T_{n^2}\}p_{n^2}(\alpha_{n^2}) \mathrm{d}\alpha_{n^2} \\
+	&\approx U \prod_l e^{-\frac{\sigma_l^2}{2}},
+\end{align}
+\end{widetext}
+where $\sigma_l^2$ is the variance of $p_l$ and the final approximation is assuming the distribution is small so that the bounds of the integration do not matter.  By identifying the final product of exponentials with the value $c$, we have the desired result.
+\end{proof}
+It should be noted that if the distribution of parameters is Gaussian but not indepenent, then there is gaurenteed to be a linear combination of parameters for which this distribution is indepdenant.  Hence by changing the generators in the apropraite way, one can always arrange this situation for Gaussian distributions of the parameters $\alpha_{kl}$.
 
-To be clear this results requires that the errors are small such that they approximately commute with one another and with the target matrix $U$. The distributions $p(\alpha_{l})$ are also, in general, not equivalent, even if each component within a system has an equivalent error distribution the beam splitter parameters will not necessarily corresponds directly to the coefficients of the generators in the Lie algebra. 
 
-The non-approximately commuting solution to Equation \ref{eq:general integral form} is left as an open problem. In such a situation, $M$ is not necessarily a normal matrix which makes any conclusions difficult to be drawn.
- 
+%From Corollary \ref{Corollary 2} and given our previous result for a Gaussian error distribution we can conclude that
+%\begin{equation}
+%M = U\prod_{l}^{n^2}e^{-\frac{\sigma_{l}^{2}}{2}}\label{eq:approx commuting, general case}
+%\end{equation}
+%To be clear this results requires that the errors are small such that they approximately commute with one another and with the target matrix $U$. The distributions $p(\alpha_{l})$ are also, in general, not equivalent, even if each component within a system has an equivalent error distribution the beam splitter parameters will not necessarily corresponds directly to the coefficients of the generators in the Lie algebra. 
+
+Finding explicity closed forms for the matrix $M$ outside of this approximately commuting domain is an open problem.  In such a situation, $M$ may not be proportional to a unitary matrix.  Furthermore, is not gaurenteed that $M$ satisfy the conditions for a normal matrix.  So it is unclear if this post-selected regime has any connection to unitary quantum evolution at all.  Nevertheless, we will begin to examine situations which approach this domain through decompositions into single parameter problems and using numerical computations.
 
 \section{Implementation \label{implementation}}
 
