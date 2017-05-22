@@ -367,54 +367,46 @@ Figure~\ref{fig:post vs no post} shows how these two quantities scale with $N$. 
 \end{figure}
 
 	\subsection{2 photons N arbitrary \label{2 photons N arbitrary}}
-	
-		Given the highly quantum nature of two photon inference it is also considered. For two photons we have a slightly more complicated but similar general form for the output state as shown in Eq.\ref{eq:2pNarbitrary S}, again only considering the $a$ and $b$ output modes, but not considering the re-normalisation which occurs with post selection.
+
+The single photon interference effects in linear networks has all the features of classical wave interference.  Now we will consider two photon inference to demonstrate a truely quantum interference in this encoding.  For two photons we have a similar general form for the output state 
+\begin{align}
+	\left|\psi\right\rangle & =  \frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \ket{1,1} \nonumber\\
+	& +\frac{\sqrt{2}}{4}\left\{ \frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)-1\right\} \left(\ket{2,0} +\ket{0,2}\right).\label{eq:2pNarbitrary S}
+\end{align}
+This equation only considers the $a$ and $b$ output modes and so includes the probability of success, as was done for the single photon case.
+
+Here the action of the interferometer on the input state should be the identity operation and hence $\ket{1,1}$ is the desired output state.   Note that we could have chosen the input state to be $\ket{2,0}$, but this would not necessarily show any new behaviour, just the single photon results independently applied to the two input photons. 
+
+We can again write probabilities as expectation values.  Using the form of Eq.~(\ref{eq:2pNarbitrary S}), the ideal output is achieved when
+\begin{equation}
+\bra{\psi}\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\ket{\psi} = 1
+\end{equation}
+where $\ket{\psi}$ includes any re-normalisation due to post-selection. What would will actually be achieved is
+\emph{(TODO: CHECK THESE EQUATIONS)}
+\begin{eqnarray}
+\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & = & \left\langle \left|\frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \right|^{2}\right\rangle \nonumber \\
+& = & \left\langle \frac{1}{4}\left(1+\frac{2}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}\cos\left(\delta_{j}+\delta_{k}\right)\right)\right)\right\rangle \nonumber \\
+&  & +\frac{1}{4}\Biggl\langle\frac{1}{N^{4}}\left(\sum_{j}^{N}e^{-2i\delta_{j}}+\sum_{j=1}^{N}\sum_{k\ne j}^{N}e^{-i(\delta_{j}+\delta_{k})}\right)\nonumber \\
+&  & \times\left(\sum_{l}^{N}e^{2i\delta_{l}}+\sum_{l=1}^{N}\sum_{m\ne l}^{N}e^{i(\delta_{l}+\delta_{m})}\right)\Biggr\rangle\nonumber \\
+& \approx & 1-v\label{eq:exp. value aabb}
+\end{eqnarray}
+where, a second order Taylor approximation was used along with the moments of Gaussian random variables. After post selection this is improved to become what we refer to as the probability of observing a coincidence measurement, $P(\textrm{coincidence})$, which is, to a first order approximation
+\begin{widetext}
+\emph{(TODO: CHECK THIS.  IT DOESN'T SEEM TO INCLUDE THE BOSONIC STATISTICS FACTOR FOR THE TWO PHOTON CASE)}
+\begin{eqnarray}
+P(\textrm{coincidence}) & = & \frac{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle }{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle +{}\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}^{\dagger}\hat{a}\hat{a}\left|\psi\right\rangle +{}\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}^{\dagger}\hat{b}\hat{b}\left|\psi\right\rangle }\nonumber \\
+& \approx & 1-\frac{v}{2N}\label{eq:2pNarb PS}
+\end{eqnarray}
+\end{widetext}
+where the binomial approximation was also used.
 		
-		\begin{widetext}
-			\begin{eqnarray}
-				\left|\psi\right\rangle & = & \frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \hat{a}^{\dagger}\hat{b}^{\dagger}\left|0\right\rangle \nonumber \\
-			 	& & +\frac{\sqrt{2}}{4}\left\{ \frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)-1\right\} \left(\left|2,0\right\rangle +\left|0,2\right\rangle \right)\label{eq:2pNarbitrary S}
-			\end{eqnarray}
-		\end{widetext}
-		
-		Here the system is attempting to implement the identity on the input state $a^{\dagger}b^{\dagger}\left|0\right\rangle =\left|1,1\right\rangle $. This state was chosen as opposed to $\left|2,0\right\rangle $ as this would not necessarily show any new behaviour, just a scaling of the single photon results. A perfect output is equivalent to having
-		
-		\begin{eqnarray}
-			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & = & 1
-		\end{eqnarray}
-		
-		
-		where, again, $\left|\psi\right\rangle _{out}$ does include and re-normalisation due to post selection. What would will actually be achieved is
-		
-		\begin{eqnarray}
-			\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & = & \left\langle \left|\frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \right|^{2}\right\rangle \nonumber \\
-			& = & \left\langle \frac{1}{4}\left(1+\frac{2}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}\cos\left(\delta_{j}+\delta_{k}\right)\right)\right)\right\rangle \nonumber \\
-			&  & +\frac{1}{4}\Biggl\langle\frac{1}{N^{4}}\left(\sum_{j}^{N}e^{-2i\delta_{j}}+\sum_{j=1}^{N}\sum_{k\ne j}^{N}e^{-i(\delta_{j}+\delta_{k})}\right)\nonumber \\
-			&  & \times\left(\sum_{l}^{N}e^{2i\delta_{l}}+\sum_{l=1}^{N}\sum_{m\ne l}^{N}e^{i(\delta_{l}+\delta_{m})}\right)\Biggr\rangle\nonumber \\
-			& \approx & 1-v\label{eq:exp. value aabb}
-		\end{eqnarray}
-		
-		
-		where, a second order Taylor approximation was used along with the moments of Gaussian random variables. After post selection this is improved to become what we refer to as the probability of observing a coincidence measurement, $P(\textrm{coincidence})$, which is, to a first order approximation
-		
-		\begin{widetext}
-			\begin{eqnarray}
-				P(\textrm{coincidence}) & = & \frac{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle }{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle +{}\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}^{\dagger}\hat{a}\hat{a}\left|\psi\right\rangle +{}\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}^{\dagger}\hat{b}\hat{b}\left|\psi\right\rangle }\nonumber \\
-				& \approx & 1-\frac{v}{2N}\label{eq:2pNarb PS}
-			\end{eqnarray}
-		\end{widetext}
-		
-		where the binomial approximation was also used.
-		
-		Finally the probability of success, when defined as the probability of not needing to post selected a single instance is
-		
-		
-		\begin{eqnarray}
-			P(\textrm{success}) & \approx & 1-v+\frac{v}{2N}.\label{eq:2pNarb Success}
-		\end{eqnarray}
-	
-		Here, again in the large $N$ limit the result matches Equation \ref{eq:Gaussian Psuccess} provided it is squared before taking the linear approximation. Also both these instances we see the probability of success scaling with $\frac{1}{N}$.
-		
+Finally the probability of success, when defined as the probability of not needing to post selected a single instance is
+\begin{eqnarray}
+	P(\textrm{success}) & \approx & 1-v+\frac{v}{2N}.\label{eq:2pNarb Success}
+\end{eqnarray}
+
+Here, again in the large $N$ limit the result matches Equation \ref{eq:Gaussian Psuccess} provided it is squared before taking the linear approximation. Also both these instances we see the probability of success scaling with $\frac{1}{N}$.
+
 	\section{Comparison between averaging at end and averaging each step\label{averaging at end vs step}}
 	
 		With the basic procedure of Error Averaging in mind, it can be seen	that there arises two different methods of implementation, which will be referred to as averaging at the end and averaging each step. Figure \ref{fig:Different methods of implementation} shows how these two methods differ from one another and from a uncorrected	system. It is seen that by averaging each component individually, significantly more encoding resources are required, however we will show this leads to more stability in the output state. In the small system and low error limit these two methods also appear to be directly equivalent. We can then infer that in the case when the two methods do yield equivalent results, Corollary \ref{Corollary 2}, and its approximately commuting error assumption, does hold. In particular the low error limit does allow for the generators of each error to commute with one another. However this approximately commuting nature wont always hold. The effect of this can lead to significant differences in the effectiveness of these two implementations as discussed in the following section.
