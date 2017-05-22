@@ -262,20 +262,22 @@ The approximate mutual commutivity for this expansion means
 or in other words, that the $\alpha_{kl}T_l$ are all small with high probability.  With this we can write $M$ as
 \begin{align}
 	M &= U \theint
-	exp\{i t\sum_l \alpha_{l} T_l\} p_1(\alpha_1)\ldots p_{n^2}(\alpha_{n^{2}})
+	exp\{i \sum_l \alpha_{l} T_l\} p_1(\alpha_1)\ldots p_{n^2}(\alpha_{n^{2}})
 	\theintd
 	\label{eq:general integral form} \\
 	&\approx U \theint
-	\prod_{l}exp\{i t\alpha_{l} T_l\}p_1(\alpha_1)\ldots p_{n^2}(\alpha_{n^{2}})
+	\prod_{l}exp\{i \alpha_{l} T_l\}p_1(\alpha_1)\ldots p_{n^2}(\alpha_{n^{2}})
 	\theintd  \\
-	&= U\int^\pi_{-\pi} exp\{i t\alpha_{1} T_1\}p_1(\alpha_1) \mathrm{d}\alpha_1 	\int^\pi_{-\pi} exp\{i t\alpha_{2} T_2\}p_2(\alpha_2) \mathrm{d}\alpha_2 \ldots \int^\pi_{-\pi}
-	exp\{i t\alpha_{n^2} T_{n^2}\}p_{n^2}(\alpha_{n^2}) \mathrm{d}\alpha_{n^2} \\
-	&\approx U \prod_l e^{-\frac{\sigma_l^2}{2}},
+	&= U\int^\pi_{-\pi} exp\{i \alpha_{1} T_1\}p_1(\alpha_1) \mathrm{d}\alpha_1 	\int^\pi_{-\pi} exp\{i \alpha_{2} T_2\}p_2(\alpha_2) \mathrm{d}\alpha_2 \ldots \int^\pi_{-\pi}
+	exp\{i \alpha_{n^2} T_{n^2}\}p_{n^2}(\alpha_{n^2}) \mathrm{d}\alpha_{n^2} \\
+	&\approx U \prod_l e^{-\frac{\sigma_l^2 T_l^2}{2}},
 \end{align}
 \end{widetext}
 where $\sigma_l^2$ is the variance of $p_l$ and the final approximation is assuming the distribution is small so that the bounds of the integration do not matter.  By identifying the final product of exponentials with the value $c$, we have the desired result.
 \end{proof}
-It should be noted that if the distribution of parameters is Gaussian but not indepenent, then there is gaurenteed to be a linear combination of parameters for which this distribution is indepdenant.  Hence by changing the generators in the apropraite way, one can always arrange this situation for Gaussian distributions of the parameters $\alpha_{kl}$.
+THIS GOT WIERD.  WE NEED TO APPEAL TO RECK TO MAKE THE PRODUCT GO AWAY!!
+
+%It should be noted that if the distribution of parameters is Gaussian but not indepenent, then there is gaurenteed to be a linear combination of parameters for which this distribution is indepdenant.  Hence by changing the generators in the apropraite way, one can always arrange this situation for Gaussian distributions of the parameters $\alpha_{kl}$.
 
 
 %From Corollary \ref{Corollary 2} and given our previous result for a Gaussian error distribution we can conclude that
