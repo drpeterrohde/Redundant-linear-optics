@@ -245,7 +245,7 @@ In the full parameter case, provided the target unitary $U$ again commutes with 
 
 \begin{corollary}
 \label{Corollary 2}
-If $\{U_1,\ldots,U_N\}$ are random $n$-dimensional unitaries such that $U_k = U exp\{i \sum_l \alpha_{kl} T_l\}$ with $n^2$ generators $T_l$ all hermitian, the parameters $\alpha_{kl}$ distributed independently with PDF $p_{l}(\alpha_l)$ which are all Gaussian with mean zero and small (but possibly different) variances so that they all $U_k$ approximately commute with each other, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
+If $\{U_1,\ldots,U_N\}$ are random $n$-dimensional unitaries such that $U_k = U exp\{i \sum_l \alpha_{kl} T_l\}$ with $n^2$ generators $T_l$ that are all hermitian and satisfy $T_l^2=I$, the parameters $\alpha_{kl}$ distributed independently with PDF $p_{l}(\alpha_l)$ which are all Gaussian with mean zero and small (but possibly different) variances so that they all $U_k$ approximately commute with each other, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
 \end{corollary}
 \begin{proof}
 We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  From the independance of the distributed parameters, we can write a PDF for all parameters as $p(\alpha_1,\ldots,\alpha_{n^{2}}) = p_1(\alpha_1)\times\ldots\times p_{n^2}(\alpha_{n^{2}})$.  
@@ -273,9 +273,9 @@ or in other words, that the $\alpha_{kl}T_l$ are all small with high probability
 	&\approx U \prod_l e^{-\frac{\sigma_l^2 T_l^2}{2}},
 \end{align}
 \end{widetext}
-where $\sigma_l^2$ is the variance of $p_l$ and the final approximation is assuming the distribution is small so that the bounds of the integration do not matter.  By identifying the final product of exponentials with the value $c$, we have the desired result.
+where $\sigma_l^2$ is the variance of $p_l$ and the final approximation is assuming the distribution is small so that the bounds of the integration do not matter.  Using the $T_l^2=I$ requirement on the generators the final product of exponentials can be identified with the value $c$, we have the desired result.
 \end{proof}
-THIS GOT WIERD.  WE NEED TO APPEAL TO RECK TO MAKE THE PRODUCT GO AWAY!!
+The requirement of $T_L^2=I$ merely reflects a simplification where the generators are built from the Pauli matricies which is the constructions we will focus on in this paper.  If this is not the case then it is possible to identify the hermitian operator $\prod_l e^{-\frac{\sigma_l^2 T_l^2}{2}}$ as a state dependant decay in the amplitude of the operator.
 
 %It should be noted that if the distribution of parameters is Gaussian but not indepenent, then there is gaurenteed to be a linear combination of parameters for which this distribution is indepdenant.  Hence by changing the generators in the apropraite way, one can always arrange this situation for Gaussian distributions of the parameters $\alpha_{kl}$.
 
@@ -286,7 +286,7 @@ THIS GOT WIERD.  WE NEED TO APPEAL TO RECK TO MAKE THE PRODUCT GO AWAY!!
 %\end{equation}
 %To be clear this results requires that the errors are small such that they approximately commute with one another and with the target matrix $U$. The distributions $p(\alpha_{l})$ are also, in general, not equivalent, even if each component within a system has an equivalent error distribution the beam splitter parameters will not necessarily corresponds directly to the coefficients of the generators in the Lie algebra. 
 
-Finding explicity closed forms for the matrix $M$ outside of this approximately commuting domain is an open problem.  In such a situation, $M$ may not be proportional to a unitary matrix.  Furthermore, is not gaurenteed that $M$ satisfy the conditions for a normal matrix.  So it is unclear if this post-selected regime has any connection to unitary quantum evolution at all.  Nevertheless, we will begin to examine situations which approach this domain through decompositions into single parameter problems and using numerical computations.
+Finding explicity closed forms for the matrix $M$ outside of the situations just outlined is an open problem.  In the most general case, $M$ is not be proportional to a unitary matrix.  Furthermore, is not gaurenteed that $M$ satisfy the conditions for a normal matrix and hence cannot be unitarily diagonalised.  So it is unclear if this post-selected regime has any connection to unitary quantum evolution at all.  Nevertheless, we will begin to examine situations which approach this domain through decompositions into single parameter problems and using numerical computations.
 
 \section{Implementation\label{implementation}}
 
