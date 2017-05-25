@@ -419,13 +419,13 @@ So far we have presented two specific procedures for implementing a redundantly 
 \end{figure}
 
 \subsection{Phase applying systems\label{Phase applying systems}}
+
 For a more complete picture, this section considers the output of a simple phase applying system on a `shot by shot' case as well as expectation values. This will also serve to highlight the differences between the two implementations.
 
-In this section Error Averaging after each applied phase shift is compared to averaging across the entire system. The system was analysed contains a single channel with $m$ sequential phase shifters. This was chosen to better characterise Error Averaging when applied to a series of error sources as any differences between the two methods of error correction will be more likely arise in larger systems. This allows us to see the effect of having multiple parameters in a single mode and so the results should be governed by Corollary \ref{Corollary 1}. These systems were also used to determine if a quantum Zeno effect  \cite{expZeno} also known as the Turing paradox would be observed.
+Figure~\ref{fig:Different methods of implementation} shows the various arragnements we consider for the phase applying systems including the trivial case of doing no encoding.  
+The focus now is to compare Error Averaging after each applied phase shift (Figure~\ref{fig:Different methods of implementation}(c)) to averaging across the entire system (Figure~\ref{fig:Different methods of implementation}(b)). The system analysed contains a single channel with $m$ sequential phase shifters. This was chosen to better characterise Error Averaging when applied to a series of error sources as any differences between the two methods of error correction will more likely arise in larger systems. This allows us to see the effect of having multiple parameters in a single mode and so the results should be governed by Corollary \ref{Corollary 1}. These systems were also used to determine if a quantum-Zeno effect~\cite{expZeno} would be observed.
 
-Figure \ref{fig:Different methods of implementation} shows the set-up for the phase applying systems.
-
-Following a very similar approach to the earlier sections, for the sake of generating meaningful expectation values, the applied phase shifters were placed in one arm of a MZ interferometer. The one photon number expectation values can thus be calculated. For simplicity the applied phase shift was chosen to be zero with a Gaussian random noise with a variance $v$. This was chosen such that the errors here match what was modelled in sections \ref{1 photon N arbitrary} and \ref{2 photons N arbitrary}. The probability of success is now defined as the photon number expectation value evaluated at the end of the phase applying systems while the strength of the error was initially defined as the photon number expectation value of the MZ interferometer system for the expected output had no error occurred. All approximate results are based of fourth order Taylor approximations with comparisons drawn to the second order approximations as used in previous sections. This system corresponds to the chaining together of Equation \ref{eq:single parameter, multi-mode} with 
+Following a very similar approach to the earlier sections the applied phase shifters were placed in one arm of a MZ interferometer. The one photon number expectation values can thus be calculated. The applied phase shift was chosen to be zero with a Gaussian random noise with a variance $v$. This was chosen such that the errors here match what was modelled in sections \ref{1 photon N arbitrary} and \ref{2 photons N arbitrary}. The probability of success is now defined as the photon number expectation value evaluated at the end of the phase applying systems while the strength of the error was initially defined as the photon number expectation value of the MZ interferometer system for the expected output had no error occurred. All approximate results are based of fourth order Taylor approximations with comparisons drawn to the second order approximations as used in previous sections. \emph{TODO: I don't understand the following sentence:} This system corresponds to the chaining together of Equation \ref{eq:single parameter, multi-mode} with
 \begin{equation}
 T=\begin{bmatrix}
 	0 & 1 \\
@@ -433,9 +433,11 @@ T=\begin{bmatrix}
 	\end{bmatrix}
 \end{equation}
 
+\emph{(TODO: Somewhere around here we need to define $M$ and $N$.)}
+
 \subsubsection{No Averaging\label{No Averaging}}
 
-Starting with the baseline comparison case, seen in Figure \ref{fig:Different methods of implementation}a, where no Error Averaging is used, the output state for a single photon going through just the phase applying system will simply be
+Starting with the baseline comparison case, seen in Figure~\ref{fig:Different methods of implementation}(a), where no Error Averaging is used, the output state for a single photon going through just the phase applying system will simply be
 \begin{equation}
 \left|\psi\right\rangle =\left(\prod_{k=1}^{M}e^{i\delta_{k}}\right)\left|1\right\rangle \label{eq:noAvPhaseState}
 \end{equation}
@@ -445,13 +447,14 @@ P\left(success\right) & = & \left\langle \psi|\psi\right\rangle \nonumber \\
 & = & \left\langle 1\right|\left(\prod_{l=1}^{M}e^{-i\delta_{l}}\right)\left(\prod_{k=1}^{M}e^{i\delta_{k}}\right)\left|1\right\rangle \nonumber \\
 & = & 1\label{eq:noAveProbSuccess}
 \end{eqnarray}
-which is unsurprising given there is no way, ignoring losses, for the photon to leave this particular system.
+which is unsurprising given there is no way for the photon to leave this particular system.
 
-To determine a measure of the error the phase applying system was then inserted into a MZ interferometer giving a total output state $\ket{\Psi}$. The error is then determined by considering the photon expectation value in the correct output mode with post selection. As however the probability of success is unity no post selection will occur. So the output state is
+To quantify the error the phase applying system it was then inserted into a MZ interferometer giving a total output state $\ket{\Psi}$. The error is then determined by considering the photon expectation value in the correct output mode with post selection. As however the probability of success is unity and hence no post selection occurs. So the output state is
 \begin{equation}
 \left|\Psi\right\rangle =\frac{1}{2}\left(\prod_{k=1}^{M}e^{i\delta_{k}}+1\right)\hat{a}^{\dagger}\left|0\right\rangle +\left(\prod_{k=1}^{M}e^{i\delta_{k}}-1\right)\hat{b}^{\dagger}\left|0\right\rangle \label{eq:noAveIntState}
 \end{equation}
 Now our error measure when no averaging is applied, $E_{noAv}$, will be
+\emph{(NOTE: We need to define $\alpha$ here.)}
 \begin{eqnarray}
 E_{noAve} & = & \left\langle \Psi\right|\hat{n}_{a}\left|\Psi\right\rangle \nonumber \\
 & = & \frac{1}{2}\left\langle 1+\cos\left(\alpha\right)\right\rangle \nonumber \\
@@ -461,30 +464,30 @@ Where Gaussian statistics have been used to write higher order moments in terms 
 
 \subsubsection{Averaging Across the Entire Phase System\label{Averaging Across the Entire Phase System}}
 
-We now consider averaging across the whole system, as shown in Figure  \ref{fig:Different methods of implementation}b. Preceding as before, the state for a single photon after passing through the phase applying system which is being averaged across will simply be
+We now consider averaging across the whole system, as shown in Figure~\ref{fig:Different methods of implementation}(b). Preceding as before, the state for a single photon after passing through the phase applying system which is being averaged across will simply be
 \begin{equation}
-\left|\psi\right\rangle =\frac{1}{N}\sum_{j=1}^{N}\left(\prod_{k=1}^{M}e^{i\delta_{j,k}}\right)\left|1\right\rangle \label{eq:AvEndPhaseState}
+	\ket{\psi}=\frac{1}{N}\sum_{j=1}^{N}\left(\prod_{k=1}^{M}e^{i\delta_{j,k}}\right)\ket{1} \label{eq:AvEndPhaseState}
 \end{equation}
 The probability of success is thus
 \begin{eqnarray}
-P\left(success\right) & = & \left\langle \psi|\psi\right\rangle \nonumber \\
+	P\left(success\right) & = & \braket{\psi|\psi} \nonumber \\
 & \approx & \left[1-\left(1-\frac{1}{N}\right)\left(Mv-\frac{1}{2}M^{2}v^{2}\right)\right]\label{eq:AveEndProbSuccess}
 \end{eqnarray}
 This result is similar to the what was found in previous sections, see Eq.\ref{eq:1pNarbitrary successs} and Eq.\ref{eq:2pNarb Success}, with the probability of success asymptotically approaching some fixed value for large $N$.
 
-To determine the size of the error, the phase applying system was again inserted into the phase arm of a MZ interferometer giving a total output state $\left|\Psi\right\rangle $. The error is then given by the photon expectation value in the correct output mode with post selection. The output state is
+To determine the size of the error, the phase applying system was again inserted into one arm of a MZ interferometer giving a total output state $\ket{\Psi}$. The error is then given by the photon expectation value in the correct output mode with post selection. The output state is
 \begin{eqnarray}
-\left|\Psi\right\rangle & = &\frac{1}{2}\left(\frac{1}{N}\sum_{j=1}^{N}\left(\prod_{k=1}^{M}e^{i\delta_{j,k}}\right)+1\right)\hat{a}^{\dagger}\left|0\right\rangle \\ & & +\left(\frac{1}{N}\sum_{j=1}^{N}\left(\prod_{k=1}^{M}e^{i\delta_{j,k}}\right)-1\right)\hat{b}^{\dagger}\left|0\right\rangle \label{eq:AveEndIntState}
+	\ket{\Psi}& = &\frac{1}{2}\left(\frac{1}{N}\sum_{j=1}^{N}\left(\prod_{k=1}^{M}e^{i\delta_{j,k}}\right)+1\right)\hat{a}^{\dagger}\ket{0}\\ & & +\left(\frac{1}{N}\sum_{j=1}^{N}\left(\prod_{k=1}^{M}e^{i\delta_{j,k}}\right)-1\right)\hat{b}^{\dagger}\ket{0}\label{eq:AveEndIntState}
 \end{eqnarray}
-So the photon number expectation value for the correct output for this system will be
+So the photon number expectation value for the expected output from the interferometer will be
 \begin{widetext}
 \begin{eqnarray}
-\left\langle \Psi\right|\hat{n}_{a}\left|\Psi\right\rangle  
+	\bra{\Psi}\hat{n}_{a}\ket{\Psi}
 & \approx & 1-\frac{1}{4}\left(Mv-\frac{M^{2}v^{2}}{4}+\left(1-\frac{1}{N}\right)\left(Mv-\frac{1}{2}M^{2}v^{2}\right)\right)
 \end{eqnarray}
 Similarly for the incorrect output port, the photon number expectation value will be
 \begin{equation}
-\left\langle \Psi\right|\hat{n}_{b}\left|\Psi\right\rangle = \frac{1}{4}\left\langle 1+\left\langle \psi|\psi\right\rangle -\frac{2}{N}\sum_{j=1}^{N}\cos\left(\alpha_{j}\right)\right\rangle 
+	\bra{\Psi}\hat{n}_{b}\ket{\Psi} = \frac{1}{4}\left\langle 1+\left\langle \psi|\psi\right\rangle -\frac{2}{N}\sum_{j=1}^{N}\cos\left(\alpha_{j}\right)\right\rangle 
 \end{equation}
 Therefore, the error measure, $E_{aveEnd}$, will be
 \begin{equation}
@@ -494,9 +497,9 @@ E_{aveEnd}  \approx  \left[1-\frac{1}{4}\left(Mv-\frac{M^{2}v^{2}}{4}+\left(1-\f
 
 \subsubsection{Averaging Across Each Phase Shifter Individually\label{Averaging Across Each Phase Shifter Individually}}
 
-If each phase shifter is averaged individually, as seen in Figure \ref{fig:Different methods of implementation}c, then the state for a single photon after passing through the phase applying system will be
+If each phase shifter is averaged individually, as seen in Figure \ref{fig:Different methods of implementation}(c), then the state for a single photon after passing through the phase applying system will be
 \begin{equation}
-\left|\psi\right\rangle =\frac{1}{N}\prod_{k=1}^{M}\left(\sum_{j=1}^{N}e^{i\delta_{j,k}}\right)\left|1\right\rangle \label{eq:AveStepPhaseState}
+	\ket{\psi}=\frac{1}{N}\prod_{k=1}^{M}\left(\sum_{j=1}^{N}e^{i\delta_{j,k}}\right)\ket{1}\label{eq:AveStepPhaseState}
 \end{equation}
 Reproducing the above calculations with this state yields a probability of success of
 \begin{equation}
@@ -508,43 +511,44 @@ and an error of
 E_{aveStep} \approx  \left[\frac{3}{4}-\frac{Mv}{4}+\frac{M^{2}v^{2}}{16}+\frac{1}{4}\left(1-\left(v-\frac{v^{2}}{2}\right)\left(1-\frac{1}{N}\right)\right)^{M}\right]\nonumber\times\left[\frac{1}{2}+\frac{1}{2}\left(1-\left(v-\frac{v^{2}}{2}\right)\left(1-\frac{1}{N}\right)\right)^{M}\right]^{-1}\label{eq:ErrorAvStep}
 \end{equation}
 \end{widetext}
-Importantly, for both this case as well as when averaging each step, if only the first order approximation is used and $M=1$ then the error matches the error found in section \ref{1 photon N arbitrary}. This is simply highlighting that Error Averaging scales in a very predictable manner.
+Importantly, for both this case as well as when averaging each step, if only the first order approximation is used and $M=1$ then the error matches the error found in section \ref{1 photon N arbitrary}.
 
 \subsubsection{Summary of Errors and Probabilities\label{Summary of Errors and Probabilities}}
 
-Figure \ref{fig:Error-as-measured all} shows how the error, as measured by looking at expected photon number values in the output port of a MZ interferometer, varies as the number of phase components increases as well as how the error changes with increasing Error Averaging, $N$. The behaviour as $N$ increases is as expected with the error close to disappearing for low $M$, that is, a small number of phase shifters in series, and $N=16$. Interestingly a difference between the two Error Averaging methods can be seen from $M\approx6$ onwards. This could either be suggesting an issue with the quality of the second order approximations, as seen in Figure \ref{fig:Probability-of-success all} or that there is some more fundamental point at which there is a clear benefit to averaging each component individually. The next consideration was how the probability of success changes with $M$.
-
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{Error_all.png}}
-\caption{Probability of obtaining the correct result as measured by the Mach Zehnder interferometer set up as a function of the number of phase components $M$. Here a probability of $1$ corresponds to no error and the smaller the probability the larger the error. The blue line represents the no Error Averaging applied result, the orange line corresponds to the error when averaging across the entire system and the green line is the error when each component is averaged across individually. All three graphs were created with the variance of the error in a single phase shifter being $0.005\ \textrm{rad}^{2}$ and for a) $N=2$, in b) $N=4$ and in c) $N=16$. \label{fig:Error-as-measured all}}
+\caption{Probability of obtaining the correct result as measured by the Mach-Zehnder interferometer set up as a function of the number of phase components $M$. Here a probability of $1$ corresponds to no error and the smaller the probability the larger the error. The blue line represents the no Error Averaging applied result, the orange line corresponds to the error when averaging across the entire system and the green line is the error when each component is averaged across individually. All three graphs were created with the variance of the error in a single phase shifter being $0.005\ \textrm{rad}^{2}$ and for (a) $N=2$, in (b) $N=4$ and in (c) $N=16$. \label{fig:Error-as-measured all}}
 \end{figure}
-Figure \ref{fig:Probability-of-success all} shows how the probability of success changes as the number of phase shifters in a series increases when averaging across the entire system as well as when averaging across each component individually. The effect of varying the amount of averaging is also shown. A first and second order analytical solutions	is  shown as well as a statistical model of the probability of success where the phase value of each phase shifter was sampled from a Gaussian random distribution. The probability of success was then calculated based on these random samples. The top four graphs were plotted for an unrealistically low value of the variance on the individual beam splitters. This was done so that the behaviour of when the first and second order approximations fail to match the actual simulated result can be more clearly seen. 
+%
+Figure~\ref{fig:Error-as-measured all} shows how the error, as measured by looking at expected photon number values in the output port of a MZ interferometer, varies as the number of phase components increases as well as how the error changes with increasing Error Averaging, $N$. The behaviour as $N$ increases is as expected with the error close to disappearing for low $M$, that is, a small number of phase shifters in series, and $N=16$. Interestingly a difference between the two Error Averaging methods can be seen from $M\approx6$ onwards. This could either be suggesting an issue with the quality of the second order approximations, as seen in Figure~\ref{fig:Probability-of-success all} or that there is some more fundamental point at which there is a clear benefit to averaging each component individually. The next consideration was how the probability of success changes with $M$.
 
-It is seen that as the total number of components increases the probability of success decreases. However it does so at a decreasing rate which is important for scaling to large systems. The two methods of Error Averaging also show very similar behaviour in their overall trends although the variation between the statistical simulation and the analytical solutions is significantly greater when averaging across the entire system than when averaging each component individually. This is suggestive of a manifestation of the Zeno effect, whereby continuously correcting produces less variation than doing the same amount of correction at the end. First and second order solutions in the averaging over the entire system case fail very early when compared with those for averaging every step. Interestingly it appears that the first order analytical approximation is suitable when averaging each component individually. This can most clearly be seen in Figure \ref{fig:Probability-of-success all} (e) where the first order approximation fails almost instantly and the second order approximation soon after while in Figure \ref{fig:Probability-of-success all} (f) both first and second order approximations both follow the statistical model closely. It is again observed that as $N$ increases, the probability of success goes down. What is also shown however is that so too does the variation in the statistical simulation suggesting greater amount of averaging reduces the variability in both the average case and any given sample of the applied phase.
+Figure~\ref{fig:Probability-of-success all} shows how the probability of success changes as the number of phase shifters in a series increases when averaging across the entire system as well as when averaging across each component individually. The effect of varying the amount of averaging is also shown. A first and second order analytical solutions is shown as well as a statistical model of the probability of success where the phase value of each phase shifter was sampled from a Gaussian random distribution. The probability of success was then calculated based on these random samples. The top four graphs were plotted for a low value of the variance on the individual \emph{(TODO: Check if this should be phase shifts)} beam splitters. This was done so that the behaviour of when the first and second order approximations fail to match the actual simulated result can be more clearly seen. 
 
+As the total number of components increases \emph{(TODO: Is this $M \times N$ or just $N$?)} the probability of success decreases. However it does so at a decreasing rate which is important for scaling to large systems. The two methods of Error Averaging also show very similar behaviour in their overall trends although the variation between the statistical simulation and the analytical solutions is significantly greater when averaging across the entire system than when averaging each component individually. This is suggestive of a manifestation of the Zeno effect, whereby continuously correcting produces less variation than doing the same amount of correction at the end. First and second order solutions in the averaging over the entire system case fail very early when compared with those for averaging every step. Interestingly it appears that the first order analytical approximation is suitable when averaging each component individually. This can most clearly be seen in Figure~\ref{fig:Probability-of-success all}(e) where the first order approximation fails almost instantly and the second order approximation soon after while in Figure~\ref{fig:Probability-of-success all}(f) both first and second order approximations both follow the statistical model closely. It is again observed that as $N$ increases, the probability of success goes down. What is also shown is that the variation in the statistical simulation also goes down suggesting greater amount of averaging reduces the variability in both the average case and any given sample of the applied phase.
+%
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{Psuccess_all.png}}
 \caption{Probability of success as a function of the number of phase components $M$ for averaging across the system (left) and averaging across each component (right). Blue line is the statistical model, orange is the first order approximation and green is the second order approximation of the analytical value. a) and b) individual phase shifter variance is $0.005\ \textrm{rad}^{2}$ with $N=4$, c) and d) individual phase shifter variance is $0.005\ \textrm{rad}^{2}$ with $N=16$ and e) and f) individual phase shifter variance is $0.1\ \textrm{rad}^{2}$ with $N=16$. \label{fig:Probability-of-success all}}
 \end{figure}
 
-To gain a better insight into how the error behaves and what the difference between the two averaging methods actually is, the actual phase being applied with each system was modelled, as discussed in the following subsection.
+%To gain a better insight into how the error behaves and what the difference between the two averaging methods actually is, the actual phase being applied with each system was modelled, as discussed in the following subsection.
 
 
 \subsubsection{Statistical Modelling of the Applied Phase\label{Statistical Modelling of the Applied Phase}}
 
-To better understand the behaviour of the three phase applying systems, the total applied phase was modelled using \textit{Mathematica} with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This now corresponds to Equation \ref{eq:single parameter, single mode} with $\theta=\prod_{i}\theta_{i}$. This was repeated $5000$ times and the results are shown in Figure \ref{fig:Total-applied-phase1} and Figure \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. In particular the range of applied phases is noticeably smaller when each phase shifter is corrected individually, a clear indication that averaging each step is more effective. By comparing Figure \ref{fig:Total-applied-phase1} with Figure \ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure \ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case. In particular we can infer that the region in which the two methods give the same results corresponds to the region in which the $u(n)$ errors approximately commute with one another and are therefore separable.
-
+To better understand the behaviour of the three phase applying systems, the total applied phase was modelled using \textit{Mathematica} with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This now corresponds to Equation~(\ref{eq:single parameter, single mode}) with $\theta=\prod_{i}\theta_{i}$. This was repeated $5000$ times and the results are shown in Figure \ref{fig:Total-applied-phase1} and Figure \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. In the range of applied phases is smaller when each phase shifter is corrected individually, an indication that averaging each step is more effective. By comparing Figure~\ref{fig:Total-applied-phase1} with Figure~\ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure~\ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case. In particular we can infer that the region in which the two methods give the same results corresponds to the region in which the $u(n)$ errors approximately commute with one another. \emph{(NOTE: Somewhat confusing here.  Isn't the commuting thing about incompatable generators?  Here just just have phase shifts.)} 
+%
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{totPhase1.png}}
 \caption{Top: Total applied phase over $5000$ runs for no averaging (Blue), averaging across the entire system (Orange) and averaging each phase shifter individually (Green). Bottom: Histogram of the total applied phases. Each individual phase shifter has a variance of $0.1\ \textrm{rad}^{2}$ and each system has $15$ phase shifters in series. The two error averaged circuits are each averaged $4$ times. \label{fig:Total-applied-phase1}}
 \end{figure}
-
+%
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{totPhase2.png}}
 \caption{Top: Total applied phase over $5000$ runs for no averaging (Blue), averaging across the entire system (Orange) and averaging each phase shifter individually (Green). Bottom: Histogram of the total applied phase. Each individual phase shifter has a variance of $0.3\ \textrm{rad}^{2}$ and each system has $8$ phase shifters in series. The two error averaged circuits are each averaged $4$ times. \label{fig:Total-applied-phase2}}
 \end{figure}
 
-To further investigate this behaviour the variance of the applied phase was calculated based on the statistical simulation of the total applied phase. This was then plotted as a function of $M$, the number of phase shifters in a series as shown in Figure \ref{fig:Variance-in-phase all}. Given the individual applied phase are Gaussian random variables they are expected to simply add, such that the variance without any Error Averaging is expected to simply be
+The variance of the applied phase was estimated based on the statistical simulation of the total applied phase. Figure~\ref{fig:Variance-in-phase all} shows this variance as a function of $M$, the number of phase shifters in a series. Given the individual applied phases are uncorrelated they are expected to simply add, such that the variance without any Error Averaging is expected to simply be
 \begin{equation}
 \textrm{Total Variance}=vM\label{eq:Tot Var no correction}
 \end{equation}
@@ -552,9 +556,7 @@ where $M$ is the number of phase shifters and $v$ is the variance in the individ
 \begin{equation}
 \textrm{Total Variance}=\frac{vM}{N}\label{eq:Tot Var w/ correction}
 \end{equation}
-where $N$ is the number of times the system is averaged, again $N=1$ implies no averaging. As the phase is an angle this behaviour cannot hold for arbitrarily large $vM$. A completely random phase $\theta$ is still limited by the possibly range of values, in our case chosen to be $-\pi<\theta\le\pi$. If the value of $\theta$ is indeed completely random then one will expect a uniform probability distribution of $P\left(\theta\right)=\frac{1}{2\pi}$. 
-
-This then implies the maximum variance will be given by
+where $N$ is the number of times the system is averaged, again $N=1$ implies no averaging. As the phase is an angle with a finite range, this behaviour cannot hold for arbitrarily large $vM$. A completely random phase $\theta$ is still limited by the possibe range of values, in our case chosen to be $-\pi<\theta\le\pi$. If the value of $\theta$ is indeed completely random then one will expect a uniform probability distribution of $P\left(\theta\right)=\frac{1}{2\pi}$. This then implies the maximum variance will be given by
 \begin{eqnarray}
 \textrm{Maximum variance} & = & \int_{-\pi}^{\pi}\theta^{2}P\left(\theta\right)\ d\theta\nonumber \\
 & = & \frac{\pi^{2}}{3}\label{eq:Max Var}
@@ -564,11 +566,10 @@ This then implies the maximum variance will be given by
 \centerline{\includegraphics[width=\columnwidth]{phase_all.png}}
 \caption{Variance in the total applied phase without Error Averaging (Blue), when averaging across the entire system (Green) and when averaging each component individually (Orange), all plotted as a function of the number of phase shifters in series $(M)$. The variance of a single phase shifter is $0.1\ \textrm{rad}^{2}$ and the two error averaged systems averaged 4 times. The predicted, linear variance without any averaging (lighter blue) and with averaging (lighter orange) is also shown. These ignore the fact that the variance is actually the angular variance and so has some maximum allowable value given by Eq. \ref{eq:Max Var}, which is also shown in black. \label{fig:Variance-in-phase all}}
 \end{figure}
+%
+Figure \ref{fig:Variance-in-phase all} shows that the two methods of error correction do indeed initially have the same effect. However the averaging across the system method departs from this linear regime from approximately $M=6$ after which it follows the general form of applying no correction. This corresponds to the point at which all errors cannot be assumed to approximately commute \emph{(NOTE: Again, I don't understand this)}. The fact that averaging across the entire system mirrors the no averaging trend suggest that the positive effects of Error Averaging completely disappear in this regime. Averaging each step however does not appear to fall out of the linear regime. The lower slope at higher total output variance can be attributed to the variance approaching the maximum possible variance.  To determine if and when the averaging each step method of error correction fails, this process was repeated as a function of the variance in a single beam splitter. The total variance was determined from $50000$ data points for each value of $v$. Figure~\ref{fig:Variance(veriance)} demonstrated that again the two error correction methods initially are equivalent. Once more averaging across the system departs from the linear regime and now we can clearly see that so too does the averaging each step.
 
-
-Figure \ref{fig:Variance-in-phase all} shows that the two methods of error correction do indeed initially have the same effect. However the averaging across the system method falls out of this linear regime from approximately $M=6$ after which it follows the general form of applying no correction. This suggests this corresponds to the point at which all errors cannot be assumed to approximately commute. The fact that averaging across the entire system mirrors the no averaging trend suggest that the positive effects of Error Averaging completely disappear in this regime. Averaging each step however does not appear to fall out of the linear regime. The down turn at higher total output variance can be attributed to the variance approaching the maximum possible variance and so any behaviour in this region can be considered insignificant as the output results generated from a system in this regime is likely to be quite random. To determine if and when the averaging each step method of error correction fails this process was repeated, now as a function of the variance in a single beam splitter. The total variance was determined from $50000$ data points for each value of $v$. Figure \ref{fig:Variance(veriance)} demonstrated that again the two error correction methods initially are equivalent. Once more averaging across the system falls out of the linear regime and now we can clearly see so too does the averaging each step.
-
-This is highly suggestive of the existence of some threshold for the amount of error in a system before Error Averaging fails to be beneficial. It also suggests this threshold might correspond to when the errors no longer approximately commute. A single phase shifter with variance $v_{1}$ is effectively equivalent to $m$ phase shifters with individual variance $v_{2}=\frac{v_{1}}{m}$ if the entire system is being averaged across. This allows the phase error threshold to be estimated at about $0.5\ \textrm{rad}^{2}$when averaging across each element and $\frac{0.5}{m}\textrm{rad}^{2}$ when averaging across a system of $m$ phase shifters. If each individual beam splitter has a variance of $0.1\ \textrm{rad}^{2}$, averaging across the system would be expected to be in the linear regime when $M\le5$ which is precisely what is seen in Figure \ref{fig:Variance-in-phase all}. These two thresholds obviously do not apply to a general error however it is hoped that with further study might reveal the values for such a threshold.
+This is suggestive of the existence of some threshold for the amount of error in a system before Error Averaging fails to be beneficial. It also suggests this threshold might correspond to when the errors no longer approximately commute. A single phase shifter with variance $v_{1}$ is effectively equivalent to $m$ phase shifters with individual variance $v_{2}=\frac{v_{1}}{m}$ if the entire system is being averaged across. This allows the phase error threshold to be estimated at about $0.5\ \textrm{rad}^{2}$ when averaging across each element and $\frac{0.5}{m}\textrm{rad}^{2}$ when averaging across a system of $m$ phase shifters. If each individual beam splitter has a variance of $0.1\ \textrm{rad}^{2}$, averaging across the system would be expected to be in the linear regime when $M\le5$ which is precisely what is seen in Figure \ref{fig:Variance-in-phase all}. These two thresholds obviously do not apply to a general error however it is hoped that with further study might reveal the values for such a threshold.
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{variance(variance).png}}
 \caption{Variance in the total applied phase without Error Averaging (Blue), when averaging across the entire system (Green) and when averaging each component individually (Orange), all plotted as a function of the variance in each individual phase shifter. Each system applied $4$ phase shifters in series, that is $M=4$, and the two error averaged systems averaged $4$ times, that is $N=4$. The predicted variance without any averaging (lighter blue) and with averaging (lighter orange) is also shown along with the maximum allowable variance. \label{fig:Variance(veriance)}}
