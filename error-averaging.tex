@@ -332,7 +332,7 @@ A single photon input state can be written an $\left|\phi\right\rangle = \hat{a}
 \end{widetext}
 where $\theta_{i}=\theta+\delta_{j}$ with $\theta$ a constant and $\delta_j$ a random variable.  This output includes post-selection so terms that contain creation operators in modes that are post-selected to be vacuum are truncated. 
 
-\emph{(NOTE: We know what this sum averages to so can we just do these calculations exactly?)}
+\emph{(NOTE: We know what this sum averages to so can we just do these calculations exactly? Would we then loose information about how it scales with N? If so I think we should at least include this version, so we can conclude N large isnt a necessary condition for this to be useful.)}
 Furthermore  in the following two sections second order Taylor approximations we used to simplify the result. 
 
 As this linear network conserves photon number we know that for this single photon case that the output state always contains one and only one photon.  The probability that the photon is measured in a particular mode can therefore be equated to the average photon number in that mode.  Using this we can calculate the probability of observing the photon in the $\hat{a}$ and $\hat{b}$ modes without post-selection to be 
@@ -356,9 +356,9 @@ To further illustrate the this error averaging when combined with post-selection
 \end{equation}
 After post-selection this becomes
 \begin{equation}
-	\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle \approx 1 - \frac{v}{4N}. \label{eq:1pWithPost}
+	\frac{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle}{P(\textrm{success})} \approx 1 - \frac{v}{4N}. \label{eq:1pWithPost}
 \end{equation}
-\emph{(NOTE: This has to be wrong as the left hand sides of both equations are the same.  I think the second equation should be divided out by something, perhaps Eq. (26))}
+\emph{(NOTE: This has to be wrong as the left hand sides of both equations are the same.  I think the second equation should be divided out by something, perhaps Eq. (26). Yes, it was meant to be exactly that)}
 		
 Figure~\ref{fig:post vs no post} shows how these two quantities scale with $N$. In particular, it can be seen that with post-selection the likelihood of the photon exiting the interferometer in the correct mode can be made arbitrarily close to unity by increasing $N$. Also it is seen that while the probability of success decreases for increasing $N$ this asymptotes to some fixed value. This implies that as $N$ increases, even thought the total quantity of errors added to the system increases, the effects of the combined errors on the interferometer is less. This can be understood by the process of redundantly splitting and recombining the state, tends drive noise into the error ports by interference.  This results in the state at the output modes utilised by the interferometer approaching an ideal noiseless state.
 \begin{figure}[tbh]
