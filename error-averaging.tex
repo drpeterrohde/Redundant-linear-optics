@@ -315,17 +315,17 @@ The noise in a controllable phase-shift can be written as $e^{i(\theta+\delta)}$
 
 %Need to come back to this.  Not sure what it means.
 
-The remainder to this section considers the above implementation of a beam-splitter in a MZ interferometer but with the phase shift being error averaged. The error averaging will be performed using the concatenated beam-splitter network, hence $N=2^n, n \in \mathbb{N}$ and all beam-splitters used in this system will be fixed and with a splitting ratio of 50:50. We will analyse two key cases, the single photon and two photon performance.  The former can be considered a demonstration of the classical wave nature of the probability distribution for a single photon.  The latter considers Hong-Ou-Mandel~\cite{hom} style quantum interference.
+The remainder to this section considers the above implementation of a tunable beam-splitter as a MZ interferometer with the phase shift being error averaged. The error averaging will be performed using the concatenated beam-splitter network, hence $N=2^n, n \in \mathbb{N}$ and all beam-splitters used in this system will be fixed and with a splitting ratio of 50:50. We will analyse two key cases, the single photon and two photon performance.  The former can be considered a demonstration of the classical wave nature of the probability distribution for a single photon.  The latter considers Hong-Ou-Mandel~\cite{hom} style quantum interference.
 
 \subsection{1 photon inputs \label{1 photon N arbitrary}}
 
-Here we will consider single photon inputs into arbitrarily sized redundant encodings (counted by $N$).  As a measure of performance, we will use the redundant encoded circuit on one arm of a Mach-Zender (MZ) interferometer.  This system is shown in Figure \ref{fig:MZ_setup} for the $N=2$ case.  In an ideal interferometer an input single photon state will be transferred to a single output with a probability that varies sinusoidally between 100\% and 0\%.  Deviations from this are attributed to non-ideal interferometer performance. 
+The 1 photon network considered here is shown in Figure~\ref{fig:MZ_setup} for the $N=2$ case.  
 \begin{figure}[tbh]
 	\includegraphics[width=\columnwidth]{2N1P.png}
-	\caption{\label{fig:MZ_setup}Diagram of Mach-Zender interferometer with a redundantly encoded phase shift of $N=2$, that is, two phase shifts. $a$ and $b$ label output modes and $c$ labels an error detection mode. The input state shown is the one used for all single photon calculations and more vacuum modes are introduced for larger $N$. The phase shift elements are marked with $\theta_{i}$ and are the only source of error for the applied phase shift.}
+	\caption{\label{fig:MZ_setup}Diagram of MZ based tunable beam-splitter with a redundantly encoded phase shift of $N=2$. $a$ and $b$ label output modes and $c$ labels an error detection mode. The input state shown is used for all single photon calculations. The phase shift elements are marked with $\theta_{j}$ and are random variables.}
 \end{figure}
 	
-A single photon input state can be written an $\left|\phi\right\rangle = \hat{a}^{\dagger}\left|0\right\rangle $.  This state is the input for the MZ interferometer.  The redundant encoding in one arm is performed using 50:50 beam-splitters and the objective is to apply some phase shift of angle $\theta$.  The resulting output state is
+The input single photon state is $\left|\phi\right\rangle = \hat{a}^{\dagger}\left|0\right\rangle $.  After travesing the error averaged network, the resulting un-normalised output state conditional on all encoded modes being vacuum is
 \begin{multline}
 	\ket{\psi} = \left(
 	\left( \frac{e^{i\theta}}{2} \left\{\frac{1}{N}\sum_{j=1}^{N}e^{i\delta_{j}}\right\} + \frac{1}{2}\right) \hat{a}^{\dagger}  \right. \\
@@ -334,26 +334,26 @@ A single photon input state can be written an $\left|\phi\right\rangle = \hat{a}
 	\ket{0}.
 	\label{eq:1ParbN}
 \end{multline}
-as expected from Theorem \ref{Theorem 1}. Here $\theta_{i}=\theta+\delta_{j}$ with $\theta$ a constant and $\delta_j$ a random variable.  This output is not renormalised to include post-selection however terms that contain creation operators in modes that are post-selected to be vacuum are truncated. 
+which is consistant with Theorem~\ref{Theorem 1}. Here $\theta_{j}=\theta+\delta_{j}$ with $\theta$ a constant and $\delta_j$ a random variable. 
 
-Furthermore  in the following two sections second order Taylor approximations we used to simplify the result. 
-
-As this linear network conserves photon number we know that for this single photon case that the output state always contains one and only one photon.  The probability that the photon is measured in a particular mode can therefore be equated to the average photon number in that mode.  Using this we can calculate the probability of observing the photon in the $\hat{a}$ and $\hat{b}$ modes without post-selection to be 
+As linear networks conserves photon number, and we have post-selected the cases where energy exits via the redudant encoding modes, we know that the output state always contains one and only one photon.  The probability that the photon is measured in a particular mode can therefore be equated to the average photon number in that mode.  Using this we can calculate from the unnormalised state $\ket{\psi}$ the probability of observing the photon in the $\hat{a}$ and $\hat{b}$ modes without post-selection to be 
 \begin{eqnarray}
 	\bra{\psi} \hat{a}^{\dagger}\hat{a} \ket{\psi} & \approx & \cos^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\cos^{2}(\theta/2)}{2}
 \end{eqnarray}
 and
 \begin{eqnarray}
-	\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & \approx & \sin^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\sin^{2}(\theta/2)}{2}.
+	\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & \approx & \sin^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\sin^{2}(\theta/2)}{2}
 \end{eqnarray}
-The redundant encoding is applied successfully when the photon exits the encoding back into the arm of the MZ interferometer.  This means the probability of success is the sum of the probabilities of the $\hat{a}$ mode and $\hat{b}$ mode.  This is 
+where we have taken a first-order expansion in the phase shift variance $v$.
+Using the conservation of photon number, the vacuum post-selection is equivalent to the case when the photon exits back into the MZ interferometer.  This means the probability of success is the sum of the probabilities of the $\hat{a}$ mode and $\hat{b}$ mode.  This is 
 \begin{eqnarray}
 	P(\textrm{success}) & = & \bra{\psi}\hat{a}^{\dagger}\hat{a}\ket{\psi} +\bra{\psi}\hat{b}^{\dagger}\hat{b}\ket{\psi} \\
 	& \approx & 1+\frac{v}{2N}-\frac{v}{2}. \label{eq:1pNarbitrary successs}
 \end{eqnarray}
 In the large $N$ limit, this corresponds to the linear approximation of Equation \ref{eq:Gaussian Psuccess} where we can identify $P(\textrm{success})=c$. 
 
-To further illustrate the this error averaging when combined with post-selection, consider the case when $\theta=0$, the probability of observing the output in the correct mode without post-selection is
+Without any noise, choosing $\theta=0$ results in complete inerference and the input single photon state will be transferred to a single output.  Any deviations from this are attributed to non-ideal interferometer performance. 
+In this case the probability of observing the output in the correct mode without post-selection is
 \begin{equation}
 	\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle \approx 1 - \frac{(2N-1)v}{4N}. \label{eq:1pNoPost}
 \end{equation}
