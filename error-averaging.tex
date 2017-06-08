@@ -133,15 +133,15 @@ Error Averaging in its current state forms a rudimentary form of error correctio
 The next section introduces the details and results for a general set-up. This is done to both explain how Error Averaging is implemented and demonstrate its effect on an output state. Section \ref{implementation} includes numerous proof of principle examples which serve to highlight the effects of Error Averaging with a focus on the scaling for the probability of success. LOQC will serve as the architecture for all these examples. The feasibility of Error Averaging will be considered including a detailed discussion of some of the underlying assumptions made in the examples below can be found in section \ref{Feasibility section} followed by some concluding remarks.
 
 % NOTATION SUGGESTION: Use \hat{} for Fock space operators and no hat for normal matricies.
-\section{General Unitary Averaging\label{gen case}}
+\section{General Unitary Error Averaging\label{gen case}}
 
-Here we are concerned with the case of bosonic linear scattering networks.  These are evolutions of a multi-mode bosonic field where the Heisenberg equations of motion for the anhillation operators of each mode can be written as a linear combination of all anhillation operators.  That is, if $\mathcal{U}_U$ is a unitary operation on a $m$ mode system, then
+Here we are concerned with the case of bosonic linear scattering networks.  These are evolutions of a multi-mode bosonic field where the Heisenberg equations of motion for the annihilation operators of each mode can be written as a linear combination of all annihilation operators.  That is, if $\mathcal{U}_U$ is a unitary operation on a $m$ mode system, then
 \begin{equation}
 	\mathcal{U}_U a_i \mathcal{U}_U^\dagger = \sum_j U_{ij} a_j
 \end{equation}
 where, to preserve commutation relationships, $U$ must be a unitary matrix.  It is the network matrix $U$ that we will focus on.
 
-Consider a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an Hisenberg style evolution between mode annihilation operators of the form
+Consider a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an Heisenberg style evolution between mode annihilation operators of the form
 \begin{equation}
 	a_{j,r} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} \omega^{rk} a_{j,k}	
 \end{equation}
@@ -286,33 +286,39 @@ The requirement of $T_L^2=I$ merely reflects a simplification where the generato
 %\end{equation}
 %To be clear this results requires that the errors are small such that they approximately commute with one another and with the target matrix $U$. The distributions $p(\alpha_{l})$ are also, in general, not equivalent, even if each component within a system has an equivalent error distribution the beam splitter parameters will not necessarily corresponds directly to the coefficients of the generators in the Lie algebra. 
 
-Finding explicity closed forms for the matrix $M$ outside of the situations just outlined is an open problem.  In the most general case, $M$ is not be proportional to a unitary matrix.  Furthermore, is not gaurenteed that $M$ satisfy the conditions for a normal matrix and hence cannot be unitarily diagonalised.  So it is unclear if this post-selected regime has any connection to unitary quantum evolution at all.  Nevertheless, we will begin to examine situations which approach this domain through decompositions into single parameter problems and using numerical computations.
+Finding expressions for the matrix $M$ outside of the situations just outlined is an open problem.  In the most general case, $M$ is not be proportional to a unitary matrix.  Furthermore, is not guaranteed that $M$ satisfy the conditions for a normal matrix and hence cannot be unitary diagonalised.  So it is unclear if this post-selected regime has any connection to unitary quantum evolution at all.  Nevertheless, we will begin to examine situations which approach this domain through decompositions into single parameter problems and using numerical computations.
 
 \section{Implementation\label{implementation}}
 
 This section demonstrates how Error Averaging can be implemented for various example systems. These examples also serve as a verification of the range of validity of approximately commuting errors assumption. It can also be noted that Equation~(\ref{sum_unitary}) can become the appropriate transformation for duality quantum computing by allowing the $U_{i}$ to be arbitrary\cite{dualityQC}.
 
-Constructions using the DFT implementation from the previous section may be inconvenient depending on the nature of the system used.  The transformation of Eq.~(\ref{sum_transformation}) can also be achieved using an array of beam-splitters as shown in Fig.~\ref{fig:gen system}.  This beam-splitter array also has the desirable property of a nested pattern.  As shown by the bounding rectangles in Fig.~\ref{fig:gen system}, the outer and inner layers share the same basic structure. 
+Constructions for the redundant encoding using the DFT implementation from the previous section use useful mathematically but may be inconvenient to implement in practice.  The transformation of Eq.~(\ref{sum_transformation}) can also be achieved using an array of beam-splitters as shown in Fig.~\ref{fig:gen system}.  This beam-splitter array has the desirable property of being generated by a recursive pattern.  As shown by the bounding rectangles in Fig.~\ref{fig:gen system}, the outer and inner layers share the same basic structure. 
 %
 \begin{figure}[tbh]
 	\includegraphics[width=\columnwidth]{unitaries.PNG}
-	\caption{\label{fig:gen system}Diagram showing the innermost components marked with $\hat{U}_i$ being error averaged eight times using fourteen beam splitters. Note that for clarity the error detection modes are not included. See figure \ref{fig:MZ_setup} for an example explicitly including the error detection modes. The inner fixed beam splitters can be considered error averaged four times by taking the component of the system in the red box as a smaller system which is error averaged. Similarly the system in blue box which is effectively being averaged twice.}
+	\caption{\label{fig:gen system}Redundant encoding using 50:50 beam-splitters for $N=8$. The boxes labeled $\hat{U}_i$ can be single or multi-mode.  In the multi-mode case the encoding beam-splitter network is repeated for each mode input and output. Output modes that are post-selected on the vacuum are not shown here. The red box shows an $N=2$ level encoding and the blue box shows $N=4$.  Further nesting of this arrangement can achieve any $N$ being a power of two.}
 \end{figure}
 	
 %The following section discusses the results of numerical simulations for various systems implementing Error Averaging. To understand why linear optics was the chosen implementation consider the two key requirements of implementation. The first requirement is that the fundamental particle used as the computational qubit can be placed in a spacial superposition. The second requirement is that any employed unitary $\hat{U}$  does not act on the vacuum, that is $\hat{U}\left|0\right>=\left|0\right>$. Although these seem restrictive, LOQC automatically satisfies both of these requirements. A spacial superposition can be created easily using beam splitters and any linear optical unitary cannot, by definition, affect the vacuum.
 	
 %	Within the LOQC architecture, the following discussion will be agnostic about the specific encoding method by working in the Fock basis. In this way both single and dual rail encoding can be corrected and as such will generally not be considered in all further discussions.
 
-Initially we will focus on phase errors as this case is well understood and sets the stage for developing more complex scenarios.  The fundamental components in linear networks are phase shifters and beam splitters.  All networks can be generated by arranging networks of these elements~\cite{reck}.  Carolan et. al.~\cite{ULO} have experimentally probed a linear network where all possible networks can be generated using controllable phase shifters with fixed beam splitters. The basic idea is to replace each beam splitter in a network decomposition with a Mach Zehnder (MZ) interferometer consisting of a controllable phase shifter in one arm and two fixed $50:50$ beam splitters. In their experimental implementation they demonstrated the ability to implement many quantum logic gates and linear optical protocols with a high fidelity.  Using this experiment as a guiding framework we considered phase errors as a dominate error source as they were the parts of the network subject to variation. 
-	
-Following this framework we assume $50:50$ beam splitters which are ideal and the phase shifts are the source of all errors. The applied phase shift can then be written as $e^{i(\theta+\delta)}$ where, for the identity, $\theta=0$ and $\delta$ is a random variable represing the errors.  In terms of the constructions used in Section~\ref{gen case}, this corresponds to Equation \ref{eq:single parameter, multi-mode} with $T=\begin{bmatrix}	0 & 1 \\	1 & 0 \\\end{bmatrix}$ and $M=e^{i\delta T}$ where we have set $U=\mathbb{I}$. This distribution for $\delta$ is taken to be Gaussian with mean $0$ and variance $v$. 
+%Initially we will focus on phase errors as this case is well understood and sets the stage for developing more complex scenarios.  The fundamental components in linear networks are phase shifters and beam splitters.  
+
+All linear networks can be generated by arranging networks of beam-splitters and phase shifts~\cite{reck}.  Carolan et.~al.~\cite{ULO} have experimentally probed a linear network where all possible networks can be generated using controllable phase shifts and unvarying beam-splitters.  In their experimental implementation they demonstrated the ability to implement many quantum logic gates and linear optical protocols with a high fidelity.  Following this same methodology one can generate controllable beam-splitters using a Mach-Zehnder (MZ) interferometer consisting of a controllable phase shift in one arm and two fixed $50:50$ beam splitters.
+
+Within this type of architecture the controllable phase shift is the key source of non-systematic noise.  Furthermore, redundantly encoding phase shifts are well characterised by the results presented above from Corollary~\ref{Corollary 1}.  So we will focus on phase shift induced errors the analysis for this section and the next.  The model we will use assumes $50:50$ beam-splitters which are fixed and phase shifts that vary and are the source of all noise.
+
+The noise in a controllable phase-shift can be written as $e^{i(\theta+\delta)}$ where $\theta$ is a real number representing the phase shift to be applied and $\delta$ is a zero-mean random variable representing the error.  For the identity operation $\theta=0$.  We will assume the distribution for $\delta$ to be Gaussian with variance $v$.  For values of $v$ that are comparable to $\pi^2$ the multi-valued nature of phase shifts becomes important.  But initially we will focus on the limit where $v \ll \pi^2$.
+
+%In terms of the constructions used in Section~\ref{gen case}, this corresponds to Equation \ref{eq:single parameter, multi-mode} with $T=\begin{bmatrix}	0 & 1 \\	1 & 0 \\\end{bmatrix}$ and $M=e^{i\delta T}$ where we have set $U=\mathbb{I}$. 
 
 %Need to come back to this.  Not sure what it means.
-We will initially consider a single beam splitter for a one and two photon inputs with $N$ internal phase shifters where $N=2^{n},n\in\mathbb{N}$. As the entire system is implementing a beam splitter it has two desired input and output modes. However as $N$ increases so too does the actual number of input and output modes. All of these extra input modes are effectively ignored by being set to the vacuum state $\left|0\right\rangle $. The extra output ports all have photo-detectors which will be post selected on being zero.
-		
-	
-\subsection{1 photon N arbitrary \label{1 photon N arbitrary}}
-	
+
+The remainder to this section considers the above implementation of a beam-splitter in a MZ interferometer but with the phase shift being error averaged. The error averaging will be performed using the concatenated beam-splitter network, hence $N=2^n, n \in \mathbb{N}$ and all beam-splitters used in this system will be fixed and with a splitting ratio of 50:50. We will analyse two key cases, the single photon and two photon performance.  The former can be considered a demonstration of the classical wave nature of the probability distribution for a single photon.  The latter considers Hong-Ou-Mandel~\cite{hom} style quantum interference.
+
+\subsection{1 photon inputs \label{1 photon N arbitrary}}
+
 Here we will consider single photon inputs into arbitrarily sized redundant encodings (counted by $N$).  As a measure of performance, we will use the redundant encoded circuit on one arm of a Mach-Zender (MZ) interferometer.  This system is shown in Figure \ref{fig:MZ_setup} for the $N=2$ case.  In an ideal interferometer an input single photon state will be transferred to a single output with a probability that varies sinusoidally between 100\% and 0\%.  Deviations from this are attributed to non-ideal interferometer performance. 
 \begin{figure}[tbh]
 	\includegraphics[width=\columnwidth]{2N1P.png}
@@ -320,16 +326,14 @@ Here we will consider single photon inputs into arbitrarily sized redundant enco
 \end{figure}
 	
 A single photon input state can be written an $\left|\phi\right\rangle = \hat{a}^{\dagger}\left|0\right\rangle $.  This state is the input for the MZ interferometer.  The redundant encoding in one arm is performed using 50:50 beam-splitters and the objective is to apply some phase shift of angle $\theta$.  The resulting output state is
-\begin{widetext}
-\begin{equation}
+\begin{multline}
 	\ket{\psi} = \left(
-	\left( \frac{e^{i\theta}}{2} \left\{\frac{1}{N}\sum_{j=1}^{N}e^{i\delta_{j}}\right\} + \frac{1}{2}\right) \hat{a}^{\dagger} 
-	+ \left(\frac{e^{i\theta}}{2} \left\{\frac{1}{N}\sum_{j=1}^{N}e^{i\delta_{j}}\right\} - \frac{1}{2}\right) \hat{b}^{\dagger} 
+	\left( \frac{e^{i\theta}}{2} \left\{\frac{1}{N}\sum_{j=1}^{N}e^{i\delta_{j}}\right\} + \frac{1}{2}\right) \hat{a}^{\dagger}  \right. \\
+	+ \left. \left(\frac{e^{i\theta}}{2} \left\{\frac{1}{N}\sum_{j=1}^{N}e^{i\delta_{j}}\right\} - \frac{1}{2}\right) \hat{b}^{\dagger} 
 	\right)
 	\ket{0}.
 	\label{eq:1ParbN}
-\end{equation}
-\end{widetext}
+\end{multline}
 as expected from Theorem \ref{Theorem 1}. Here $\theta_{i}=\theta+\delta_{j}$ with $\theta$ a constant and $\delta_j$ a random variable.  This output is not renormalised to include post-selection however terms that contain creation operators in modes that are post-selected to be vacuum are truncated. 
 
 Furthermore  in the following two sections second order Taylor approximations we used to simplify the result. 
@@ -364,7 +368,7 @@ Figure~\ref{fig:post vs no post} shows how these two quantities scale with $N$. 
 	\caption{\label{fig:post vs no post} Probability of the photon being detected at the $a$ output port as shown in Figure~\ref{fig:MZ_setup} as a function of the redundant encoding size $N$. Here the phase shift noise variance was fixed at $v=0.1\ \textrm{rad}^{2}$. The lower orange values correspond to the case without post-selection and blue upper values corresponds to post-selected probability conditional on the photon not exiting the added modes in the redundant encoding.  Eq.~(\ref{eq:1pNoPost}) predicts and asymptote of $0.95$ without post-selection and Eq.~(\ref{eq:1pWithPost}) predicts an asymptote of $1$ with post-selection.}
 \end{figure}
 
-\subsection{2 photons N arbitrary \label{2 photons N arbitrary}}
+\subsection{2 photon inputs\label{2 photons N arbitrary}}
 
 The single photon interference effects in linear networks has all the features of classical wave interference.  Now we will consider two photon inference to demonstrate a truely quantum interference in this encoding.  For two photons we have a similar general form for the output state 
 \begin{align}
@@ -566,7 +570,7 @@ This is suggestive of the existence of some threshold for the amount of error in
 
 It can now be concluded that some hybrid method of Error Averaging would be most suitable in general. The entire system would need to be broken into $x$ smaller systems, which are independently averaged across. The specific value of $x$ would be such that the number of components in the system, $m$, is maximised while the total error within each subsystem is kept below the appropriate threshold.
 
-\subsection{Four Mode Implementation Comparison \label{Four Mode Impementation Comparison}}
+\section{Four Mode Implementation Comparison \label{Four Mode Impementation Comparison}}
 
 To gain a better understanding of how useful this method of Error Averaging actually is, a more complicated system was also investigated. In particular, a four mode system with each method of Error Averaging was considered. The set up consisted of a four mode system with four beam splitters, each implemented as above, that is each being its own MZ interferometer as shown in Figure \ref{fig:4 mode basis diagram}. Three different input states were chosen: a single photon input in the top mode and the vacuum state at all other modes$\left(\left|1,0,0,0\right\rangle \right)$, two photons, both in the top mode $\left(\left|2,0,0,0\right\rangle \right)$ and two photons spread across the top two modes $\left(\left|1,1,0,0\right\rangle \right)$. For simplicity the system was chosen to target the identity and error reduction was then applied using both implementations. That is, by averaging each beam splitter as done in section \ref{1 photon N arbitrary} and by concatenating the entire system in an interferometer as shown in Figure \ref{fig: averaging 4 mode diagram}. All results were found using \textit{Mathemtatica} to sample from the appropriate transformation matrix representing the system and then compute the second order approximation of the photon number expectation values and probabilities for $N=1, 2 \textrm{ and } 4$. All results can be found in Appendix \ref{Appendix full of results}
 
