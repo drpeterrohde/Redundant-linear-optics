@@ -325,7 +325,7 @@ The 1 photon network considered here is shown in Figure~\ref{fig:MZ_setup} for t
 	\caption{\label{fig:MZ_setup}Diagram of MZ based tunable beam-splitter with a redundantly encoded phase shift of $N=2$. $a$ and $b$ label output modes and $c$ labels an error detection mode. The input state shown is used for all single photon calculations. The phase shift elements are marked with $\theta_{j}$ and are random variables.}
 \end{figure}
 	
-The input single photon state is $\left|\phi\right\rangle = \hat{a}^{\dagger}\left|0\right\rangle $.  After travesing the error averaged network, the resulting un-normalised output state conditional on all encoded modes being vacuum is
+The input single photon state is $\left|\phi\right\rangle = \hat{a}^{\dagger}\left|0\right\rangle $.  After traversing the error averaged network, the resulting un-normalised output state conditional on all encoded modes being vacuum is
 \begin{multline}
 	\ket{\psi} = \left(
 	\left( \frac{e^{i\theta}}{2} \left\{\frac{1}{N}\sum_{j=1}^{N}e^{i\delta_{j}}\right\} + \frac{1}{2}\right) \hat{a}^{\dagger}  \right. \\
@@ -334,9 +334,9 @@ The input single photon state is $\left|\phi\right\rangle = \hat{a}^{\dagger}\le
 	\ket{0}.
 	\label{eq:1ParbN}
 \end{multline}
-which is consistant with Theorem~\ref{Theorem 1}. Here $\theta_{j}=\theta+\delta_{j}$ with $\theta$ a constant and $\delta_j$ a random variable. 
+which is consistent with Theorem~\ref{Theorem 1}. Here $\theta_{j}=\theta+\delta_{j}$ with $\theta$ a constant and $\delta_j$ a random variable. 
 
-As linear networks conserves photon number, and we have post-selected the cases where energy exits via the redudant encoding modes, we know that the output state always contains one and only one photon.  The probability that the photon is measured in a particular mode can therefore be equated to the average photon number in that mode.  Using this we can calculate from the unnormalised state $\ket{\psi}$ the probability of observing the photon in the $\hat{a}$ and $\hat{b}$ modes without post-selection to be 
+As linear networks conserves photon number, and we have post-selected the cases where energy exits via the redundant encoding modes, we know that the output state always contains one and only one photon.  The probability that the photon is measured in a particular mode can therefore be equated to the average photon number in that mode.  Using this we can calculate from the un-normalised state $\ket{\psi}$ the probability of observing the photon in the $\hat{a}$ and $\hat{b}$ modes without post-selection to be 
 \begin{eqnarray}
 	\bra{\psi} \hat{a}^{\dagger}\hat{a} \ket{\psi} & \approx & \cos^{2}\left(\theta/2\right)+\frac{v}{4N}-\frac{v\cos^{2}(\theta/2)}{2}
 \end{eqnarray}
@@ -362,28 +362,26 @@ After post-selection this becomes
 	\frac{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle}{P(\textrm{success})} \approx 1 - \frac{v}{4N}. \label{eq:1pWithPost}
 \end{equation}
 		
-Figure~\ref{fig:post vs no post} shows how these two quantities scale with $N$. In particular, it can be seen that with post-selection the likelihood of the photon exiting the interferometer in the correct mode can be made arbitrarily close to unity by increasing $N$. Also it is seen that while the probability of success decreases for increasing $N$ this asymptotes to some fixed value. This implies that as $N$ increases, even thought the total quantity of errors added to the system increases, the effects of the combined errors on the interferometer is less. This can be understood by the process of redundantly splitting and recombining the state, tends drive noise into the error ports by interference.  This results in the state at the output modes utilised by the interferometer approaching an ideal noiseless state.
+Figure~\ref{fig:post vs no post} shows how these two quantities scale with $N$. In particular, it can be seen that after post-selection the likelihood of the photon exiting the interferometer in the correct mode can be made arbitrarily close to unity by increasing $N$. Also, while the probability of success decreases for increasing $N$ it asymptotes to a constant value. This implies that as $N$ increases, even thought the total quantity of errors added to the system increases, the effects of the combined errors on the interferometer is less. This can be understood by the process of redundantly splitting and recombining the state, tends drive noise into the post-selected ports by interference.  
 \begin{figure}[tbh]
 	\includegraphics[width=\columnwidth]{1photonpostvsnopost.png}
-	\caption{\label{fig:post vs no post} Probability of the photon being detected at the $a$ output port as shown in Figure~\ref{fig:MZ_setup} as a function of the redundant encoding size $N$. Here the phase shift noise variance was fixed at $v=0.1\ \textrm{rad}^{2}$. The lower orange values correspond to the case without post-selection and blue upper values corresponds to post-selected probability conditional on the photon not exiting the added modes in the redundant encoding.  Eq.~(\ref{eq:1pNoPost}) predicts and asymptote of $0.95$ without post-selection and Eq.~(\ref{eq:1pWithPost}) predicts an asymptote of $1$ with post-selection.}
+	\caption{\label{fig:post vs no post} Probability of single photon being detected at the $a$ output port as shown in Figure~\ref{fig:MZ_setup} as a function of the redundant encoding size $N=2^n$. Here the phase shifts are sampled from a distribution with mean value $0$ and variance $v=0.1\ \textrm{rad}^{2}$. The lower orange values correspond to the case without post-selection and blue upper values corresponds to post-selected probability conditional on the photon not exiting the added redundant encoding modes.  Eq.~(\ref{eq:1pNoPost}) predicts an asymptote of $0.95$ without post-selection and Eq.~(\ref{eq:1pWithPost}) predicts an asymptote of $1$ with post-selection.  The asymptotic behaviour is consistent with the plotted data.}
 \end{figure}
 
 \subsection{2 photon inputs\label{2 photons N arbitrary}}
 
-The single photon interference effects in linear networks has all the features of classical wave interference.  Now we will consider two photon inference to demonstrate a truely quantum interference in this encoding.  For two photons we have a similar general form for the output state 
-\begin{align}
-	\left|\psi\right\rangle & =  \frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \ket{1,1} \nonumber\\
-	& +\frac{\sqrt{2}}{4}\left\{ \frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)-1\right\} \left(\ket{2,0} +\ket{0,2}\right).\label{eq:2pNarbitrary S}
-\end{align}
-This equation only considers the $a$ and $b$ output modes and so includes the probability of success, as was done for the single photon case.
+The single photon interference effects in linear networks can be explained using classical wave interference.  Now we will consider two photon interference to demonstrate the behaviour of quantum interference when using the redundant encoding.  For two photons we can compute the un-normalised the output state for the $a$ and $b$ modes is
+\begin{multline}
+	\ket{\psi} =  \frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \ket{1,1} \\
+	+\frac{\sqrt{2}}{4}\left\{ \frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)-1\right\} \left(\ket{2,0} +\ket{0,2}\right)\label{eq:2pNarbitrary S}
+\end{multline}
+where we have chosen $\theta=0$ when computing this state.  Because of this choice, the action of the interferometer on the input state should be the identity operation and hence $\ket{1,1}$ is the desired output state.   Note that we could have chosen the input state to be $\ket{2,0}$, but this would not necessarily show any new behaviour, just the single photon results independently applied to the two input photons. 
 
-Here the action of the interferometer on the input state should be the identity operation and hence $\ket{1,1}$ is the desired output state.   Note that we could have chosen the input state to be $\ket{2,0}$, but this would not necessarily show any new behaviour, just the single photon results independently applied to the two input photons. 
-
-We can again write probabilities as expectation values.  Using the form of Eq.~(\ref{eq:2pNarbitrary S}), the ideal output is achieved when
+We can again write probabilities as expectation values of occupation number.  Using the form of Eq.~(\ref{eq:2pNarbitrary S}), the ideal output is achieved when
 \begin{equation}
-\bra{\psi}\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\ket{\psi} = 1
+\bra{\psi}\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\ket{\psi} = 1.
 \end{equation}
-where $\ket{\psi}$ includes any re-normalisation due to post-selection. What would will actually be achieved is
+This expectation value for the state including the phase shift noise is
 \emph{(TODO: CHECK THESE EQUATIONS)}
 \begin{eqnarray}
 \left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle & = & \left\langle \left|\frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \right|^{2}\right\rangle \nonumber \\
@@ -392,23 +390,22 @@ where $\ket{\psi}$ includes any re-normalisation due to post-selection. What wou
 &  & \times\left(\sum_{l}^{N}e^{2i\delta_{l}}+\sum_{l=1}^{N}\sum_{m\ne l}^{N}e^{i(\delta_{l}+\delta_{m})}\right)\Biggr\rangle\nonumber \\
 & \approx & 1-v\label{eq:exp. value aabb}
 \end{eqnarray}
-where, a second order Taylor approximation was used along with the moments of Gaussian random variables. After post selection this is improved to become what we refer to as the probability of observing a coincidence measurement, $P(\textrm{coincidence})$, which is, to a first order approximation
+where the approximation is assuming $v$ small.  Post-selection will increase this to 
 \begin{widetext}
 \begin{eqnarray}
 P(\textrm{coincidence}) & = & \frac{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle }{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle +0.5\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}^{\dagger}\hat{a}\hat{a}\left|\psi\right\rangle +0.5\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}^{\dagger}\hat{b}\hat{b}\left|\psi\right\rangle }\nonumber \\
 & \approx & 1-\frac{v}{2N}\label{eq:2pNarb PS}
 \end{eqnarray}
 \end{widetext}
-where the binomial approximation was also used.  Finally the probability of success, when defined as the probability of not needing to post selected a single instance is
+where $P(\textrm{coincidence})$ is the probability the photons exit modes $a$ and $b$ individually and the binomial approximation has been used to keep only variance terms to first order.  Finally the probability of success, which is the probability no photons exit the encoding modes is 
 \begin{eqnarray}
 	P(\textrm{success}) & \approx & 1-v+\frac{v}{2N}.\label{eq:2pNarb Success}
 \end{eqnarray}
-
-Here, again in the large $N$ limit the result matches Equation \ref{eq:Gaussian Psuccess} provided it is squared before taking the linear approximation. Also both these instances we see the probability of success scaling with $\frac{1}{N}$.
+Again, the large $N$ limit of this equation the result matches the prediction of Equation~\ref{eq:Gaussian Psuccess}. Also, the probability of success scales as $\frac{1}{N}$ which is the same as for the single photon input case.
 
 \section{Comparison between averaging techniques \label{averaging at end vs step}}
 
-So far we have presented two specific procedures for implementing a redundantly encoded phase shift with linear elements.  There exists many more combinations of possible ways to do this.  In this section we will look at combinations of redundant encodings using the concatenated beam-splitter method.  In particular we will study two different methods, which we will referred to as averaging at the end and averaging each step. Figure \ref{fig:Different methods of implementation} shows schematically these two configurations.  By averaging each component individually (Fig.~\ref{fig:Different methods of implementation}(c)), significantly more encoding resources are required, however we will show this leads to more stability in the output state. In the low resource and low error limit these two methods also appear to be directly equivalent. We can then infer that in the case when the two methods do yield equivalent results, Corollary \ref{Corollary 2}, and its approximately commuting error assumption, does hold. In particular the low error limit allows the approximation that the generators of each error commute with one another. However this approximately commuting assumption will fail to hold in general when the size of the errors becomes too large. The effect of this can lead to significant differences in the effectiveness of the two arrangements as discussed in this section.
+So far we have presented two specific procedures for implementing a redundantly encoded phase shift with linear elements.  There exists many more combinations of possible ways to do this.  In this section we will look at combinations of redundant encodings using the concatenated beam-splitter method.  In particular we will study two different methods, which we will refer to as averaging at the end and averaging each step. Fig.~\ref{fig:Different methods of implementation} shows schematically these two configurations.  By averaging each component individually (Fig.~\ref{fig:Different methods of implementation}(c)), significantly more encoding beam-splitters are required, however we will show this leads to more stability in the output state. In the low resource and low error limit these two methods also appear to be equivalent. We can then infer that in the case when the two methods do yield equivalent results, the  approximately commuting error assumption of Corollary~\ref{Corollary 2} does hold. In particular the low error limit allows the approximation that the generators of each error commute with one another. However this approximately commuting assumption will fail to hold in general when the size of the errors becomes too large. The effect of this can lead to significant differences in the effectiveness of the two arrangements as will be discussed in this section.
 \begin{figure}
 \includegraphics[width=\columnwidth]{three_phase_applying_systems.PNG}
 \caption{Three methods of applying three phase shifts, each marked with a in
@@ -421,7 +418,7 @@ So far we have presented two specific procedures for implementing a redundantly 
 
 \subsection{Single Mode, Single Parameter Examples \label{Phase applying systems}}
 
-For a more complete picture, this section considers the output of a simple phase applying system to explore the single parameter, single mode regime. This is done with by looking at both expectation values and a `shot by shot' case. This will also serve to highlight the differences between the two implementations introduces above.
+This section considers the output of a simple phase applying system to explore the single parameter, single mode regime. This is done with by looking at both expectation values and a `shot by shot' case. This will also serve to highlight the differences between the two implementations introduces above.
 
 Figure~\ref{fig:Different methods of implementation} shows the various arrangements we consider for the phase applying systems including the trivial case of doing no encoding.  
 The focus now is to compare Error Averaging $N$ times after each applied phase shift (Figure~\ref{fig:Different methods of implementation}(c)) to averaging across the entire system $N$ times (Figure~\ref{fig:Different methods of implementation}(b)). The system analysed contains a single channel with $M$ sequential phase shifters. This was chosen to better characterise Error Averaging when applied to a series of error sources as any differences between the two methods of error correction will more likely arise in larger systems. This allows us to see the effect of having multiple parameters in a single mode and so the results should be governed by Corollary \ref{Corollary 1}. These systems were also used to determine if a quantum-Zeno effect~\cite{expZeno} would be observed.
