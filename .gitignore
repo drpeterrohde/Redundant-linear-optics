@@ -4,6 +4,5 @@
 *.log
 *Notes.bib
 *.out
-*.pdf
 *.synctex.gz
 *.dwg
