@@ -120,7 +120,7 @@ Given the current drive to witness the supremacy of quantum computing it is impe
 % body of paper here - Use proper section commands
 % References should be done using the \cite, \ref, and \label commands
 \section{Introduction \label{intro}}
-Quantum technology and in particular Quantum computing is a very promising area of research with the potential to lead to some of the most significant technological advances in recent times. There are, however, still many hurdles before universal quantum computing is achieved. The focus of this paper will be on the hurdle of error correction. The Error Averaging protocol requires the input qubits to be placed in a spatial superposition and restricts the effect that any applied unitary has on the vacuum. Both of these requirements are satified by LOQC and as such this will form the basis for most of this paper.
+Quantum technology and in particular Quantum computing is a very promising area of research with the potential to lead to some of the most significant technological advances in recent times. There are, however, still many hurdles before universal quantum computing is achieved. The focus of this paper will be on the hurdle of error correction. The Error Averaging protocol requires the input qubits to be placed in a spatial superposition and restricts the effect that any applied unitary has on the vacuum. Both of these requirements are satisfied by LOQC and as such this will form the basis for most of this paper.
 
 Error Averaging in its current state forms a rudimentary form of error correction which currently acts to distil errors form the system in such a way that they can be post selected away. Figure \ref{fig:output_probabilities} shows how Error Averaging by itself lowers the probability of success, but increases the probability of obtaining the correct result after post selecting on no errors being detected. The variance of the errors in the system have been shown to scale as $\frac{1}{N}$ where $N$ represents the amount of correction or equivalently the number of copies of the system.
 
@@ -233,7 +233,7 @@ which now relates to the moments of the underlying distribution in $\theta$. If 
 \begin{equation}
 	M = \sum_{n \in even} \frac{(iT)^n}{n!} (n-1)!! \sigma^n
 \end{equation}
-where $n!! = n(n-2)(n-4)\dots$ is the double factorial.  This series can be written back in the form of a matrix exponential, and by reindroducing the mean value we have
+where $n!! = n(n-2)(n-4)\dots$ is the double factorial.  This series can be written back in the form of a matrix exponential, and by reintroducing the mean value we have
 \begin{equation}
 	M = e^{i\mu T} e^{-\frac{\sigma^2}{2} T^2}
 \end{equation}
@@ -298,7 +298,7 @@ Constructions for the redundant encoding using the DFT implementation from the p
 %
 \begin{figure}[tbh]
 	\includegraphics[width=\columnwidth]{unitaries.pdf}
-	\caption{\label{fig:gen system}Redundant encoding using 50:50 beam-splitters for $N=8$. The boxes labeled $\hat{U}_i$ can be single or multi-mode.  In the multi-mode case the encoding beam-splitter network is repeated for each mode input and output. Output modes that are post-selected on the vacuum are not shown here. The red box shows an $N=2$ level encoding and the blue box shows $N=4$.  Further nesting of this arrangement can achieve any $N$ being a power of two.}
+	\caption{\label{fig:gen system}Redundant encoding using 50:50 beam-splitters for $N=8$. The boxes labelled $\hat{U}_i$ can be single or multi-mode.  In the multi-mode case the encoding beam-splitter network is repeated for each mode input and output. Output modes that are post-selected on the vacuum are not shown here. The red box shows an $N=2$ level encoding and the blue box shows $N=4$.  Further nesting of this arrangement can achieve any $N$ being a power of two.}
 \end{figure}
 	
 %The following section discusses the results of numerical simulations for various systems implementing Error Averaging. To understand why linear optics was the chosen implementation consider the two key requirements of implementation. The first requirement is that the fundamental particle used as the computational qubit can be placed in a spacial superposition. The second requirement is that any employed unitary $\hat{U}$  does not act on the vacuum, that is $\hat{U}\left|0\right>=\left|0\right>$. Although these seem restrictive, LOQC automatically satisfies both of these requirements. A spacial superposition can be created easily using beam splitters and any linear optical unitary cannot, by definition, affect the vacuum.
@@ -467,7 +467,7 @@ The measure for the quantity of error when no averaging is applied, $E_{noAv}$, 
 \begin{eqnarray}
 E_{noAve} & = & \left\langle \Psi\right|\hat{n}_{a}\left|\Psi\right\rangle \nonumber \\
 & = & \frac{1}{2}\left\langle 1+\cos\left(\alpha\right)\right\rangle \nonumber \\
-& \approx & 1-\frac{Mv}{4}+\frac{M^{2}v}{16}\label{eq:ErrorNoAv1}
+& \approx & 1-\frac{Mv}{4}+\frac{M^{2}v^{2}}{16}\label{eq:ErrorNoAv1}
 \end{eqnarray}
 where $\alpha=\sum_{k=1}^{M}\delta_{k}$ and Gaussian statistics have been used to write higher order moments in terms of the variance.
 
@@ -611,7 +611,7 @@ where $M$ is the number of phase shifters and $v$ is the variance in the individ
 \begin{equation}
 \textrm{Total Variance}=\frac{vM}{N}\label{eq:Tot Var w/ correction}
 \end{equation}
-where $N$ is the number of times the system is averaged, again $N=1$ implies no averaging. As the phase is an angle with a finite range, this behaviour cannot hold for arbitrarily large $vM$. A completely random phase $\theta$ is still limited by the possibe range of values, in our case chosen to be $-\pi<\theta\le\pi$. If the value of $\theta$ is indeed completely random then one will expect a uniform probability distribution of $P\left(\theta\right)=\frac{1}{2\pi}$. This then implies the maximum variance will be given by
+where $N$ is the number of times the system is averaged, again $N=1$ implies no averaging. As the phase is an angle with a finite range, this behaviour cannot hold for arbitrarily large $vM$. A completely random phase $\theta$ is still limited by the possible range of values, in our case chosen to be $-\pi<\theta\le\pi$. If the value of $\theta$ is indeed completely random then one will expect a uniform probability distribution of $P\left(\theta\right)=\frac{1}{2\pi}$. This then implies the maximum variance will be given by
 \begin{eqnarray}
 \textrm{Maximum variance} & = & \int_{-\pi}^{\pi}\theta^{2}P\left(\theta\right)\ d\theta\nonumber \\
 & = & \frac{\pi^{2}}{3}\label{eq:Max Var}
@@ -634,7 +634,7 @@ It can now be concluded that some hybrid method of Error Averaging would be most
 
 \section{Four Mode Implementation Comparison \label{Four Mode Impementation Comparison}}
 
-To gain a better understanding of how useful this method of Error Averaging actually is, a more complicated system was also investigated. In particular, a four mode system with each method of Error Averaging was considered. The set up consisted of a four mode system with four beam splitters, each implemented as above, that is each being its own MZ interferometer as shown in Figure \ref{fig:4 mode basis diagram}. Three different input states were chosen: a single photon input in the top mode and the vacuum state at all other modes$\left(\left|1,0,0,0\right\rangle \right)$, two photons, both in the top mode $\left(\left|2,0,0,0\right\rangle \right)$ and two photons spread across the top two modes $\left(\left|1,1,0,0\right\rangle \right)$. For simplicity the system was chosen to target the identity and error reduction was then applied using both implementations. That is, by averaging each beam splitter as done in section \ref{1 photon N arbitrary} and by concatenating the entire system in an interferometer as shown in Figure \ref{fig: averaging 4 mode diagram}. All results were found using \textit{Mathemtatica} to sample from the appropriate transformation matrix representing the system and then compute the second order approximation of the photon number expectation values and probabilities for $N=1, 2 \textrm{ and } 4$. All results can be found in Appendix \ref{Appendix full of results}
+To gain a better understanding of how useful this method of Error Averaging actually is, a more complicated system was also investigated. In particular, a four mode system with each method of Error Averaging was considered. The set up consisted of a four mode system with four beam splitters, each implemented as above, that is each being its own MZ interferometer as shown in Figure \ref{fig:4 mode basis diagram}. Three different input states were chosen: a single photon input in the top mode and the vacuum state at all other modes$\left(\left|1,0,0,0\right\rangle \right)$, two photons, both in the top mode $\left(\left|2,0,0,0\right\rangle \right)$ and two photons spread across the top two modes $\left(\left|1,1,0,0\right\rangle \right)$. For simplicity the system was chosen to target the identity and error reduction was then applied using both implementations. That is, by averaging each beam splitter as done in section \ref{1 photon N arbitrary} and by concatenating the entire system in an interferometer as shown in Figure \ref{fig: averaging 4 mode diagram}. All results were found using \textit{Mathematica} to sample from the appropriate transformation matrix representing the system and then compute the second order approximation of the photon number expectation values and probabilities for $N=1, 2 \textrm{ and } 4$. All results can be found in Appendix \ref{Appendix full of results}
 
 \begin{figure}[h]
 \centerline{\includegraphics[width=\columnwidth]{4_mode_system.pdf}}
