@@ -594,12 +594,12 @@ As the total number of components increases with both increasing $M$ and $N$, th
 To better understand the behaviour of the three phase applying systems, the total applied phase was modelled using \textit{Mathematica} with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This now corresponds to Equation~(\ref{eq:single parameter, single mode}) with $\theta=\prod_{i}\theta_{i}$. This was repeated $5000$ times and the results are shown in Figure \ref{fig:Total-applied-phase1} and Figure \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. In the range of applied phases is smaller when each phase shifter is corrected individually, an indication that averaging each step is more effective. By comparing Figure~\ref{fig:Total-applied-phase1} with Figure~\ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure~\ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case.
 %
 \begin{figure}
-\centerline{\includegraphics[width=\columnwidth]{totPhase1.pdf}}
+\centerline{\includegraphics[width=\columnwidth]{totphase1.pdf}}
 \caption{Top: Total applied phase over $5000$ runs for no averaging (orange), averaging across the entire system (green) and averaging each phase shifter individually (blue). Bottom: Histogram of the total applied phases. Each individual phase shifter has a variance of $0.1\ \textrm{rad}^{2}$ and each system has $15$ phase shifters in series. The two error averaged circuits are each averaged $4$ times. \label{fig:Total-applied-phase1}}
 \end{figure}
 %
 \begin{figure}
-\centerline{\includegraphics[width=\columnwidth]{totPhase2.pdf}}
+\centerline{\includegraphics[width=\columnwidth]{totphase2.pdf}}
 \caption{Top: Total applied phase over $5000$ runs for no averaging (orange), averaging across the entire system (green) and averaging each phase shifter individually (blue). Bottom: Histogram of the total applied phase. Each individual phase shifter has a variance of $0.3\ \textrm{rad}^{2}$ and each system has $8$ phase shifters in series. The two error averaged circuits are each averaged $4$ times. \label{fig:Total-applied-phase2}}
 \end{figure}
 
