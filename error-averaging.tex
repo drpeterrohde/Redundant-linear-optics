@@ -752,6 +752,16 @@ This is, in its current state a unsolved problem. It is hoped that this can be e
 
 \emph{(NOTE: I cannot figure out what the \textbf{key} messages are here.}
 
+% Some thoughts on this section
+%
+% What this _really_ should be about is the generalisation to $N$ modes.  This wan't really numerically simulated as it is a bit hard to do that.
+% There are some critial problems here that I'm not sure if they are able to be recovered from:
+% a) The model of counting for a ``general'' unitary admits that it under counts.
+% b) The bit about AA seems _weird_. What does it mean about `n' times!?  AA say nothing about the parameterisation of their problem.  Not sure where this came from.  But an interesting idea is that n-photons into m-modes must have parameters for which there is no sensitivity in the output probability.  
+% c) There is a connection to total variation distance (which wasn't actually in AA but in Arkipov's later unitary errors paper), but this isn't actually made.  I think the error model we are talking about won't scale as (n log m)^-1. So I'm thinking the last bit might be wrong.
+%
+% We are admitting that we aren't looking for fault tolerance here. We really just want to count resources for the generic cases.  I don't think we need to worry about the ``right'' values.  Just count the resources, state the result and then end saying the values needed will depends on how it's used.
+
 \section{Conclusion\label{Conclusion}}
 
 We have shown how, given multiple noisy copies of a linear optical unitary network, Error Averaging can be use to implement an transformation that tends towards the average with some reduced variance at the cost of the probability of success.  After post-selection Error Averaging forms a rudimentary error correction protocol as the Error Averaging appears to filter the noise from the unitary network encoding. The variance in the transformations have been shown to scale as $\frac{1}{N}$ where $N$ represents the number of redundant copies of the network. We have provided the mathematical basis necessary to determine the effect of Error Averaging on an arbitrary linear unitary and with fully characterised solutions for the single parameter and small Gaussian error cases. We have also analytically determined the photon number expectation values in particular two mode systems for both one and two photon inputs, simulated the output expectation values in four mode systems for both one and two photon inputs and by simulated the variance in the output of a series of phase shifters.
