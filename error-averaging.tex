@@ -122,7 +122,7 @@ We propose and investigate a method of error detection and noise reduction for b
 % References should be done using the \cite, \ref, and \label commands
 \section{Introduction \label{intro}}
 
-Linear bosonic networks, particularly in the optics context, form the most fundamental interactions between particles.  Though linear networks cannot form universal quantum processing devices on their own, they can using post-selection methods. More recently they have been shown to generate quantum statistics that cannot be computed using classical computing resources alone.
+Linear bosonic networks, particularly in the optics context, form the most fundamental interactions between particles.  Though linear networks cannot form universal quantum processing devices on their own, they can do so when combined with post-selection and feed forward methods. More recently they have been shown to deterministically generate quantum statistics that cannot be efficiently computed using classical computing resources alone.
 
 Linear networks for quantum optics experiments have traditionally been
 implemented using bulk optical devices.  But efforts to build integrated
@@ -131,7 +131,7 @@ be made orders of magnitude smaller and consequently their complexity to be incr
 
 In theoretical proposals for optical quantum information tasks using linear networks, it is often assumed that it is possible to configure a network with high speed and with extremely high precision.  This paper considers the second of these requirements by studying the effects of imprecision in configuring linear networks.
 
-The model we will consider assumes that large linear networks can be configured arbitrarily but with some additional noise applied to that which is desired in such a was as to maintain linearly of the overall operation.  We also assume the ability to generate Fock basis states and make Fock basis detections.  The networks have no loss and the injection of states and detection are ideal.  In this way we focus on the errors introduced due to the imprecision of configuring the network.
+The model we will consider assumes that large linear networks can be configured arbitrarily but with some additional noise due to stochastic imprecision of element parameters which shot-by-shot results in fluctuations of the parameters around their mean values.  We also assume the ability to generate Fock basis states and make Fock basis detections. For simplicity we also assume the networks have no loss and the injection of states and detection are ideal.  In this way we focus on the errors introduced due to the imprecision of configuring the network.
 
 We show that by redundantly encoding a desired linear network matrix, it is possible to generate an effect which tends towards the average network matrix.   The averaging effect is non-deterministic and hence one can think of the transformation as a filter where noise is directed into outputs which are then post-selected away (see Fig.~\ref{fig:output_probabilities}).
 \begin{figure}
@@ -154,11 +154,11 @@ Here we are concerned with the case of bosonic linear scattering networks.  Thes
 \end{equation}
 where, to preserve commutation relationships, $U$ must be a unitary matrix.  It is the network matrix $U$ that we will focus on.
 
-Consider a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have an Heisenberg style evolution between mode annihilation operators of the form
+Consider a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have a Heisenberg style evolution between mode annihilation operators of the form
 \begin{equation}
 	a_{j,r} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} \omega^{rk} a_{j,k}	
 \end{equation}
-where $\omega = e^{-i2\pi /N}$ and zero-indexing of the modes has been used to simplify this expression.  The first subscript for the annihilation operator denotes the input mode and the second describes a quantity of redundancy $N$ which we explain shortly. 
+where $\omega = e^{-i2\pi /N}$ and zero-indexing has been used, that is, $k=0$ corresponds to the first mode. The first subscript for the annihilation operator denotes the input mode and the second describes a quantity of redundancy $N$ which we explain shortly. 
 
 We then act the $N$ copies of a target unitary $U$.  By this we mean that there is some variation between the copies but the intention was to implement the unitary $U$.  This can be described by the transformation
 \begin{equation}
@@ -182,7 +182,7 @@ where $M_N$ is a matrix defined by
 \begin{equation}
 	M_N = \frac{1}{N} \sum_k U_k.
 \end{equation}
-This matrix is then the effective linear network matrix for the post-selected system.  It includes information about the probability of success and so in general it will be not unitary.  The remainder of this paper is directed towards analysing the scenarios that arise from the multitude of choices for $U_k$ that form expression.
+This matrix is then the effective linear network matrix for the post-selected system.  It includes information about the probability of success and so in general it will be not unitary.  The remainder of this paper is directed towards analysing the scenarios that arise from the multitude of choices for $U_k$ that form the expression.
 
 For the main theorem of our work we consider a general linear network described by a unitary network matrix $U$ with any dimensionality. 
 
@@ -207,7 +207,7 @@ As the matrix elements $(U_i)_{rs}$ are constructed from unitary matrices, their
 The variance of the real or imaginary part of $(M_N)_{rs}$ is then upper bounded by $1/N$ as per the central limit theorem.
 \end{proof}
 
-The question now is what forms can the mean average matrix $M$ can take.   First we consider the trivial case where the unitary matrices are $1 \times 1$ dimensional.
+The question now is what forms the mean average matrix $M$ as defined in Theorem \ref{Theorem 1}, can take. First we consider the trivial case where the unitary matrices are $1 \times 1$ dimensional.
 
 \begin{corollary}
 \label{Corollary 1}
@@ -226,7 +226,7 @@ By corollary~\ref{Corollary 1} it can be concluded that for the $1\times1$-dimen
 % NOTE TO SELF(APL): Talk more about post-selection and M in this section
 %Here we can identify the coefficient $c$ as the probability of success and as such, after post selection, the matrix $c\times U_{N}$ can be renormalised to a unitary matrix $U_{N}$ with $\lim_{N\rightarrow\infty}U_{N}=U$. 
 
-Next consider higher dimensional matrices whose distribution is generated by a single parameter.  In this case, for any hermitian matrix $T$, which is can be thought of as an infinitesimal generator from the $u(n)$ Lie algebra, we have
+Next consider higher dimensional matrices whose distribution is generated by a single parameter.  In this case, for any hermitian matrix $T$, which can be thought of as an infinitesimal generator from the $u(n)$ Lie algebra, we have
 \begin{equation}
 	M=\int e^{i\theta T}p(\theta)d\theta 
 	\label{eq:single parameter, multi-mode}.
@@ -240,7 +240,7 @@ where $\bar{p}(\theta) = p(\mu + \theta)$ so that it has mean value zero.  By ex
 \begin{equation}
 	M=\sum_n \frac{(iT)^n}{n!} \int \theta^n p(\theta) d\theta,
 \end{equation}
-which now relates to the moments of the underlying distribution in $\theta$. If $p(\theta)$ were a Gaussian distribution with mean zero and variance $\sigma^2$ then we can write
+which now relates to the moments of the underlying distribution in $\theta$. Assuming $p(\theta)$ were a Gaussian distribution with mean zero and variance $\sigma^2$ then we can write
 \begin{equation}
 	M = \sum_{n \in even} \frac{(iT)^n}{n!} (n-1)!! \sigma^n
 \end{equation}
@@ -258,7 +258,7 @@ In the full parameter case, provided the target unitary $U$ again commutes with 
 
 \begin{corollary}
 \label{Corollary 2}
-If $\{U_1,\ldots,U_N\}$ are random $n$-dimensional unitaries such that $U_k = U exp\{i \sum_l \alpha_{kl} T_l\}$ with $n^2$ generators $T_l$ that are all hermitian and satisfy $T_l^2=I$, the parameters $\alpha_{kl}$ distributed independently with PDF $p_{l}(\alpha_l)$ which are all Gaussian with mean zero and small (but possibly different) variances so that they all $U_k$ approximately commute with each other, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
+If $\{U_1,\ldots,U_N\}$ are random $n$-dimensional unitaries such that $U_k = U exp\{i \sum_l \alpha_{kl} T_l\}$ with $n^2$ generators $T_l$ that are all hermitian and satisfy $T_l^2=I$, the parameters $\alpha_{kl}$ distributed independently with PDF $p_{l}(\alpha_l)$ which are all Gaussian with mean zero and small (but possibly different) variances so that all $U_k$ approximately commute with each other, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
 \end{corollary}
 \begin{proof}
 We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  From the independence of the distributed parameters, we can write a PDF for all parameters as $p(\alpha_1,\ldots,\alpha_{n^{2}}) = p_1(\alpha_1)\times\ldots\times p_{n^2}(\alpha_{n^{2}})$.  
@@ -299,7 +299,7 @@ The requirement of $T_L^2=I$ merely reflects a simplification where the generato
 %\end{equation}
 %To be clear this results requires that the errors are small such that they approximately commute with one another and with the target matrix $U$. The distributions $p(\alpha_{l})$ are also, in general, not equivalent, even if each component within a system has an equivalent error distribution the beam splitter parameters will not necessarily corresponds directly to the coefficients of the generators in the Lie algebra. 
 
-Finding expressions for the matrix $M$ outside of the situations just outlined is an open problem.  In the most general case, $M$ is not be proportional to a unitary matrix.  Furthermore, is not guaranteed that $M$ satisfy the conditions for a normal matrix and hence cannot be unitary diagonalised.  So it is unclear if this post-selected regime has any connection to unitary quantum evolution at all.  Nevertheless, we will begin to examine situations which approach this domain through decompositions into single parameter problems and using numerical computations.
+Finding expressions for the matrix $M$ outside of the situations just outlined is an open problem.  In the most general case, $M$ is not proportional to a unitary matrix.  Furthermore, is not guaranteed that $M$ will satisfy the conditions for a normal matrix and hence cannot be unitary diagonalised.  So it is unclear if in general this post-selected regime has any connection to unitary quantum evolution at all.  Nevertheless, we will begin to examine situations which approach this domain through decompositions into single parameter problems and using numerical computations.
 
 \section{Implementation\label{implementation}}
 
@@ -787,11 +787,10 @@ Within the constructions presented here some optical elements utilised have been
 
 \section{Conclusion\label{Conclusion}}
 
-We have shown how, given multiple noisy copies of a linear optical unitary network, Error Averaging can be use to implement an transformation that tends towards the average with reduced variance at the cost of the probability of success.  After post-selection, Error Averaging forms a rudimentary error correction protocol by filtering the noise from the redundant copies of the unitary network. The variance in the transformations have been shown to scale as $\frac{1}{N}$ where $N$ represents the number of redundant copies of the network.  We have provided the mathematical basis necessary to determine the effect of Error Averaging on an arbitrary linear unitary and with fully characterised solutions for arbitrary single parameter noise and multiple parameter small Gaussian noise. We have also analytically determined the photon number expectation values in particular two mode systems for both one and two photon inputs, numerically simulated the output expectation values in four mode systems for both one and two photon inputs and numerically simulated the variance for different arrangements of phase shifts.
+We have shown how, given multiple noisy copies of a linear optical unitary network, Error Averaging can be use to implement an transformation that tends towards the average with reduced variance at the cost of the probability of success.  After post-selection, Error Averaging forms a rudimentary error correction protocol by filtering the noise from the redundant copies of the unitary network. The variance in the transformations have been shown to scale as $\frac{1}{N}$ where $N$ represents the number of redundant copies of the network.  We have provided the mathematical basis necessary to determine the effect of Error Averaging on an arbitrary linear unitary and with fully characterised solutions for arbitrary single parameter noise and multiple parameter small Gaussian noise. We have also analytically determined the photon number expectation values for two mode systems with both one and two photon inputs, numerically simulated the output expectation values in four mode systems for both one and two photon inputs and numerically simulated the variance for different arrangements of phase shifters.
 
 Two methods of Error Averaging for phase shifts have been presented which appear to have similar effects under certain conditions. In particular averaging after sequentially applying phases has the same behaviour as averaging each phase provided the errors are small. This behaviour is conjectured to be explained by considering the errors as approximately commuting.
 
-% Create the reference section using BibTeX:
 \bibliography{references}
 
 \appendix
