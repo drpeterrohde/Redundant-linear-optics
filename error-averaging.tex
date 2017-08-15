@@ -107,7 +107,7 @@
 \date{\today}
 
 \begin{abstract}
-We propose and investigate a method of error detection and noise reduction for bosonic linear networks using a method of unitary averaging. The proposed error averaging does not rely on ancillary photons or control and feed-forward correction circuits~\cite{Perfect}.  We construct a general mathematical framework for this technique then give a series of proof of principle examples including numerical analysis. Two methods for the construction of averaging are then compared to determine the most effective manner of implementation and probe the related error thresholds.  Finally we discuss some of the potential uses of this scheme. 
+We propose and investigate a method of error detection and noise reduction for bosonic linear networks using a method of unitary averaging. The proposed error averaging does not rely on ancillary photons or control and feed-forward correction circuits.  We construct a general mathematical framework for this technique then give a series of proof of principle examples including numerical analysis. Two methods for the construction of averaging are then compared to determine the most effective manner of implementation and probe the related error thresholds.  Finally we discuss some of the potential uses of this scheme. 
 \end{abstract}
 
 % insert suggested PACS numbers in braces on next line
@@ -334,13 +334,13 @@ The remainder of this section considers the above implementation of a tunable be
 
 The 1 photon network considered here is shown in Figure~\ref{fig:MZ_setup} both without any correction \ref{fig:uncorrected MZ beam splitter} and for the $N=2$ case \ref{fig:corrected MZ beam splitter}.  
 \begin{figure}[tbh]
-	\begin{subfigure}[b]{0.9\columnwidth}
+	\begin{subfigure}[b]{0.8\columnwidth}
 		\includegraphics[width=1\columnwidth]{beam_splitter_system_a.pdf}
 		\caption{}
 		\label{fig:uncorrected MZ beam splitter} 
 	\end{subfigure}
 	
-	\begin{subfigure}[b]{\columnwidth}
+	\begin{subfigure}[b]{0.9\columnwidth}
 		\includegraphics[width=\columnwidth]{beam_splitter_system_b.pdf}
 		\caption{}
 		\label{fig:corrected MZ beam splitter}
@@ -802,6 +802,10 @@ Within the constructions presented here some optical elements utilised have been
 We have shown how, given multiple noisy copies of a linear optical unitary network, Error Averaging can be use to implement a transformation that tends towards the average with reduced variance at the cost of the probability of success.  After post-selection, Error Averaging forms a rudimentary error correction protocol by filtering the noise from the redundant copies of the unitary network. For this to from a true error correction protocol it will be necessary to introduce some sort of loss correction. The losses which will need to be corrected are unique however in that they are heralded and located, potentially simplifying the problem enormously. The variance in the transformations have been shown to scale as $\frac{1}{N}$ where $N$ represents the number of redundant copies of the network.  We have provided the mathematical basis necessary to determine the effect of Error Averaging on an arbitrary linear unitary and with fully characterised solutions for arbitrary single parameter noise and multiple parameter small Gaussian noise. We have also analytically determined the photon number expectation values for two mode systems with both one and two photon inputs, numerically simulated the output expectation values in four mode systems for both one and two photon inputs and numerically simulated the variance for different arrangements of phase shifters.
 
 Two methods of Error Averaging for phase shifts have been presented which appear to have similar effects under certain conditions. In particular averaging after sequentially applying phases has the same behaviour as averaging each phase provided the errors are small. This behaviour is conjectured to be explained by considering the errors as approximately commuting.
+
+\begin{acknowledgments}
+	We thank Michael Bremner for motivating discussions. This research was funded by the Australian Research Council Centre of Excellence for Quantum Computation and Communication Technology (Project No.CE110001027).
+\end{acknowledgments}
 
 \bibliography{references}
 
