@@ -661,20 +661,19 @@ To gain a better understanding of how useful this method of Error Averaging actu
 \caption{Diagram of the four mode linear optical network averaged across the system once. A two mode system averaged in this fashion could be considered as an Error Averaged dual rail single qubit unitary transformation. \label{fig: averaging 4 mode diagram}}
 \end{figure}
 
-After determining the output probability distribution with and without post selection it was found that the two correction methods produced equivalent results under the approximations used. The $1/N$ scaling in error after post selection, as seen above, was also observed, suggesting this pattern holds for an arbitrary number of modes and arbitrary system as expected from Theorem \ref{Theorem 1}. The following section is based on the results of these simulations.
+These results show that the two correction methods produced equivalent results under the approximations used. The $1/N$ scaling in error after post selection, as seen above, was also observed, suggesting this pattern holds for higher numbers of modes and arbitrary system as expected from Theorem \ref{Theorem 1}.  The analysis that follows is based on the trends observed from these simulations.
 
 \subsubsection{Generalising Example Results}
 
-Starting with no error reduction, and given the correct output state $\left|\psi\right\rangle $ the following sequence can be defined. First defining the probability of obtaining the correct result when $N=1$:
+Starting with no error reduction, and given the correct output state $\left|\psi\right\rangle $ the following sequence can be defined. First defining the probability of obtaining the correct result when $N=1$ takes the form:
 \begin{equation}
-P_{1}(correct)=1-\frac{a_{1}}{b_{1}}v
+P_{1}(correct)=1-\frac{a_{1}}{b_{1}}v.
 \end{equation}
-The probability of an incorrect state is therefore trivially:
+The probability of an incorrect state is therefore
 \begin{equation}
-P_{1}(wrong)=\frac{a_{1}}{b_{1}}v
+P_{1}(wrong)=\frac{a_{1}}{b_{1}}v.
 \end{equation}
-At this stage there are no error ports and so $P_{i}(wrong)+P_{i}(correct)$ represents the probability of success as previously defined. Note that the subscript indexes the corresponding size of the system. Explicitly $i+1$ corresponds to a system with twice as much averaging as $i$.
-So averaging once changes these values to:
+At this stage there are no error ports and so $P_{i}(wrong)+P_{i}(correct)$ represents the probability of success as previously defined. Note that the subscript indexes the corresponding number of averaging rounds. Explicitly $i+1$ corresponds to a system with twice as much averaging as $i$.  So, using the same observed form for the probability, averaging once changes these values to:
 \begin{eqnarray}
 P_{2}(correct) & = & 1-\frac{2a_{1}+1}{2b_{1}}v\nonumber \\
 & \equiv & 1-\frac{a_{2}}{b_{2}}v
@@ -683,23 +682,23 @@ P_{2}(correct) & = & 1-\frac{2a_{1}+1}{2b_{1}}v\nonumber \\
 P_{2}(wrong) & = & \frac{a_{1}}{2b_{1}}v\nonumber \\
 & \equiv & \frac{a_{2}}{b_{2}}v
 \end{eqnarray}
-And so on, so in general:
+which can be further iterated.  In general
 \begin{eqnarray}
 P_{n}(correct) & = & 1-\frac{2a_{n-1}+1}{2b_{n-1}}v\nonumber \\
 & = & 1-\frac{\left(2^{n-1}a_{1}+\left(2^{n-1}-1\right)\right)}{2^{n-1}b_{1}}v\\
 P_{n}(wrong) & = & \frac{a_{n-1}}{2b_{n-1}}v\nonumber \\
 & = & \frac{a_{1}}{2^{n-1}b_{1}}v
 \end{eqnarray}
-The probability of getting the correct state with post selection will then be
+The probability of obtaining the correct state with post selection will then be
 \begin{eqnarray}
 &  & P_{n}\left(correct\left|\textrm{post selection}\right.\right)\nonumber \\
 & = & \left(1-\frac{a_{1}}{2^{n-1}b_{1}}v\right)\xrightarrow[n\rightarrow\infty]{}1\label{eq:PcorrectGeneral}
 \end{eqnarray}
-The probability of success was found to be
+The probability of success is 
 \begin{equation}
 P_{n}\left(success\right) =  1-\frac{\left(2^{n-1}-1\right)\left(a_{1}+1\right)}{2^{n-1}b_{1}}v\nonumber \\
 \end{equation}
-Hence we get a general bound on the probability of success as
+Hence we get an asympotitic expression for the probability of success to be 
 \begin{equation}
 \lim_{n\rightarrow\infty}P_{n}\left(success\right)=1-\left(\frac{a_{1}+1}{b_{1}}\right)v\label{eq:PsuccessGeneral}
 \end{equation}
