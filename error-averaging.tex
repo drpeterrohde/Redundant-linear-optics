@@ -122,12 +122,12 @@ We propose and investigate a method of error detection and noise reduction for b
 % References should be done using the \cite, \ref, and \label commands
 \section{Introduction \label{intro}}
 
-The evolution of a multi-mode bosonic quantum state in a linear network can be simply described by a linear set of equations relating input and output bosonic modes.  These types of interactions are interesting as they are simple to arrange for most experiments involving electromagnetism but nevertheless are useful and have interesting quantum information applications.  
+The evolution of a multi-mode bosonic quantum state in a linear network can be simply described by a linear set of equations relating input and output bosonic modes.  These types of interactions are of interest as they are simple to arrange for most experiments involving electromagnetism but nevertheless are useful and have interesting quantum information applications.  
 
 Linear networks are not universal for quantum information processing on their own.  However, they can be made universal using post-selection and feed forward methods with a polynomial overhead in the number of photons \cite{KLM,one-way_quantum_computer,OQC}. More recently they have been shown to deterministically generate quantum statistics that cannot be efficiently computed using classical computing resources alone (i.e.  the BosonSampling problem) \cite{Boson}.
 
 Linear networks for quantum optics experiments have traditionally been implemented using bulk optical devices \cite{OQC}. 
-But efforts to build integrated optical circuits has meant that the size of the networks has the potential to be made orders of magnitude smaller and consequently there is a great potential for their complexity to increase \cite{thompson2011integrated}.
+However efforts to build integrated optical circuits have meant that the size of the networks has the potential to be made orders of magnitude smaller and consequently there is a great potential for their complexity to increase \cite{thompson2011integrated}.
 
 In theoretical proposals for optical quantum information tasks using linear networks, it is often assumed that it is possible to configure an arbitrary linear network rapidly and with high precision.  This paper considers the second of these requirements by studying the effects of imprecision in configuring linear networks.
 
@@ -606,7 +606,7 @@ As the total number of components increases with both increasing $M$ and $N$, th
 
 \subsection{Statistical Modelling of the Applied Phase\label{Statistical Modelling of the Applied Phase}}
 
-Given the variability in the higher order terms for larger errors and so in general all orders are needed to fully understand the behaviour of our corrected systems. As this is intractable and to better understand the behaviour of the three phase applying systems, the total applied phase was modelled numerically using \textit{Mathematica} with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This corresponds to Equation~(\ref{eq:single parameter, single mode}) with $\theta=\prod_{i}\theta_{i}$. This was repeated $5000$ times and the results are shown in Figures \ref{fig:Total-applied-phase1} and \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. In the range of applied phases is smaller when each phase shifter is corrected individually, an indication that averaging each step is more effective. By comparing Figure~\ref{fig:Total-applied-phase1} with Figure~\ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure~\ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case.
+Given the variability in the higher order terms for larger errors in can be concluded that, in general all orders need to be considered to fully understand the behaviour of the corrected systems. As this is intractable and to better understand the behaviour of the three phase applying systems, the total applied phase was modelled numerically using \textit{Mathematica} with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This corresponds to Equation~(\ref{eq:single parameter, single mode}) with $\theta=\prod_{i}\theta_{i}$. This was repeated $5000$ times and the results are shown in Figures \ref{fig:Total-applied-phase1} and \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. The variability of the total applied phase is smaller when each phase shifter is corrected individually, an indication that averaging each step is more effective. By comparing Figure~\ref{fig:Total-applied-phase1} with Figure~\ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure~\ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case.
 %
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{totphase1.pdf}}
@@ -622,7 +622,7 @@ The variance of the applied phase was estimated based on the statistical simulat
 \begin{equation}
 \textrm{Total Variance}=vM\label{eq:Tot Var no correction}
 \end{equation}
-where $M$ is the number of phase shifters and $v$ is the variance in the individual phase shifter. The total variance when Error Averaging can similarly be expected to be
+where $M$ is the number of phase shifters and $v$ is the variance in the individual phase shifter. The total variance when Error Averaging is similarly expected to be
 \begin{equation}
 \textrm{Total Variance}=\frac{vM}{N}\label{eq:Tot Var w/ correction}
 \end{equation}
