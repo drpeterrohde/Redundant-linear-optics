@@ -402,10 +402,12 @@ Figure~\ref{fig:post vs no post} shows how these two quantities scale with $N$. 
 \subsection{2 photon inputs\label{2 photons N arbitrary}}
 
 The single photon interference effects in linear networks can be explained using classical wave interference.  Now we will consider two photon interference to demonstrate the behaviour of quantum interference when using the redundant encoding. As such here $\left|1,1\right\rangle$ is used as the input state. Again, a diagram of the explicit set-up with and without the redundant encoding can be seen in Figure \ref{fig:MZ_setup}. For two photons the un-normalised output state for the $a$ and $b$ modes is
-\begin{multline}
+\begin{widetext}
+\begin{equation}
 	\ket{\psi} =  \frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \ket{1,1} \\
 	+\frac{\sqrt{2}}{4}\left\{ \frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)-1\right\} \left(\ket{2,0} +\ket{0,2}\right)\label{eq:2pNarbitrary S}
-\end{multline}
+\end{equation}
+\end{widetext}
 where we have chosen $\theta=0$ when computing this state. This is done, as above, to simplify the form of the equations and does not change the effect of the redundant encoding on the errors.  Because of this choice, the action of the interferometer on the input state should be the identity operation and hence $\ket{1,1}$ is the desired output state.   Note that we could have chosen the input state to be $\ket{2,0}$, but this would not necessarily show any new behaviour, just the single photon results independently applied to the two input photons. 
 
 We can again write probabilities as expectation values of occupation number.  Using the form of Eq.~(\ref{eq:2pNarbitrary S}), the ideal output is achieved when
