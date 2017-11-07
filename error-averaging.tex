@@ -1,48 +1,16 @@
-%% ****** Start of file apstemplate.tex ****** %
-%% 
-%%
-%%   This file is part of the APS files in the REVTeX 4 distribution.
-%%   Version 4.1r of REVTeX, August 2010
-%%
-%%
-%%   Copyright (c) 2001, 2009, 2010 The American Physical Society.
-%%
-%%   See the REVTeX 4 README file for restrictions and more information.
-%%
-%
-% This is a template for producing manuscripts for use with REVTEX 4.0
-% Copy this file to another name and then work on that file.
-% That way, you always have this original template file to use.
-%
-% Group addresses by affiliation; use superscriptaddress for long
-% author lists, or if there are many overlapping affiliations.
-% For Phys. Rev. appearance, change preprint to twocolumn.
-% Choose pra, prb, prc, prd, pre, prl, prstab, prstper, or rmp for journal
-%  Add 'draft' option to mark overfull boxes with black boxes
-%  Add 'showpacs' option to make PACS codes appear
-%  Add 'showkeys' option to make keywords appear
+
 \documentclass[aps,pra,twocolumn,superscriptaddress,numerical,floatfix]{revtex4-1}
-%\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-1}
-%\documentclass[aps,prl,reprint,groupedaddress]{revtex4-1}
 
-% You should use BibTeX and apsrev.bst for references
-% Choosing a journal automatically selects the correct APS
-% BibTeX style file (bst file), so only uncomment the line
-% below if necessary.
-%\bibliographystyle{apsrev4-1}
-
-\usepackage{graphicx}% Include figure files
-\usepackage{dcolumn}% Align table columns on decimal point
-\usepackage{bm}% bold math
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bm}
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage[T1]{fontenc}
 \usepackage[latin9]{inputenc}
 \setcounter{secnumdepth}{3}
 \usepackage{amssymb}
-\usepackage[colorlinks]{hyperref}% add hypertext capabilities
-%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
-%\linenumbers\relax % Commence numbering lines
+\usepackage[colorlinks]{hyperref}
 \usepackage{braket}
 \usepackage{placeins}
 \usepackage{subcaption}
@@ -56,39 +24,18 @@
 
 \renewcommand{\qedsymbol}{$\blacksquare$}
 
-\graphicspath {{Figures/}}% specifying where to look for all figures
+\graphicspath {{Figures/}}
 
 
 \begin{document}
 
-% Use the \preprint command to place your local institutional report
-% number in the upper righthand corner of the title page in preprint mode.
-% Multiple \preprint commands are allowed.
-% Use the 'preprintnumbers' class option to override journal defaults
-% to display numbers if necessary
-%\preprint{}
-
-%Title of paper
 \title{Passive quantum error correction of linear optics networks through error averaging}
-
-% repeat the \author .. \affiliation  etc. as needed
-% \email, \thanks, \homepage, \altaffiliation all apply to the current
-% author. Explanatory text should go in the []'s, actual e-mail
-% address or url should go in the {}'s for \email and \homepage.
-% Please use the appropriate macro foreach each type of information
 
 \newcommand{\affone}{Centre for Quantum Computation and Communication Technology (CQC2T), The School of Mathematics and Physics, The University of Queensland, Australia.}
 \newcommand{\afftwo}{Centre for Quantum Computing \& Intelligent Systems (QCIS), University of Technology Sydney, Australia.}
 
-% \affiliation command applies to all authors since the last
-% \affiliation command. The \affiliation command should follow the
-% other information
-% \affiliation can be followed by \email, \homepage, \thanks as well.
 \author{Ryan J. Marshman}
-%\email[]{Your e-mail address}
-%\homepage[]{Your web page}
-%\thanks{}
-%\altaffiliation{}
+
 \affiliation{\affone}
 
 \author{Austin P. Lund}
@@ -99,17 +46,9 @@
 \homepage{http://www.peterrohde.org}
 \affiliation{Centre for Quantum Software \& Information (QSI), Faculty of Engineering \& Information Technology, University of Technology Sydney, NSW 2007, Australia}
 \affiliation{Hearne Institute for Theoretical Physics and Department of Physics \& Astronomy, Louisiana State University, Baton Rouge, LA 70803, United States}
-%\affiliation{\afftwo}
 
 \author{Timothy C. Ralph}
 \affiliation{\affone}
-
-%Collaboration name if desired (requires use of superscriptaddress
-%option in \documentclass). \noaffiliation is required (may also be
-%used with the \author command).
-%\collaboration can be followed by \email, \homepage, \thanks as well.
-%\collaboration{}
-%\noaffiliation
 
 \date{\today}
 
@@ -117,16 +56,10 @@
 We propose and investigate a method of error detection and noise correction for bosonic linear networks using a method of unitary averaging. The proposed error averaging does not rely on ancillary photons or control and feed-forward correction circuits, remaining entirely passive in its operation.  We construct a general mathematical framework for this technique then give a series of proof of principle examples including numerical analysis. Two methods for the construction of averaging are then compared to determine the most effective manner of implementation and probe the related error thresholds.  Finally we discuss some of the potential uses of this scheme. 
 \end{abstract}
 
-% insert suggested PACS numbers in braces on next line
 \pacs{}
-% insert suggested keywords - APS authors don't need to do this
-%\keywords{}
 
-%\maketitle must follow title, authors, abstract, \pacs, and \keywords
 \maketitle
 
-% body of paper here - Use proper section commands
-% References should be done using the \cite, \ref, and \label commands
 \section{Introduction \label{intro}}
 
 The evolution of a multi-mode bosonic quantum state in a linear network can be simply described by a linear set of equations relating input and output bosonic modes.  These types of interactions are of interest as they are simple to arrange for most experiments involving electromagnetism but nevertheless are useful and have interesting quantum information applications.  
@@ -152,7 +85,6 @@ The central limit theorem applies to the individual matrix elements of the avera
 
 The next section introduces the averaging scheme and some mathematical details that apply in the most general case. Section~\ref{implementation} includes numerous proof of principle examples which serve to highlight the effects of Error Averaging with a focus on the behaviour of the probability of success. Section~\ref{averaging at end vs step} studies two different ways of redundantly encoding a single mode phase shift and the effects of the different encodings on the resultant error and probability of success.  We then numerically analyse the averaging method for a four-mode operation in section~\ref{Four Mode Impementation Comparison}.  We will discuss some of the consequence of these results as well as future directions in Section~\ref{Discussion} and draw comparisons between Error Averaging and standard error correction in Section~\ref{Comparison with conventional error correction} before making some concluding remarks. 
 
-% NOTATION SUGGESTION: Use \hat{} for Fock space operators and no hat for normal matricies.
 \section{General Unitary Error Averaging\label{gen case}}
 
 Here we are concerned with the case of bosonic linear scattering networks.  These are evolutions of a multi-mode bosonic field where the Heisenberg equations of motion for the annihilation operators of each mode can be written as a linear combination of all annihilation operators.  That is, if $\mathcal{U}_U$ is a unitary operation on a $m$ mode system, then
@@ -191,9 +123,9 @@ where $M_N$ is a matrix defined by
 \end{equation}
 This matrix is then the effective linear network matrix for the post-selected system.  It includes information about the probability of success and so in general it will be not unitary.  The remainder of this paper is directed towards analysing the scenarios that arise from the multitude of choices for $U_k$ that form the expression.
 
-For the main theorem of our work we consider a general linear network described by a unitary network matrix $U$ with any dimensionality. 
+Figure \ref{fig:gen system} shows how this encoding can be realised using 50:50 beam splitters for an eight mode system. It also shows a natural method of encoding recursively such that the components implementing the redundant encodings are themselves redundantly encoded. Given this, although the encoding beam splitters are assumed perfect, this requirement can be relaxed. See Section \ref{Four Mode Impementation Comparison} for more detail.
 
-%Theorem~\ref{Theorem 1} below states that given access to $N$ linear networks $\{U_1,U_2,\ldots,U_N\}$ which are randomly distributed such that for all $i \in {1,\ldots,N}$, and given $U_{r,s}=\alpha_{r,s}e^{i\theta_{r,s}}$, $\langle \left(\theta_{i}\right)_{r,s} \rangle = \theta_{r,s}$, $\left|\left(\alpha_{i}\right)_{r,s}-\alpha_{r,s}\right|\ll1$ and $Var(U_i) = \sigma_i^2 < \infty$  the mean values of these unitaries approaches $c\times\hat{U}$, where $0\le c\le1$, in the same sense as the central limit theorem. By the central limit theorem we also see that the variance, $\sigma_{i}^{2}$, scales as $\frac{1}{N}$.
+For the main theorem of our work we consider a general linear network described by a unitary network matrix $U$ with any dimensionality. 
 
 \begin{theorem}
 \label{Theorem 1}
@@ -214,6 +146,8 @@ As the matrix elements $(U_i)_{rs}$ are constructed from unitary matrices, their
 The variance of the real or imaginary part of $(M_N)_{rs}$ is then upper bounded by $1/N$ as per the central limit theorem.
 \end{proof}
 
+Here we are explicitly taking the matrices $U_i$ as being unitary fixing our error model to be random unitary errors. Theorem \ref{Theorem 1} also holds for any set of independent, random and bound matrices $U_i$ which might allow this technique to effective for other types of errors although this will in no way protect against loss. The situation to have in mind with regards to the systems considered in this paper are general, automated and reprogrammable linear optical devices which, due to thermal noise or some other generator of random noise, fail to exactly reproduce the desired target unitary.
+
 The question now is what forms the mean average matrix $M$ as defined in Theorem \ref{Theorem 1}, can take. First we consider the trivial case where the unitary matrices are $1 \times 1$ dimensional.
 
 \begin{corollary}
@@ -229,9 +163,6 @@ This is exactly the characteristic function of $p(\theta)$ evaluated at $1$.  Th
 \end{proof}
 
 By corollary~\ref{Corollary 1} it can be concluded that for the $1\times1$-dimensional case we can write $M=cU$ where $0 \leq c \leq 1$ and $U=e^{i\theta}$ has magnitude 1.  
-
-% NOTE TO SELF(APL): Talk more about post-selection and M in this section
-%Here we can identify the coefficient $c$ as the probability of success and as such, after post selection, the matrix $c\times U_{N}$ can be renormalised to a unitary matrix $U_{N}$ with $\lim_{N\rightarrow\infty}U_{N}=U$. 
 
 Next consider higher dimensional matrices whose distribution is generated by a single parameter.  In this case, for any hermitian matrix $T$, which can be thought of as an infinitesimal generator from the $u(n)$ Lie algebra, we have
 \begin{equation}
@@ -268,9 +199,7 @@ In the full parameter case, provided the target unitary $U$ again commutes with 
 If $\{U_1,\ldots,U_N\}$ are random $n$-dimensional unitaries such that $U_k = U exp\{i \sum_l \alpha_{kl} T_l\}$ with $n^2$ generators $T_l$ that are all hermitian and satisfy $T_l^2=I$, the parameters $\alpha_{kl}$ distributed independently with PDF $p_{l}(\alpha_l)$ which are all Gaussian with mean zero and small (but possibly different) variances so that all $U_k$ approximately commute with each other, then $M = c U$ where $0 < c < 1$ and $U$ is a unitary matrix.
 \end{corollary}
 \begin{proof}
-We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  From the independence of the distributed parameters, we can write a PDF for all parameters as $p(\alpha_1,\ldots,\alpha_{n^{2}}) = p_1(\alpha_1)\times\ldots\times p_{n^2}(\alpha_{n^{2}})$.  
-%For any Write where $T_l$ are generators of the $u(n)$ Lie-algebra of which there are $n^2$ and $U$ is chosen so that the distribution is defined by probability density function $p(\alpha_1,\ldots,\alpha_{n^{2}})$ has mean zero. $T_l$ are chosen so that and $-\pi < \alpha_l < \pi$. 
-%As all errors are taken to be independent we can also write  
+We will extend the proof of Corollary~\ref{Corollary 1} to the $n$-dimensional case.  From the independence of the distributed parameters, we can write a PDF for all parameters as $p(\alpha_1,\ldots,\alpha_{n^{2}}) = p_1(\alpha_1)\times\ldots\times p_{n^2}(\alpha_{n^{2}})$.    
 The approximate mutual commutivity for this expansion means 
 \begin{widetext}
 \newcommand{\theint}{\int^\pi_{-\pi} \ldots \int^\pi_{-\pi} \int^\pi_{-\pi}}
@@ -297,43 +226,24 @@ where $\sigma_l^2$ is the variance of $p_l$ and the final approximation is assum
 \end{proof}
 The requirement of $T_L^2=I$ merely reflects a simplification where the generators are built from the Pauli matricies which are the constructions we will focus on in this paper.  If this is not the case then it is possible to identify the hermitian operator $\prod_l e^{-\frac{\sigma_l^2 T_l^2}{2}}$ as a state dependant decay in the amplitude of the operator.
 
-%It should be noted that if the distribution of parameters is Gaussian but not indepenent, then there is gaurenteed to be a linear combination of parameters for which this distribution is indepdenant.  Hence by changing the generators in the apropraite way, one can always arrange this situation for Gaussian distributions of the parameters $\alpha_{kl}$.
-
-
-%From Corollary \ref{Corollary 2} and given our previous result for a Gaussian error distribution we can conclude that
-%\begin{equation}
-%M = U\prod_{l}^{n^2}e^{-\frac{\sigma_{l}^{2}}{2}}\label{eq:approx commuting, general case}
-%\end{equation}
-%To be clear this results requires that the errors are small such that they approximately commute with one another and with the target matrix $U$. The distributions $p(\alpha_{l})$ are also, in general, not equivalent, even if each component within a system has an equivalent error distribution the beam splitter parameters will not necessarily corresponds directly to the coefficients of the generators in the Lie algebra. 
-
 Finding expressions for the matrix $M$ outside of the situations just outlined is an open problem.  In the most general case, $M$ is not proportional to a unitary matrix.  Furthermore, is not guaranteed that $M$ will satisfy the conditions for a normal matrix and hence cannot be unitary diagonalised.  So it is unclear if in general this post-selected regime has any connection to unitary quantum evolution at all.  Nevertheless, we will begin to examine situations which approach this domain through decompositions into single parameter problems and using numerical computations.
 
 \section{Implementation\label{implementation}}
 
-This section demonstrates how Error Averaging can be implemented for various example optical systems. These examples also serve as a verification of the range of validity of the approximately commuting errors assumption. It can also be noted that Equation~\ref{sum_unitary} can become the appropriate transformation for duality quantum computing by allowing the $U_{i}$ to be arbitrary\cite{dualityQC}.
+This section demonstrates how Error Averaging can be implemented for various example optical systems. These examples also serve as a verification of the range of validity of the approximately commuting errors assumption. It can also be noted that Eq.~(\ref{sum_unitary}) can become the appropriate transformation for duality quantum computing by allowing the $U_{i}$ to be arbitrary\cite{dualityQC}.
 
-Constructions for the redundant encoding using the DFT implementation from the previous section are useful mathematically but may be inconvenient to implement in practice.  The transformation of Eq.~\ref{sum_transformation} can also be achieved using an array of beam-splitters as shown in Fig.~\ref{fig:gen system}.  This beam-splitter array has the desirable property of being generated by a recursive pattern.  As shown by the bounding rectangles in Fig.~\ref{fig:gen system}, the outer and inner layers share the same basic structure. 
+Constructions for the redundant encoding using the DFT implementation from the previous section are useful mathematically but may be inconvenient to implement in practice.  The transformation of Eq.~(\ref{sum_transformation}) can also be achieved using an array of beam-splitters as shown in Fig.~\ref{fig:gen system}.  This beam-splitter array has the desirable property of being generated by a recursive pattern.  As shown by the bounding rectangles in Fig.~\ref{fig:gen system}, the outer and inner layers share the same basic structure. 
 
 \begin{figure}[tbh]
 	\includegraphics[width=\columnwidth]{unitaries.pdf}
 	\caption{\label{fig:gen system}Redundant encoding using 50:50 beam-splitters for $N=8$. The boxes labelled $\hat{U}_i$ can be single or multi-mode.  In the multi-mode case the encoding beam-splitter network is repeated for each mode input and output. Output modes that are post-selected on the vacuum are not shown here. The red box shows an $N=2$ level encoding and the blue box shows $N=4$.  Further nesting of this arrangement can achieve any $N$ being a power of two.}
-\end{figure}
-	
-%The following section discusses the results of numerical simulations for various systems implementing Error Averaging. To understand why linear optics was the chosen implementation consider the two key requirements of implementation. The first requirement is that the fundamental particle used as the computational qubit can be placed in a spacial superposition. The second requirement is that any employed unitary $\hat{U}$  does not act on the vacuum, that is $\hat{U}\left|0\right>=\left|0\right>$. Although these seem restrictive, LOQC automatically satisfies both of these requirements. A spacial superposition can be created easily using beam splitters and any linear optical unitary cannot, by definition, affect the vacuum.
-	
-%	Within the LOQC architecture, the following discussion will be agnostic about the specific encoding method by working in the Fock basis. In this way both single and dual rail encoding can be corrected and as such will generally not be considered in all further discussions.
-
-%Initially we will focus on phase errors as this case is well understood and sets the stage for developing more complex scenarios.  The fundamental components in linear networks are phase shifters and beam splitters.  
+\end{figure} 
 
 All linear networks can be generated by arranging networks of beam-splitters and phase shifts~\cite{reck}.  Carolan et.~al.~\cite{ULO} have experimentally probed a linear network where all possible networks can be generated using controllable phase shifts and unvarying beam-splitters.  In their experimental implementation they demonstrated the ability to implement many quantum logic gates and linear optical protocols with a high fidelity.  Following this same methodology one can generate controllable beam-splitters using a Mach-Zehnder (MZ) interferometer consisting of a controllable phase shift in one arm and two fixed $50:50$ beam splitters.
 
 Within this type of architecture the controllable phase shift is the key source of non-systematic noise.  Furthermore, redundantly encoding phase shifts are well characterised by the results presented above from Corollary~\ref{Corollary 1}.  So we will focus on phase shift induced errors for the analysis of this section and the next.  The model we will use assumes $50:50$ beam-splitters which are fixed and phase shifts that vary and are the source of all noise.
 
 The noise in a controllable phase-shift can be written as $e^{i(\theta+\delta)}$ where $\theta$ is a real number representing the phase shift to be applied and $\delta$ is a zero-mean random variable representing the error.  For the identity operation $\theta=0$.  We will assume the distribution for $\delta$ to be Gaussian with variance $v$.  For values of $v$ that are comparable to $\pi^2$ the multi-valued nature of phase shifts becomes important.  But initially we will focus on the limit where $v \ll \pi^2$.
-
-%In terms of the constructions used in Section~\ref{gen case}, this corresponds to Equation \ref{eq:single parameter, multi-mode} with $T=\begin{bmatrix}	0 & 1 \\	1 & 0 \\\end{bmatrix}$ and $M=e^{i\delta T}$ where we have set $U=\mathbb{I}$. 
-
-%Need to come back to this.  Not sure what it means.
 
 The remainder of this section considers the above implementation of a tunable beam-splitter as a MZ interferometer with the phase shift being error averaged. The error averaging will be performed using the concatenated beam-splitter network, hence $N=2^n, n \in \mathbb{N}$ and all beam-splitters used in this system will be fixed and with a splitting ratio of 50:50. We will analyse two key cases, the single photon and two photon performance.  The former involves the classical wave nature of the probability distribution for a single photon.  The latter includes Hong-Ou-Mandel~\cite{hom} style quantum interference.
 
@@ -380,7 +290,7 @@ The probability of success is the sum of the probabilities of the $\hat{a}$ mode
 	P(\textrm{success}) & = & \bra{\psi}\hat{a}^{\dagger}\hat{a}\ket{\psi} +\bra{\psi}\hat{b}^{\dagger}\hat{b}\ket{\psi} \\
 	& \approx & 1+\frac{v}{2N}-\frac{v}{2}. \label{eq:1pNarbitrary successs}
 \end{eqnarray}
-In the large $N$ limit, this corresponds to the linear approximation of Equation \ref{eq:Gaussian Psuccess} where we can identify $P(\textrm{success})=c$. 
+In the large $N$ limit, this corresponds to the linear approximation of Eq.~(\ref{eq:Gaussian Psuccess}) where we can identify $P(\textrm{success})=c$. 
 
 Without any noise, choosing $\theta=0$ results in complete interference and the input single photon state will be transferred to a single output.  Any deviations from this are attributed to non-ideal interferometer performance. 
 In this case the probability of observing the output in the correct mode without post-selection is
@@ -392,7 +302,7 @@ After post-selection this becomes
 	\frac{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\left|\psi\right\rangle}{P(\textrm{success})} \approx 1 - \frac{v}{4N}. \label{eq:1pWithPost}
 \end{equation}
 		
-Figure~\ref{fig:post vs no post} shows how these two quantities scale with $N$. In particular, it can be seen that after post-selection the likelihood of the photon exiting the interferometer in the correct mode can be made arbitrarily close to unity by increasing $N$. Also, while the probability of success decreases for increasing $N$ it asymptotes to a constant value. This implies that as $N$ increases, even though the total quantity of errors added to the system increases, the effects of the combined errors on the interferometer is less. This result is also not dependent on the value chosen for $\theta$. Explicitly as the intended phase shift can be factored out in Eq. \ref{eq:1ParbN} similarly to the result shown in Eq. \ref{eq:Gaussian Psuccess} the effects of errors and our error correction can be considered separately from the transformation being applied.
+Figure~\ref{fig:post vs no post} shows how these two quantities scale with $N$. In particular, it can be seen that after post-selection the likelihood of the photon exiting the interferometer in the correct mode can be made arbitrarily close to unity by increasing $N$. Also, while the probability of success decreases for increasing $N$ it asymptotes to a constant value. This implies that as $N$ increases, even though the total quantity of errors added to the system increases, the effects of the combined errors on the interferometer is less. This result is also not dependent on the value chosen for $\theta$. Explicitly as the intended phase shift can be factored out in Eq.~(\ref{eq:1ParbN}) similarly to the result shown in Eq.~(\ref{eq:Gaussian Psuccess}) the effects of errors and our error correction can be considered separately from the transformation being applied.
 %This can be understood as the process of redundantly splitting and recombining the state, driving noise into the post-selected ports by interference.  
 \begin{figure}[tbh]
 	\includegraphics[width=\columnwidth]{1photonpostvsnopost.pdf}
@@ -433,7 +343,7 @@ where $P(\textrm{coincidence})$ is the probability the photons exit modes $a$ an
 \begin{eqnarray}
 	P(\textrm{success}) & \approx & 1-v+\frac{v}{2N}.\label{eq:2pNarb Success}
 \end{eqnarray}
-Again, the large $N$ limit of this equation the result matches the prediction of Equation~\ref{eq:Gaussian Psuccess}. Also, the probability of success has a $\frac{1}{N}$ scaling which is the same as for the single photon input case. 
+Again, the large $N$ limit of this equation the result matches the prediction Eq.~(\ref{eq:Gaussian Psuccess}). Also, the probability of success has a $\frac{1}{N}$ scaling which is the same as for the single photon input case. 
 
 In this section we have demonstrated how redundantly encoding variable components can reduce the resulting variance within a system for the simple but highly important case of a single beam splitter. We have also shown that the results match what is expected from the couple of solved exact cases discussed in Section \ref{gen case}. In the following section we will give some more complex examples to give a clearer insight into how this redundant encoding might best be applied, and its effect in the situations where the mathematical machinery introduced earlier is not easily solvable.
 
@@ -505,7 +415,7 @@ The probability of success is thus
 	P\left(success\right) & = & \braket{\psi|\psi} \nonumber \\
 & \approx & \left[1-\left(1-\frac{1}{N}\right)\left(Mv-\frac{1}{2}M^{2}v^{2}\right)\right]\label{eq:AveEndProbSuccess}
 \end{eqnarray}
-This result is similar to the what was found in previous sections, see Eq.\ref{eq:1pNarbitrary successs} and Eq.\ref{eq:2pNarb Success}, with the probability of success asymptotically approaching some fixed value for large $N$.
+This result is similar to the what was found in previous sections, see Eq.~(\ref{eq:1pNarbitrary successs}) and Eq.~(\ref{eq:2pNarb Success}), with the probability of success asymptotically approaching some fixed value for large $N$.
 
 To determine the size of the error, the phase applying system was again inserted into one arm of a MZ interferometer giving a total output state $\ket{\Psi}$. The error is then given by the photon expectation value in the correct output mode with post selection. The output state is
 \begin{eqnarray}
@@ -614,7 +524,7 @@ As the total number of components increases with both increasing $M$ and $N$, th
 
 \subsection{Statistical Modelling of the Applied Phase\label{Statistical Modelling of the Applied Phase}}
 
-Given the variability in the higher order terms for larger errors in can be concluded that, in general all orders need to be considered to fully understand the behaviour of the corrected systems. As this is intractable and to better understand the behaviour of the three phase applying systems, the total applied phase was modelled numerically using \textit{Mathematica} with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This corresponds to Equation~(\ref{eq:single parameter, single mode}) with $\theta=\prod_{i}\theta_{i}$. This was repeated $5000$ times and the results are shown in Figures \ref{fig:Total-applied-phase1} and \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. The variability of the total applied phase is smaller when each phase shifter is corrected individually, an indication that averaging each step is more effective. By comparing Figure~\ref{fig:Total-applied-phase1} with Figure~\ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure~\ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case.
+Given the variability in the higher order terms for larger errors in can be concluded that, in general all orders need to be considered to fully understand the behaviour of the corrected systems. As this is intractable and to better understand the behaviour of the three phase applying systems, the total applied phase was modelled numerically using \textit{Mathematica} with phase values chosen from a Gaussian random distribution with mean $0$ and variance $v$. This corresponds to Eq~(\ref{eq:single parameter, single mode}) with $\theta=\prod_{i}\theta_{i}$. This was repeated $5000$ times and the results are shown in Figures \ref{fig:Total-applied-phase1} and \ref{fig:Total-applied-phase2}. This again shows a difference between averaging across the entire system and averaging at each step. The variability of the total applied phase is smaller when each phase shifter is corrected individually, an indication that averaging each step is more effective. By comparing Figure~\ref{fig:Total-applied-phase1} with Figure~\ref{fig:Error-as-measured all} at $M=15$ we can infer that the difference between the two error correction methods seen in Figure~\ref{fig:Error-as-measured all} is not entirely due to the quality of the approximations used in each case.
 %
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{totphase1.pdf}}
@@ -642,10 +552,10 @@ where $N$ is the number of times the system is averaged, again $N=1$ implies no 
 
 \begin{figure}
 \centerline{\includegraphics[width=\columnwidth]{phase_all.pdf}}
-\caption{Variance in the total applied phase without Error Averaging (orange), when averaging across the entire system (green) and when averaging each component individually (blue), all plotted as a function of the number of phase shifters in series $(M)$. The variance of a single phase shifter is $0.1\ \textrm{rad}^{2}$ and the two error averaged systems averaged 4 times. The predicted, linear variance without any averaging (orange) and with averaging (blue) is also shown. These ignore the fact that the variance is actually the angular variance and so has some maximum allowable value given by Eq. \ref{eq:Max Var}, which is also shown in black. \label{fig:Variance-in-phase all}}
+\caption{Variance in the total applied phase without Error Averaging (orange), when averaging across the entire system (green) and when averaging each component individually (blue), all plotted as a function of the number of phase shifters in series $(M)$. The variance of a single phase shifter is $0.1\ \textrm{rad}^{2}$ and the two error averaged systems averaged 4 times. The predicted, linear variance without any averaging (orange) and with averaging (blue) is also shown. These ignore the fact that the variance is actually the angular variance and so has some maximum allowable value given by Eq.~(\ref{eq:Max Var}), which is also shown in black. \label{fig:Variance-in-phase all}}
 \end{figure}
 %
-Figure \ref{fig:Variance-in-phase all} shows that the two methods of error correction do indeed initially have the same effect. However the averaging across the system method departs from this linear regime from approximately $M=6$ after which it follows the general form of applying no correction. This suggests there is some limit to the total variation in a system Error Averaging can handle. This is not unexpected due to the limited domain for a phase shift or beam splitter ratio. The fact that averaging across the entire system mirrors the no averaging trend suggest that the positive effects of Error Averaging completely disappear in this regime. Averaging each step however does not appear to fall out of the linear regime. The lower slope at higher total output variance can be attributed to the variance approaching the maximum possible variance.  To determine if and when the averaging each step method of error correction fails, this process was repeated as a function of the variance in a single beam splitter. The total variance was determined from $50000$ data points for each value of $v$. Figure~\ref{fig:Variance(veriance)} demonstrated that again the two error correction methods initially are equivalent. Once more averaging across the system departs from the linear regime and now we can clearly see that so too does the averaging each step.
+Figure~\ref{fig:Variance-in-phase all} shows that the two methods of error correction do indeed initially have the same effect. However the averaging across the system method departs from this linear regime from approximately $M=6$ after which it follows the general form of applying no correction. This suggests there is some limit to the total variation in a system Error Averaging can handle. This is not unexpected due to the limited domain for a phase shift or beam splitter ratio. The fact that averaging across the entire system mirrors the no averaging trend suggest that the positive effects of Error Averaging completely disappear in this regime. Averaging each step however does not appear to fall out of the linear regime. The lower slope at higher total output variance can be attributed to the variance approaching the maximum possible variance.  To determine if and when the averaging each step method of error correction fails, this process was repeated as a function of the variance in a single beam splitter. The total variance was determined from $50000$ data points for each value of $v$. Figure~\ref{fig:Variance(veriance)} demonstrated that again the two error correction methods initially are equivalent. Once more averaging across the system departs from the linear regime and now we can clearly see that so too does the averaging each step.
 
 This is suggestive of the existence of some threshold for the amount of error in a system before Error Averaging fails to be beneficial. A single phase shifter with variance $v_{1}$ is effectively equivalent to $m$ phase shifters with individual variance $v_{2}=\frac{v_{1}}{m}$ if the entire system is being averaged across. This allows the phase error threshold to be estimated at about $0.5\ \textrm{rad}^{2}$ when averaging across each element and $\frac{0.5}{m}\textrm{rad}^{2}$ when averaging across a system of $m$ phase shifters. Explicitly, this suggests a phase variance threshold of $0.5\ \textrm{rad}^{2}$ within the corrected unitary. If each individual beam splitter has a variance of $0.1\ \textrm{rad}^{2}$, averaging across the system would be expected to be in the linear regime when $M\le5$ which is precisely what is seen in Figure \ref{fig:Variance-in-phase all}. These two thresholds obviously do not apply to a general error however it is hoped that with further study might reveal the values for such a threshold.
 \begin{figure}
@@ -710,7 +620,7 @@ Hence we get an asympotitic expression for the probability of success to be
 \begin{equation}
 \lim_{n\rightarrow\infty}P_{n}\left(success\right)=1-\left(\frac{a_{1}+1}{b_{1}}\right)v\label{eq:PsuccessGeneral}
 \end{equation}
-The result can be understood to be the first order approximation to Equation \ref{eq:approx commuting, general case}. The $\frac{a_1+1}{b_1}$ coefficient does not quite match what might be expected from Equation \ref{eq:approx commuting, general case} however one might only expect qualitative agreement as there is not any clear isomorphic map between the parameters in the system and the error coefficients of the Lie algebra generators.
+The result can be understood to be the first order approximation to Eq.~(\ref{eq:approx commuting, general case}). The $\frac{a_1+1}{b_1}$ coefficient does not quite match what might be expected from Eq.~(\ref{eq:approx commuting, general case}) however one might only expect qualitative agreement as there is not any clear isomorphic map between the parameters in the system and the error coefficients of the Lie algebra generators.
 
 This result hints at the self correcting nature of Error Averaging. By considering the inner corrected system with error laden beam splitters as the initial step in the sequence then each further step will be averaging across both the fixed beam splitters and the original error laden system. This could allow some of the beam splitters to be corrected  making the base assumptions on the quality of the fixed beam splitters less restrictive. This is highlighted in Figure \ref{fig:gen system} where, depending on which components are considered to be the system, it is averaged either $8$, $4$ or $2$ times. 
 
