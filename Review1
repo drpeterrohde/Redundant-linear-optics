@@ -1,0 +1,42 @@
+----------------------------------------------------------------------
+Report of the Referee -- AJ11649/Marshman
+----------------------------------------------------------------------
+
+In this manuscript, the authors introduce a simple method for reducing
+the effect of random errors in a linear optical circuit by splitting
+the beam into many copies, via a discrete Fourier transform, applying
+copies of the desired unitary (with random and independent
+fluctuations between copies) to all copies, and then recombining the
+beams. Errors lead to leakage of photons into additional modes which
+can then be detected and filtered out. The resultant effective unitary
+averages to the desired transformation due to the central limit
+theorem.
+
+This is an interesting and potentially useful technique, however, I am
+currently not satisfied with the presentation of the key ideas in this
+manuscript. The derivation of the main result in section II is much
+too brief and lacks clarity about important details. The error model
+is never explicitly defined and the proof of the main theorem
+presented as a single paragraph. I'd like to see more details of what
+errors are considered here. For example, it seems to be assumed that
+the errors are unitary, (i.e. fluctuations in parameters in a beam
+splitter of phase shifter), but excluding non-unitary errors such as
+loss. I imagine that mode-mismatch errors cannot be treated with this
+technique, but this is not clearly stated.
+
+The numerical results give confidence that the key ideas here are
+sound.
+
+A simple example, for example, the case of a simple unitary phase
+shift with a fluctuating phase across two copies, presented early in
+section II, would help clarify the general argument. This could be
+related to well known phenomena of Mach-Zehder interferometry.
+
+The rest of the paper is written with sufficient detail, but Section
+II deserves revision to place this work on a firm foundation.
+
+The main result appears to assume that the Fourier transforms are
+implemented perfectly. To what extent can this technique be extended
+to allow fault tolerance with respect to errors in the Fourier
+transforms as well? Is there a way of applying the technique
+recursively to achieve this?
