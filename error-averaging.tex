@@ -93,7 +93,11 @@ Here we are concerned with the case of bosonic linear scattering networks.  Thes
 \end{equation}
 where, to preserve commutation relationships, $U$ must be a unitary matrix.  It is the network matrix $U$ that we will focus on.
 
-Consider a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have a Heisenberg style evolution between mode annihilation operators of the form
+The error model we are considering can then be stated using this construction.  We consider the matrix $U$ to be randomly selected from an any distribution over unitary matrices.  Though this definition is quite broad, we are particularly interested in non-uniform (or more precisely non-Haar) distributions that describe a realisation of constructing particular optical elements.  For example, one might consider a large number of beam-splitter which have, on average, a reflectivity of $50\%$.  But a randomly chosen beam-splitter's reflectivity varies slightly from this average value in a way that is specified by some probability distribution.  Alternatively, one could imagine an integrated optical circuit where the inputs have some small random fluctuations.  Each time this integrated circuit is utilised, the underlying parameters will be different.  The distributions of unitary matrices we initially consider will be arbitrary, but later we will concentrate on the case of distributions near the identity with small variances and Gaussian profiles in the coefficients for the differential generators of the unitary group.
+
+This model is not a universal description of error processes that could occur.  Particularly, errors like loss, mode-mismatch and non-linearities are not included. It is possible that there is some component of these processes may be reducible under our technique, it is more likely that their effects be exacerbated.  For this paper, we will focus on the errors within the linear processes.
+
+We will now describe the error averaging technique.  Consider a linear network whose elements are those of a Discrete Fourier Transform (DFT).  That is, we have a Heisenberg style evolution between mode annihilation operators of the form
 \begin{equation}
 	a_{j,r} \rightarrow \frac{1}{\sqrt{N}} \sum_{k=0}^{N-1} \omega^{rk} a_{j,k}	
 \end{equation}
