@@ -9,7 +9,7 @@ Thank you to the referee.
 > can then be detected and filtered out. The resultant effective unitary
 > averages to the desired transformation due to the central limit
 > theorem.
-> 
+>
 > This is an interesting and potentially useful technique, however, I am
 > currently not satisfied with the presentation of the key ideas in this
 > manuscript. The derivation of the main result in section II is much
@@ -23,19 +23,22 @@ Thank you to the referee.
 > technique, but this is not clearly stated.
 
 The manuscript has been updated to add more details about the error model and
-introduce it and discuss these issues early in section II.  
+introduce it and discuss these issues early in section II.
 
 > The numerical results give confidence that the key ideas here are
 > sound.
-> 
+>
 > A simple example, for example, the case of a simple unitary phase
 > shift with a fluctuating phase across two copies, presented early in
 > section II, would help clarify the general argument. This could be
 > related to well known phenomena of Mach-Zehder interferometry.
-> 
+
+This is the example posed early in Section III and introduced briefly in
+section II as corollary 1.
+
 > The rest of the paper is written with sufficient detail, but Section
 > II deserves revision to place this work on a firm foundation.
-> 
+>
 > The main result appears to assume that the Fourier transforms are
 > implemented perfectly. To what extent can this technique be extended
 > to allow fault tolerance with respect to errors in the Fourier
