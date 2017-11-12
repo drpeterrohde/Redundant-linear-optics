@@ -127,7 +127,7 @@ where $M_N$ is a matrix defined by
 \end{equation}
 This matrix is then the effective linear network matrix for the post-selected system.  It includes information about the probability of success and so in general it will be not unitary.  The remainder of this paper is directed towards analysing the scenarios that arise from the multitude of choices for $U_k$ that form the expression.
 
-Figure \ref{fig:gen system} shows how this encoding can be realised using 50:50 beam splitters for an eight mode system. It also shows a natural method of encoding recursively such that the components implementing the redundant encodings are themselves redundantly encoded. Given this, although the encoding beam splitters are assumed perfect, this requirement can be relaxed. See Section \ref{Four Mode Impementation Comparison} for more detail.
+Using the DFT matrix for redundantly encoding and decoding has been used here to illustrate in a compact way the generic approach.  But it is not necessary to perform these operations in exactly this way.  The encoding and decoding will give the desired properties provided the transformation of Eq.~\ref{sum_transformation} is generated.  Figure~\ref{fig:gen system} shows how this encoding can be realised using 50:50 beam splitters for an eight mode system. This approach gives a method of encoding which is recursive and would allow the components implementing the encoding to themselves be redundantly encoded. Given this, although the encoding beam splitters are assumed perfect, this requirement can potentially be relaxed. See Section~\ref{Four Mode Impementation Comparison} for more detail.
 
 For the main theorem of our work we consider a general linear network described by a unitary network matrix $U$ with any dimensionality. 
 
@@ -150,7 +150,7 @@ As the matrix elements $(U_i)_{rs}$ are constructed from unitary matrices, their
 The variance of the real or imaginary part of $(M_N)_{rs}$ is then upper bounded by $1/N$ as per the central limit theorem.
 \end{proof}
 
-Here we are explicitly taking the matrices $U_i$ as being unitary fixing our error model to be random unitary errors. Theorem \ref{Theorem 1} also holds for any set of independent, random and bound matrices $U_i$ which might allow this technique to effective for other types of errors although this will in no way protect against loss. The situation to have in mind with regards to the systems considered in this paper are general, automated and reprogrammable linear optical devices which, due to thermal noise or some other generator of random noise, fail to exactly reproduce the desired target unitary.
+Here we are explicitly taking the matrices $U_i$ to be unitary.  This fixes our error model to consist of random unitary errors. Theorem~\ref{Theorem 1} also holds for any set of independent, random and bound matrices $U_i$ which might allow this technique to effective for other types of errors.  However, this will not give protection against loss errors. The situation to have in mind with regards to the systems considered in this paper are reprogrammable linear optical devices which, due to thermal noise or some other source of random noise, fail to exactly reproduce the desired target unitary.
 
 The question now is what forms the mean average matrix $M$ as defined in Theorem \ref{Theorem 1}, can take. First we consider the trivial case where the unitary matrices are $1 \times 1$ dimensional.
 
