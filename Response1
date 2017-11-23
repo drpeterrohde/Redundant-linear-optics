@@ -45,7 +45,7 @@ section II as corollary 1.
 > transforms as well? Is there a way of applying the technique
 > recursively to achieve this?
 
-We already mention this in the discussion.  Furthermore, the encoding need not
+We already mention this in the discussion however we have now added further comments with respect to this in Section II.  Furthermore, the encoding need not
 be a Fourier transform.  That was just a mathematically convenient construct
 for the exposition given in section II.  Fault-tolerance seems possible, but as
 this paper was a starting point for just the error detection, this is left as
