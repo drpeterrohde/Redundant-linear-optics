@@ -1,4 +1,4 @@
-Thank you to the referee.
+We would like to thank the referee for their careful review of our manuscript.  We have fixed some typographical errors and improved the wording generally in our manuscript.  We have also changed the manuscript in response to the referee's specific issues and we will address them below.
 
 > In this manuscript, the authors introduce a simple method for reducing
 > the effect of random errors in a linear optical circuit by splitting
@@ -23,7 +23,7 @@ Thank you to the referee.
 > technique, but this is not clearly stated.
 
 The manuscript has been updated to add more details about the error model and
-introduce it and discuss these issues early in section II.
+introduce and discuss these issues early in section II.
 
 > The numerical results give confidence that the key ideas here are
 > sound.
@@ -34,7 +34,8 @@ introduce it and discuss these issues early in section II.
 > related to well known phenomena of Mach-Zehder interferometry.
 
 This is the example posed early in Section III and introduced briefly in
-section II as corollary 1.
+section II as corollary 1.  We have made changes to the manuscript to emphasise
+these as simple examples of the general phenomenon.
 
 > The rest of the paper is written with sufficient detail, but Section
 > II deserves revision to place this work on a firm foundation.
@@ -45,9 +46,17 @@ section II as corollary 1.
 > transforms as well? Is there a way of applying the technique
 > recursively to achieve this?
 
-We already mention this in the discussion however we have now added further comments with respect to this in Section II.  Furthermore, the encoding need not
-be a Fourier transform.  That was just a mathematically convenient construct
-for the exposition given in section II.  Fault-tolerance seems possible, but as
-this paper was a starting point for just the error detection, this is left as
-an open problem.
+These issues are already mentioned in the discussion towards the end of the
+paper, however we have now added further comments with respect to this in
+Section II. Fault-tolerance under the noise unitary error model seems like it
+is possible, but in this paper we have just address the necessary starting
+point of error detection.  Fault-tolerance and broader error models is left as
+an open problem subsequent to the results presented in this paper.
+
+Furthermore, the encoding operation need not be a Fourier transform.  The
+Fourier transform encoding was used as a mathematically convenient construct
+for the exposition given in section II.  The is discussed an used in section
+III and the alternative encoding with permits nesting is shown in Fig 2.
+
+We trust that our changes address these issues and hope that our modifications will allow for our manuscript to be accepted for publication.
 
