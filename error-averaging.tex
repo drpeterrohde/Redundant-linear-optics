@@ -321,7 +321,6 @@ The single photon interference effects in linear networks can be explained using
 	\ket{\psi} =  \frac{1}{2}\left\{ 1+\frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)\right\} \ket{1,1} \\
 	+\frac{\sqrt{2}}{4}\left\{ \frac{1}{N^{2}}\left(\sum_{j=1}^{N}\sum_{k=1}^{N}e^{i(\delta_{j}+\delta_{k})}\right)-1\right\} \left(\ket{2,0} +\ket{0,2}\right)\label{eq:2pNarbitrary S}
 \end{equation}
-\end{widetext}
 where we have chosen $\theta=0$ when computing this state. This is done, as above, to simplify the form of the equations and does not change the effect of the redundant encoding on the errors.  Because of this choice, the action of the interferometer on the input state should be the identity operation and hence $\ket{1,1}$ is the desired output state.   Note that we could have chosen the input state to be $\ket{2,0}$, but this would not necessarily show any new behaviour, just the single photon results independently applied to the two input photons. 
 
 We can again write probabilities as expectation values of occupation number.  Using the form of Eq.~(\ref{eq:2pNarbitrary S}), the ideal output is achieved when
@@ -337,7 +336,6 @@ This expectation value for the state including the phase shift noise is
 & \approx & 1-v\label{eq:exp. value aabb}
 \end{eqnarray}
 where the approximation is assuming $v$ small.  Post-selection will increase this to 
-\begin{widetext}
 \begin{eqnarray}
 P(\textrm{coincidence}) & = & \frac{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle }{\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}\hat{b}^{\dagger}\hat{b}\left|\psi\right\rangle +0.5\left\langle \psi\right|\hat{a}^{\dagger}\hat{a}^{\dagger}\hat{a}\hat{a}\left|\psi\right\rangle +0.5\left\langle \psi\right|\hat{b}^{\dagger}\hat{b}^{\dagger}\hat{b}\hat{b}\left|\psi\right\rangle }\nonumber \\
 & \approx & 1-\frac{v}{2N}\label{eq:2pNarb PS}
@@ -439,7 +437,6 @@ Therefore, our error measure, the conditional probability of observing the corre
 \begin{equation}
 P(\textrm{correct})  \approx  \left[1-\frac{1}{4}\left(Mv-\frac{M^{2}v^{2}}{4}+\left(1-\frac{1}{N}\right)\left(Mv-\frac{1}{2}M^{2}v^{2}\right)\right)\right]\nonumber\times\left[1-\left(1-\frac{1}{N}\right)\left(\frac{Mv}{2}-\frac{1}{4}M^{2}v^{2}\right)\right]^{-1}\label{eq:ErrorAvEnd}
 \end{equation}
-\end{widetext}
 
 \subsection{Averaging Across Each Phase Shifter Individually\label{Averaging Across Each Phase Shifter Individually}}
 
@@ -452,7 +449,6 @@ Reproducing the above calculations with this state yields a probability of succe
 P\left(Success\right)\approx\left(1-\left(v-\frac{v^{2}}{2}\right)\left(1-\frac{1}{N}\right)\right)^{M}\label{eq:AvStepProbSuccess}
 \end{equation}
 and a conditional probability of observing the correct result of
-\begin{widetext}
 \begin{equation}
 P(\textrm{correct}) \approx  \left[\frac{3}{4}-\frac{Mv}{4}+\frac{M^{2}v^{2}}{16}+\frac{1}{4}\left(1-\left(v-\frac{v^{2}}{2}\right)\left(1-\frac{1}{N}\right)\right)^{M}\right]\nonumber\times\left[\frac{1}{2}+\frac{1}{2}\left(1-\left(v-\frac{v^{2}}{2}\right)\left(1-\frac{1}{N}\right)\right)^{M}\right]^{-1}\label{eq:ErrorAvStep}
 \end{equation}
