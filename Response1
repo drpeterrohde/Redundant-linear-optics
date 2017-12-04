@@ -1,15 +1,8 @@
-We would like to thank the referee for their careful review of our manuscript.  We have fixed some typographical errors and improved the wording generally in our manuscript.  We have also changed the manuscript in response to the referee's specific issues and we will address them below.
+We would like to thank the referee for their careful review of our manuscript.
+We have fixed some typographical errors and improved the wording generally in
+our manuscript.  We have also changed the manuscript in response to the
+referee's specific issues and we will address them below.
 
-> In this manuscript, the authors introduce a simple method for reducing
-> the effect of random errors in a linear optical circuit by splitting
-> the beam into many copies, via a discrete Fourier transform, applying
-> copies of the desired unitary (with random and independent
-> fluctuations between copies) to all copies, and then recombining the
-> beams. Errors lead to leakage of photons into additional modes which
-> can then be detected and filtered out. The resultant effective unitary
-> averages to the desired transformation due to the central limit
-> theorem.
->
 > This is an interesting and potentially useful technique, however, I am
 > currently not satisfied with the presentation of the key ideas in this
 > manuscript. The derivation of the main result in section II is much
@@ -22,8 +15,9 @@ We would like to thank the referee for their careful review of our manuscript.  
 > loss. I imagine that mode-mismatch errors cannot be treated with this
 > technique, but this is not clearly stated.
 
-The manuscript has been updated to add more details about the error model and
-introduce and discuss these issues early in section II.
+The manuscript has been updated to add specific details about the error model
+we have considered.  We have also changed section II to introduce and discuss
+issues of the error model and examples to help clarify the the main result.
 
 > The numerical results give confidence that the key ideas here are
 > sound.
@@ -46,17 +40,22 @@ these as simple examples of the general phenomenon.
 > transforms as well? Is there a way of applying the technique
 > recursively to achieve this?
 
-These issues are already mentioned in the discussion towards the end of the
-paper, however we have now added further comments with respect to this in
-Section II. Fault-tolerance under the noise unitary error model seems like it
-is possible, but in this paper we have just address the necessary starting
-point of error detection.  Fault-tolerance and broader error models is left as
-an open problem subsequent to the results presented in this paper.
+These points are mentioned in the discussion towards the end of the manuscript,
+however we have now added further comments with respect to this in Section II.
+
+A brief summary of this discussion is that fault-tolerance under the noise
+unitary error model seems likely to be possible, but in this paper we have just
+addressed the necessary starting point of error detection.  Fault-tolerance and
+broader error models is left as an open problem subsequent to the results
+presented in this paper.
 
 Furthermore, the encoding operation need not be a Fourier transform.  The
 Fourier transform encoding was used as a mathematically convenient construct
-for the exposition given in section II.  The is discussed an used in section
-III and the alternative encoding with permits nesting is shown in Fig 2.
+for the exposition given in section II.  In section III an alternative encoding
+with the same encoding properties that permits nesting is introduced and shown
+in Fig 2.  As stated in the manuscript, this encoding is used in the numerical
+simulation.
 
-We trust that our changes address these issues and hope that our modifications will allow for our manuscript to be accepted for publication.
+We trust that our changes address these issues and hope that our modifications
+will allow for our manuscript to be accepted for publication.
 
