@@ -59,3 +59,14 @@ simulation.
 We trust that our changes address these issues and hope that our modifications
 will allow for our manuscript to be accepted for publication.
 
+List of changes:-
+
+* Expanded explaination of error model at beginnin of section II and after 
+  Theorem 1
+* Clarification of role of the discrete fourier transform for encoding in 
+  section II
+* Directly after this, an explaination of the recursive encoding technique
+  using beam-splitters that is compatible with a fault-tolerant implementation
+  with reference to the discussion in Section V.
+* Minor typographical changes
+
