@@ -1,0 +1,366 @@
+% Encoding: windows-1252
+
+
+@InProceedings{Boson,
+  Title                    = {The computational complexity of linear optics},
+  Author                   = {Aaronson, Scott and Arkhipov, Alex},
+  Booktitle                = {Proceedings of the forty-third annual ACM symposium on Theory of computing},
+  Year                     = {2011},
+  Organization             = {ACM},
+  Pages                    = {333--342}
+}
+
+@Article{arkhipov2014,
+  Title                    = {Boson sampling is robust to small errors in the network matrix},
+  Author                   = {Arkhipov, Alex},
+  Journal                  = {arXiv preprint arXiv:1412.2516},
+  Year                     = {2014}
+}
+
+@Article{quantumkey,
+  Title                    = {Quantum cryptography: Public key distribution and coin tossing},
+  Author                   = {Bennett, Charles H and Brassard, Gilles},
+  Journal                  = {Theoretical computer science},
+  Year                     = {2014},
+  Pages                    = {7--11},
+  Volume                   = {560},
+  Publisher                = {Elsevier}
+}
+
+@Article{ULO,
+  Title                    = {Universal linear optics},
+  Author                   = {Carolan, Jacques and Harrold, Christopher and Sparrow, Chris and Mart{\'\i}n-L{\'o}pez, Enrique and Russell, Nicholas J and Silverstone, Joshua W and Shadbolt, Peter J and Matsuda, Nobuyuki and Oguma, Manabu and Itoh, Mikitaka and others},
+  Journal                  = {Science},
+  Year                     = {2015},
+  Number                   = {6249},
+  Pages                    = {711--716},
+  Volume                   = {349},
+  Publisher                = {American Association for the Advancement of Science}
+}
+
+@Article{DiVincenzo,
+  Title                    = {The physical implementation of quantum computation},
+  Author                   = {DiVincenzo, David P and others},
+  Journal                  = {arXiv preprint quant-ph/0002077},
+  Year                     = {2000}
+}
+
+@Article{Feynman,
+  Title                    = {Quantum mechanical computers},
+  Author                   = {Feynman, Richard P},
+  Journal                  = {Foundations of physics},
+  Year                     = {1986},
+  Number                   = {6},
+  Pages                    = {507--531},
+  Volume                   = {16},
+  Publisher                = {Springer}
+}
+
+@Article{spontaneous_downconversion,
+  Title                    = {Interference of two photons in parametric down conversion},
+  Author                   = {Ghosh, R. and Hong, C. K. and Ou, Z. Y. and Mandel, L.},
+  Journal                  = {Phys. Rev. A},
+  Year                     = {1986},
+  Month                    = {Nov},
+  Pages                    = {3962--3968},
+  Volume                   = {34},
+  Doi                      = {10.1103/PhysRevA.34.3962},
+  Issue                    = {5},
+  Numpages                 = {0},
+  Publisher                = {American Physical Society},
+  Url                      = {http://link.aps.org/doi/10.1103/PhysRevA.34.3962}
+}
+
+@Article{Grovers,
+  Title                    = {Quantum mechanics helps in searching for a needle in a haystack},
+  Author                   = {Grover, Lov K},
+  Journal                  = {Physical review letters},
+  Year                     = {1997},
+  Number                   = {2},
+  Pages                    = {325},
+  Volume                   = {79},
+  Publisher                = {APS}
+}
+
+@Article{hom,
+  Title                    = {Measurement of subpicosecond time intervals between two photons by interference},
+  Author                   = {Hong, CK and Ou, ZY and Mandel, Leonard},
+  Journal                  = {Physical Review Letters},
+  Year                     = {1987},
+  Number                   = {18},
+  Pages                    = {2044},
+  Volume                   = {59},
+  Publisher                = {APS}
+}
+
+@Article{KLM,
+  Title                    = {A scheme for efficient quantum computation with linear optics},
+  Author                   = {Knill, Emanuel and Laflamme, Raymond and Milburn, Gerard J},
+  Journal                  = {nature},
+  Year                     = {2001},
+  Number                   = {6816},
+  Pages                    = {46--52},
+  Volume                   = {409},
+  Publisher                = {Nature Publishing Group}
+}
+
+@Book{kok,
+  Title                    = {Introduction to optical quantum information processing},
+  Author                   = {Kok, Pieter and Lovett, Brendon W},
+  Publisher                = {Cambridge University Press},
+  Year                     = {2010}
+}
+
+@Article{single_photon_atom,
+  Title                    = {Deterministic Single-Photon Source for Distributed Quantum Networking},
+  Author                   = {Kuhn, Axel and Hennrich, Markus and Rempe, Gerhard},
+  Journal                  = {Phys. Rev. Lett.},
+  Year                     = {2002},
+  Month                    = {Jul},
+  Pages                    = {067901},
+  Volume                   = {89},
+  Doi                      = {10.1103/PhysRevLett.89.067901},
+  Issue                    = {6},
+  Numpages                 = {4},
+  Publisher                = {American Physical Society},
+  Url                      = {http://link.aps.org/doi/10.1103/PhysRevLett.89.067901}
+}
+
+@Article{Perfect,
+  Title                    = {Perfect quantum error correcting code},
+  Author                   = {Laflamme, Raymond and Miquel, Cesar and Paz, Juan Pablo and Zurek, Wojciech Hubert},
+  Journal                  = {Physical Review Letters},
+  Year                     = {1996},
+  Number                   = {1},
+  Pages                    = {198},
+  Volume                   = {77},
+  Publisher                = {APS}
+}
+
+@Book{leaMaths,
+  Title                    = {Mathematics for physicists},
+  Author                   = {Lea, Susan},
+  Publisher                = {Brooks/Cole-Thomson Learning},
+  Year                     = {2004}
+}
+
+@Article{dualityQC,
+  Title                    = {Duality quantum computing and duality quantum information processing},
+  Author                   = {Long, Gui Lu},
+  Journal                  = {International Journal of Theoretical Physics},
+  Year                     = {2011},
+  Number                   = {4},
+  Pages                    = {1305--1318},
+  Volume                   = {50},
+  Publisher                = {Springer}
+}
+
+@Article{quantum_dot,
+  Title                    = {A quantum dot single-photon turnstile device},
+  Author                   = {Michler, P and Kiraz, A and Becher, C and Schoenfeld, WV and Petroff, PM and Zhang, Lidong and Hu, E and Imamoglu, A},
+  Journal                  = {Science},
+  Year                     = {2000},
+  Number                   = {5500},
+  Pages                    = {2282--2285},
+  Volume                   = {290},
+  Publisher                = {American Association for the Advancement of Science}
+}
+
+@Article{milburn_Kerr,
+  Title                    = {Quantum optical Fredkin gate},
+  Author                   = {Milburn, G. J.},
+  Journal                  = {Phys. Rev. Lett.},
+  Year                     = {1989},
+  Month                    = {May},
+  Pages                    = {2124--2127},
+  Volume                   = {62},
+  Doi                      = {10.1103/PhysRevLett.62.2124},
+  Issue                    = {18},
+  Numpages                 = {0},
+  Publisher                = {American Physical Society},
+  Url                      = {http://link.aps.org/doi/10.1103/PhysRevLett.62.2124}
+}
+
+@Book{Nielson&Chuang,
+  Title                    = {Quantum computation and quantum information},
+  Author                   = {Nielsen, Michael A and Chuang, Isaac L},
+  Publisher                = {Cambridge university press},
+  Year                     = {2010}
+}
+
+@Article{expZeno,
+  Title                    = {Measurement-Induced Localization of an Ultracold Lattice Gas},
+  Author                   = {Patil, Y. S. and Chakram, S. and Vengalattore, M.},
+  Journal                  = {Phys. Rev. Lett.},
+  Year                     = {2015},
+  Month                    = {Oct},
+  Pages                    = {140402},
+  Volume                   = {115},
+  Doi                      = {10.1103/PhysRevLett.115.140402},
+  Issue                    = {14},
+  Numpages                 = {5},
+  Publisher                = {American Physical Society},
+  Url                      = {http://link.aps.org/doi/10.1103/PhysRevLett.115.140402}
+}
+
+@Article{LossCorrectionTim,
+  Title                    = {Loss-Tolerant Optical Qubits},
+  Author                   = {Ralph, T. C. and Hayes, A. J. F. and Gilchrist, Alexei},
+  Journal                  = {Phys. Rev. Lett.},
+  Year                     = {2005},
+  Month                    = {Aug},
+  Pages                    = {100501},
+  Volume                   = {95},
+  Doi                      = {10.1103/PhysRevLett.95.100501},
+  Issue                    = {10},
+  Numpages                 = {4},
+  Publisher                = {American Physical Society},
+  Url                      = {http://link.aps.org/doi/10.1103/PhysRevLett.95.100501}
+}
+
+@Article{OQC,
+  Title                    = {Optical quantum computation},
+  Author                   = {Ralph, Tim C and Pryde, Geoff J},
+  Journal                  = {Progress in optics},
+  Year                     = {2010},
+  Pages                    = {209--269},
+  Volume                   = {54},
+  Publisher                = {Elsevier}
+}
+
+@Article{one-way_quantum_computer,
+  Title                    = {A one-way quantum computer},
+  Author                   = {Raussendorf, Robert and Briegel, Hans J},
+  Journal                  = {Physical Review Letters},
+  Year                     = {2001},
+  Number                   = {22},
+  Pages                    = {5188},
+  Volume                   = {86},
+  Publisher                = {APS}
+}
+
+@Article{reck,
+  Title                    = {Experimental realization of any discrete unitary operator},
+  Author                   = {Reck, Michael and Zeilinger, Anton and Bernstein, Herbert J and Bertani, Philip},
+  Journal                  = {Physical Review Letters},
+  Year                     = {1994},
+  Number                   = {1},
+  Pages                    = {58},
+  Volume                   = {73},
+  Publisher                = {APS}
+}
+
+@InProceedings{shorsfault,
+  Title                    = {Fault-tolerant quantum computation},
+  Author                   = {Shor, Peter W},
+  Booktitle                = {Foundations of Computer Science, 1996. Proceedings., 37th Annual Symposium on},
+  Year                     = {1996},
+  Organization             = {IEEE},
+  Pages                    = {56--65}
+}
+
+@InProceedings{Shor,
+  Title                    = {Algorithms for quantum computation: Discrete logarithms and factoring},
+  Author                   = {Shor, Peter W},
+  Booktitle                = {Foundations of Computer Science, 1994 Proceedings., 35th Annual Symposium on},
+  Year                     = {1994},
+  Organization             = {IEEE},
+  Pages                    = {124--134}
+}
+
+@Article{steane,
+  Title                    = {Efficient fault-tolerant quantum computing},
+  Author                   = {Steane, Andrew M},
+  Journal                  = {Nature},
+  Year                     = {1999},
+  Number                   = {6732},
+  Pages                    = {124--126},
+  Volume                   = {399},
+  Publisher                = {Nature Publishing Group}
+}
+
+@Article{thompson2011integrated,
+  author    = {Thompson, Mark G and Politi, Alberto and Matthews, Jonathan CF and O'Brien, Jeremy Lloyd},
+  title     = {Integrated waveguide circuits for optical quantum computing},
+  journal   = {IET circuits, devices \& systems},
+  year      = {2011},
+  volume    = {5},
+  number    = {2},
+  pages     = {94--102},
+  publisher = {IET},
+}
+
+@Article{LossCorrection,
+  Title                    = {Loss Tolerance in One-Way Quantum Computation via Counterfactual Error Correction},
+  Author                   = {Varnava, Michael and Browne, Daniel E. and Rudolph, Terry},
+  Journal                  = {Phys. Rev. Lett.},
+  Year                     = {2006},
+  Month                    = {Sep},
+  Pages                    = {120501},
+  Volume                   = {97},
+  Doi                      = {10.1103/PhysRevLett.97.120501},
+  Issue                    = {12},
+  Numpages                 = {4},
+  Publisher                = {American Physical Society},
+  Url                      = {http://link.aps.org/doi/10.1103/PhysRevLett.97.120501}
+}
+
+@Book{walls,
+  Title                    = {Quantum optics},
+  Author                   = {Walls, Daniel F and Milburn, Gerard J},
+  Publisher                = {Springer Science \& Business Media},
+  Year                     = {2007}
+}
+
+@article{bib:aharonov1993quantum,
+  title={Quantum random walks},
+  author={Aharonov, Yakir and Davidovich, Luiz and Zagury, Nicim},
+  journal={Physical Review A},
+  volume={48},
+  number={2},
+  pages={1687},
+  year={1993},
+  publisher={APS}
+}
+
+@article{bib:PeruzzoQW,
+    author = {Peruzzo, Alberto and Lobino, Mirko and Matthews, Jonathan C. F. and Matsuda, Nobuyuki and Politi, Alberto and Poulios, Konstantinos and Zhou, Xiao-Qi and Lahini, Yoav and Ismail, Nur and Worhoff, Kerstin and Bromberg, Yaron and Silberberg, Yaron and Thompson, Mark G. and OBrien, Jeremy L.},
+    title = {Quantum Walks of Correlated Photons},
+    volume = {329},
+    pages = {1500},
+    year = {2010},
+    journal = {Science}}
+
+@article{bib:Schreiber10,
+author = "A.~Schreiber and K.~N.~Cassemiro and V.~Poto{\u c}ek and A.~G{\' a}bris and P.~J.~Mosley and E.~Andersson and I.~Jex and Ch.~Silberhorn",
+title = "Photons Walking the Line: A Quantum Walk with Adjustable Coin Operations",
+year = "2010",
+journal = "Phys. Rev. Lett.",
+volume = "104",
+pages = "050502"}
+
+@article{bib:Broome10,
+    author = "M. A. Broome and A. Fedrizzi and B. P. Lanyon and I. Kassal and A. Aspuru-Guzik and A. G. White",
+    title = "Discrete single-photon quantum walks with tunable decoherence",
+    year = "2010",
+    journal = "Phys. Rev. Lett.",
+    volume = "104",
+    pages = "153602"}
+    
+@article{bib:RohdeQWExp12,
+	author = "Andreas Schreiber and Aurel Gabris and Peter P. Rohde and Kaisa Laiho and Martin Stefanak and Vaclav Potocek and Craig Hamilton and Igor Jex and Christine Silberhorn",
+	title = "A 2D Quantum Walk Simulation of Two-Particle Dynamics",
+	year = "2012",
+	journal = "Science",
+	volume = "336",
+	pages = "55"}
+
+@Article{Visser2007,
+  author        = {Visser, Matt},
+  title         = {The Kerr spacetime: A brief introduction},
+  journal       = {arXiv preprint arXiv:0706.0622},
+  year          = {2007},
+  __markedentry = {[ryanj:6]},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
